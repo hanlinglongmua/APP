@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+  />
+  <title>社区详情</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <style>
+  @font-face {
+    font-family: 'iconfont';
+    src: url('../icon/iconfont.eot');
+    src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../icon/iconfont.woff') format('woff'),
+    url('../icon/iconfont.ttf') format('truetype'),
+    url('../icon/iconfont.svg#iconfont') format('svg');
+  }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: "son mincho";
+    }
+    ul li {
+      list-style-type: none;
+    }
+    .comment_details {
+      width: 100%;
+      background-color: #f5f5f5;
+      height: 97%;
+      overflow-x: hidden;
+    }
+
+    /*header*/
+    .header {
+      width: 100%;
+      background-color: white;
+      border-bottom: 10px solid #f5f5f5;
+    }
+    .header .uptop {
+      margin: 8px 10px 12px 10px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-color: #f7f7f7;
+      height: 70px;
+    }
+    .header .uptop div {
+      float: left;
+    }
+    .header .uptop .left {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      margin: 0 6px 0 10px;
+    }
+    .header .uptop .left img {
+      width: 46px;
+    }
+    .header .uptop .mid {
+      height: 48px;
+      position: relative;
+      width: 100%;
+      margin-right: 60px;
+    }
+    .header .uptop .mid .name{
+      font-size: 16px;
+      color: #222;
+      line-height: 28px;
+      height: 24px;
+    }
+    .header .uptop .mid .sign{
+      height: 24px;
+      font-size: 12px;
+      color: #8f8f8f;
+      line-height: 24px;
+      position: absolute;
+      bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp:1;
+      -webkit-box-orient:vertical;
+    }
+    .header .uptop .right img {
+      position: absolute;
+      width: 46px;
+      top: 50%;
+      margin-top: -12px;
+      right: 10px;
+    }
+    .header .title{
+      margin-left: 10px;
+      color: #111;
+      font-size: 18px;
+      padding:14px 0 14px 0;
+      position: relative;
+      font-weight: bold;
+    }
+    .header .title .titl{
+      margin-right: 20px;
+    }
+    .header .nametime{
+      width: 100%;
+      height: 20px;
+      margin:0 10px 20px 10px;
+      display: flex;
+      align-items: center;
+    }
+    .header .nametime .name{
+      display: flex;
+      align-items: center;
+      color: #002663;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .header .nametime .name>div{
+      height: 10px;
+      border-right: 1px solid #555;
+      margin-left: 8px;
+    }
+    .header .nametime .time{
+      display: flex;
+      align-items: center;
+      color: #555;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .header .nametime .time>div{
+      height: 10px;
+      border-right: 1px solid #555;
+      margin-left: 8px;
+    }
+    .header .nametime .readnum{
+      color: #555;
+      font-size: 12px;
+    }
+    .header .bottom {
+      margin: 0 10px 0 10px;
+      color: #303030;
+      font-size: 16px;
+      padding-bottom: 10px;
+      line-height: 24px;
+    }
+    /*header end*/
+
+    /*main*/
+    .main {
+      width: 100%;
+      background-color: white;
+      border-bottom: 1px solid #e1e1e1;
+    }
+    .main .mue{
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+      background-color: #fff;
+    }
+    .main .mue .left{
+      color: #555;
+      font-size: 16px;
+      text-align: center;
+      font-weight: 500;
+      line-height: 40px;
+    }
+    .main .replay{
+      border-bottom: 1px solid #f7f7f7;
+    }
+    .main .menu {
+      width: 100%;
+      height: 26px;
+      line-height: 25px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    .main .menu div {
+      float: left;
+      font-size: 15px;
+      color: #515151;
+    }
+    .main .menu .left {
+      margin-left: 10px;
+    }
+    .main .menu .left div {
+      margin-right: 5px;
+    }
+    .main .menu .mid {
+      color: #000000;
+      margin-left: 30px;
+    }
+    .main .menu .mid div {
+      margin-right: 5px;
+      border-bottom: 2px solid black;
+    }
+    .main .menu .right {
+      margin-right: 18px;
+      float: right;
+    }
+    .main .menu .right div {
+      margin-right: 5px;
+    }
+    .main .text {
+      width: 100%;
+      background-color: #fff;
+      position: relative;
+    }
+    .main .text .left {
+      width: 40px;
+      height: 40px;
+      margin: 10px 6px 0 10px;
+      border-radius: 50%;
+    }
+    .main .text .left img {
+      width: 40px;
+    }
+    .main .text .right {
+      display: flex;
+    }
+    .main .text .right .top {
+      font-size: 14px;
+      color: #4a4a4a;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding:10px 0 6px 60px;
+    }
+    .main .text .right>i{
+      position: absolute;
+      right: 15px;
+      top:6px;
+      width: 12px;
+      height: 12px;
+      border: 1px solid #808080;
+      border-top: none;
+      border-right: none;
+      transform:rotate(-45deg);
+      -webkit-transform:rotate(-45deg);
+    }
+    .main .text .right .mid {
+      padding-left: 60px;
+      margin-top:-10px;
+    }
+    .main .text .right .mid .art {
+      color: #242424;
+      font-size: 16px;
+      line-height: 22px;
+    }
+    .main .text .right .mid .answer {
+      background-color: #f5f5f5;
+      width: 98%;
+      padding-left: 2%;
+    }
+    .main .text .right .mid .answer .li {
+      width: 100%;
+      padding-top: 4px;
+      font-size: 14px;
+      color: #3a3a3a;
+    }
+    .main .text .right .mid .answer a {
+      color: #002663;
+    }
+    .main .text .right .mid .answer .an {
+      font-size: 10px;
+      color: #003663;
+      padding-bottom: 8px;
+    }
+    .main .text .right .mid .answer span {
+      width: 5px;
+      margin: 0 5px 0 5px;
+    }
+    .main .foot {
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+      position: relative;
+    }
+    .main .foot div {
+      height: 100%;
+    }
+    .main .foot .left{
+      font-size: 10px;
+      color: #8d8d8d;
+    }
+    .main .foot .left .date {
+      position: absolute;
+      left: 60px;
+    }
+    .main .foot .left .time {
+      position: absolute;
+      left: 90px;
+    }
+    .main .foot .right{
+      font-size: 10px;
+      color: #4e4e4e;
+    }
+    .main .foot .right .talk {
+      position: absolute;
+      top: 0;
+      right: 60px;
+    }
+    .main .foot .right .img{
+      position: absolute;
+      top: 0;
+      right: 38px;
+      width: 16px;
+      font-style: normal;
+      font-size: 16px;
+      color: #8f8f8f;
+      font-family: "iconfont" !important;
+    }
+    .main .foot .right .share {
+      position: absolute;
+      top: 0;
+      right: 15px;
+    }
+    /*main end*/
+
+    /*footer*/
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 44px;
+      display: flex;
+      background-color: #fff;
+      border: 1px solid #e1e1e1;
+    }
+    footer .ii {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 10%;
+      position: relative;
+    }
+    footer .ii>i{
+      position: absolute;
+      left: 10px;
+      top:14px;
+      width: 12px;
+      height: 12px;
+      border: 1px solid #808080;
+      border-top: none;
+      border-right: none;
+      transform:rotate(45deg);
+      -webkit-transform:rotate(45deg);
+    }
+    footer .list {
+      display: flex;
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    footer .list .li{
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    footer .list input {
+      height: 26px;
+      background-color: #fff;
+      width: 100%;
+      border-radius: 16px;
+      color: #8f8f8f;
+      font-size: 12px;
+      text-indent: 10px;
+      border: 1px solid #f7f7f7;
+      outline: none;
+    }
+    footer .list a {
+      display: flex;
+      align-items: center;
+      width: 25%;
+      justify-content: center;
+    }
+    footer .list a:nth-child(1){
+      position: relative;
+    }
+    footer .list a:nth-child(2){
+      position: relative;
+    }
+    .iconfont{
+      font-family: "iconfont" !important;
+      font-style: normal;
+      font-size: 22px;
+      color: #000;
+    }
+    .icontalk{
+      font-size: 20px;
+    }
+    .iconlike{
+      font-size: 22px;
+    }
+    .iconcollection{
+      font-size: 24px;
+    }
+    .iconshare{
+      font-size: 20px;
+    }
+    footer .list .talknum{
+      position: absolute;
+      background-color: #fff;
+      font-size: 10px;
+      color: #000;
+      text-align: center;
+      line-height: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      top: -8px;
+      right: 0;
+    }
+    footer .list .likenum{
+      position: absolute;
+      background-color: #fff;
+      font-size: 10px;
+      color: #000;
+      text-align: center;
+      line-height: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      top: -8px;
+      right: 0;
+    }
+    /*footer end*/
+
+  </style>
+</head>
+
+<body>
+  <div class="comment_details">
+
+        <!-- header -->
+        <div class="header">
+          <div class="title">
+            <div class="titl">机器人“慧眼”巡逻速率是人工的21倍</div>
+          </div>
+          <div class="nametime">
+            <div class="name">CCVCVCV<div></div></div>
+            <div class="time">2018-04-02<div></div></div>
+            <div class="readnum">浏览数:666</div>
+          </div>
+          <div class="bottom">
+            如果你无法简洁的表达你的想法，那只说明你还不够了解它如果你无法简洁的表达你的想法，那只说明你 还不够了解它--啊尔伯特·爱因斯坦尔伯特
+            如果你无法简洁的表达你的想法，那只说明你还不够了解它如果你无法简洁的表达你的想法，那只说明你 还不够了解它--啊尔伯特·爱因斯坦尔伯特
+          </div>
+          <div class="uptop">
+            <div class="left">
+              <img src="../images/same_content/fly.png" alt="">
+            </div>
+            <div class="mid">
+                <div class="name">CCVCVCV</div>
+                <div class="sign">每天给自己一个微笑。每天给自己一个微笑。每天给自己一个微笑。</div>
+            </div>
+            <div class="right">
+              <img src="../images/comment_details/follow.png" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- header end -->
+
+        <!-- main -->
+        <div class="main">
+          <div class="mue">
+              <div class="left">评论</div>
+          </div>
+          <div class="replay">
+            <div class="text">
+              <div class="left">
+                  <img src="../images/same_content/fly.png" alt="">
+              </div>
+              <div class="right">
+                  <div class="top">afbgn</div>
+                  <i></i>
+                  <div class="mid">
+                      <div class="art">如果你无法简洁的表达你打想法，那只说明你还不够了解它。阿尔伯特·爱因斯坦</div>
+                      <div class="answer">
+                          <div class="li">
+                              <a href="">iusjjdj：</a>
+                              <span>hshdfshsdfhdfs</span>
+                          </div>
+                          <div class="li">
+                              <a href="">dgdgjkaf：</a>
+                              <span>sdfgsdfhsdhsdhdsfg</span>
+                          </div>
+                          <div class="an li">
+                              <a href="javascript:void(0)" onclick="OpcomSonSon()">共<span>8</span>条回复&nbsp;></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="foot">
+                <div class="left">
+                    <div class="date">3-20</div>
+                    <div class="time">15:10</div>
+                </div>
+                <div class="right">
+                    <div class="talk">回复·</div>
+                    <i class="iconfont img">&#xe617;</i>
+                    <div class="share">666</div>
+                </div>
+            </div>
+          </div>
+
+          <div class="replay">
+            <div class="text">
+              <div class="left">
+                  <img src="../images/same_content/fly.png" alt="">
+              </div>
+              <div class="right">
+                  <div class="top">afbgn</div>
+                  <i></i>
+                  <div class="mid">
+                      <div class="art">如果你无法简洁的表达你打想法，那只说明你还不够了解它。阿尔伯特·爱因斯坦</div>
+                  </div>
+              </div>
+            </div>
+            <div class="foot">
+                <div class="left">
+                    <div class="date">3-20</div>
+                    <div class="time">15:10</div>
+                </div>
+                <div class="right">
+                    <div class="talk">回复·</div>
+                    <i class="iconfont img">&#xe617;</i>
+                    <div class="share">666</div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- main end -->
+
+    <!-- footer -->
+    <footer>
+      <div class="ii" onclick="api.closeWin();">
+        <i></i>
+      </div>
+      <div class="list">
+        <div class="li">
+            <input type="text" name="" id="talk" placeholder="写评论...">
+        </div>
+        <div class="li">
+          <a href="javascript:;" >
+              <i class="iconfont icontalk">&#xe75b;</i>
+              <div class="talknum">28</div>
+          </a>
+          <a href="javascript:;">
+              <i class="iconfont iconlike">&#xe617;</i>
+              <div class="likenum">28</div>
+          </a>
+          <a href="javascript:;">
+              <i class="iconfont iconcollection">&#xe6a7;</i>
+          </a>
+          <a href="javascript:;">
+              <i class="iconfont iconshare">&#xf0343;</i>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <!-- footer end -->
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  // 打开回复按钮
+  function OpcomSonSon() {
+    api.openWin({
+      name: 'CommunityCommentDetails',
+      url: 'CommunityCommentDetails.html'
+    });
+  }
+
+
+</script>
+
+</html>
