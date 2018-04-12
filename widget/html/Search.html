@@ -31,6 +31,7 @@
         display: -webkit-box;
         display: box;
     }
+
     header{
       height: 50px;
       line-height: 50px;
@@ -199,6 +200,7 @@
       </style>
   </head>
   <body>
+    <!-- header开始（帖子，文章，用户） -->
     <header  class="searchfor">
         <div class>
           <a href="javascript:void(0)" class="journal" style="margin-left:17px;">帖子</a>
@@ -208,7 +210,9 @@
           <a href="javascript:void(0)" Class="customer" style="margin-right:17px;">用户</a>
         </div>
     </header>
+      <!-- header结束 -->
     <div style="height: 100%" class="body">
+      <!-- 输入框开始 -->
          <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
               <ul>
                   <li class="flex1">
@@ -219,6 +223,8 @@
                 </ul>
 
          </div>
+         <!-- 输入框结束 -->
+         <!-- 搜索框开始 -->
          <div class="middles">热门搜索</div>
             <div class="bigbox">
                 <ul class="ul">
@@ -232,10 +238,8 @@
                     <li>懒人清扫神器</li>
                 </ul>
             </div>
-            <div class="history">
-                <span>搜索历史</span>
-              <div class="delete">
-            清空  <img src="../images/search/remove.png">  </div>
+            <div class="history"><span>搜索历史</span>
+              <div class="delete">清空<img src="../images/search/remove.png"></div>
             </div>
             <div class="bigbox">
               <ul class="ul">
@@ -245,6 +249,7 @@
                 <li>远程充电技能让电量也不会崩了</li>
               </ul>
             </div>
+            <!-- 搜索框结束 -->
     </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
