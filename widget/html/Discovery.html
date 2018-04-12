@@ -111,24 +111,7 @@
             width: 100%;
             height: 100%;
           }
-          .section .article .picture .icotext{
-            position: absolute;
-            left: 4px;
-            bottom: 4px;
-            color: #fff;
-            font-size: 8px;
-            line-height: 30px;
-            display: inline-flex;
-          }
-          .section .article .picture .icotext img{
-            width: auto;
-            height: 26px;
-            display: inline-flex;
-          }
-          .section .article .picture .icotext div{
-            display: inline-flex;
-            margin-left: 3px;
-          }
+
           .section .article .text{
             width: 100%;
           }
@@ -145,35 +128,31 @@
           }
           .section .article .ltls{
             position: relative;
-            height: 20px;
             font-size: 10px;
             line-height: 15px;
           }
           .section .article .ltls .ll{
-            position: absolute;
-            width: 100px;
-            height: 30px;
-            padding-left: 25px;
+            position: relative;
           }
-          .section .article .ltls .like{
-            background: url('../images/discovery/discovery_like.png') no-repeat;
-              background-size: 15%;
+          .section .article .ltls div{
+            display: inline-flex;
+            height: 32px;
+            line-height: 35px;
+            margin-left: 2px;
+            color: #808080;
           }
-          .section .article .ltls .comment{
-            background: url('../images/discovery/discovery_talk.png') no-repeat;
-            left:22.5%;
-            background-size: 15%;
-          }
-          .section .article .ltls .read{
-            background: url('../images/discovery/discovery_look.png') no-repeat;
-            left: 45%;
-            background-size: 15%;
+          .section .article .ltls div img{
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
           }
           .section .article .ltls .share{
             background: url('../images/discovery/discovery_share.png') no-repeat;
-            right:0%;
-            width: 1%;
-            background-size: 60%;
+            right:0;
+            background-size: 80%;
+            position: absolute;
+            width: 25px;
+            top:8px;
           }
 
 /*article end*/
@@ -192,20 +171,6 @@
         .section .video .picture .img{
           width: 100%;
           height: 100%;
-        }
-        .section .video .picture .icotext{
-          position: absolute;
-          left: 4px;
-          bottom: 4px;
-          color: #fff;
-          font-size: 8px;
-          line-height: 30px;
-          display: inline-flex;
-        }
-        .section .video .picture .icotext img{
-          width: auto;
-          height: 26px;
-          display: inline-flex;
         }
         .section .video .picture .playbtn{
           position: absolute;
@@ -248,35 +213,28 @@
         }
         .section .video .ltls{
           position: relative;
-          height: 20px;
           font-size: 10px;
           line-height: 15px;
         }
         .section .video .ltls .ll{
-          position: absolute;
-          width: 100px;
-          height: 30px;
-          padding-left: 25px;
+          position: relative;
         }
-        .section .video .ltls .like{
-          background: url('../images/discovery/discovery_like.png') no-repeat;
-            background-size: 15%;
+        .video .ltls div{
+          display: inline-flex;
+          height: 32px;
+          line-height: 32px;
+          margin-left: 2px;
         }
-        .section .video .ltls .comment{
-          background: url('../images/discovery/discovery_talk.png') no-repeat;
-          left:22.5%;
-          background-size: 15%;
-        }
-        .section .video .ltls .read{
-          background: url('../images/discovery/discovery_look.png') no-repeat;
-          left: 45%;
-          background-size: 15%;
+        .video .ltls div img{
+          border-radius: 50%;
         }
         .section .video .ltls .share{
           background: url('../images/discovery/discovery_share.png') no-repeat;
-          right:0%;
-          width: 1%;
-          background-size: 60%;
+          right:0;
+          background-size: 80%;
+          position: absolute;
+          width: 25px;
+          top:10px;
         }
         /*video end*/
 
@@ -320,18 +278,17 @@
         <div class="article">
             <div class="picture">
                 <img class="img" src="../images/discovery/article_image1.png" alt="">
-                <div class="icotext">
-                    <img src="../images/discovery/headerpicture1.png" alt="">
-                    <div>风一样的男子</div>
-                </div>
             </div>
             <div class="text">
                 <div class="title">价格比Xpeia Touch低了三十多倍！这投影仪能和索尼互杠</div>
             </div>
             <div class="ltls">
-                <div class="ll like"><div>6666</div></div>
-                <div class="ll comment"><div>6666</div></div>
-                <div class="ll read"><div>6666</div></div>
+                <div class="ll like">
+                        <div>
+                            <img src="../images/discovery/headerpicture1.png" alt="">
+                        </div>
+                        <div>风一样的男子</div>
+                </div>
                 <div class="ll share"></div>
             </div>
         </div>
@@ -339,10 +296,6 @@
         <div class="video">
           <div class="picture">
               <img class="img" src="../images/discovery/article_image1.png" alt="">
-              <div class="icotext">
-                <img src="../images/discovery/headerpicture1.png" alt="">
-                <div>风一样的男子</div>
-              </div>
               <div class="playbtn"><img src="../images/discovery/discovery_playbtn.png" alt=""></div>
               <div class="playlength">1:30</div>
           </div>
@@ -350,10 +303,13 @@
               <div class="title">价格比Xpeia Touch低了三十多倍！这投影仪能和索尼互杠</div>
           </div>
           <div class="ltls">
-              <div class="ll like"><div>6666</div></div>
-              <div class="ll comment"><div>6666</div></div>
-              <div class="ll read"><div>6666</div></div>
-              <div class="ll share"></div>
+            <div class="ll like">
+                    <div>
+                        <img src="../images/discovery/headerpicture1.png" alt="">
+                    </div>
+                    <div>风一样的男子</div>
+            </div>
+            <div class="ll share"></div>
           </div>
         </div>
       </div>
@@ -433,26 +389,23 @@
               // htmls = '';
               for(var i=0;i<data.length;i++){
                 htmls += '<div class="article">';
-                    htmls += '<div class="picture">';
-                      //图片数据
-                        htmls += '<img width="100%" src="http://www.juzzn.com/data/attachment/'+data[i]['pic']+'">';
-                        htmls +="<div class='icotext'>";
-                        //用户头像
-                          htmls += '<img src="'+data[i]['avatar']+'">';
-                        //用户名字
-                          htmls += '<div>'+data[i]['username']+'</div>';
-                        htmls += '</div>';
-                    htmls += '</div>';
-                    //文章标题
-                    htmls += '<div class="text">';
-                      htmls += '<div class="title">'+data[i]['title']+'</div>';
-                    htmls += '</div>';
+                    htmls+='<div onclick=OpenDetail('+data[i]['aid']+')>'
+                          htmls += '<div class="picture">';
+                          //图片数据
+                              htmls += '<img width="100%" src="http://www.juzzn.com/data/attachment/'+data[i]['pic']+'">';
+                          htmls += '</div>';
+                          //文章标题
+                          htmls += '<div class="text">';
+                                htmls += '<div class="title">'+data[i]['title']+'</div>';
+                          htmls += '</div>';
+                    htmls+='</div>'
                     //文章主体
                     htmls += '<div class="ltls">';
-                      htmls +='<div class="ll like" onclick="like('+data[i]['aid']+')"><div id="like'+data[i]['aid']+'">'+data[i]['likeNum']+'</div></div>';
-                      htmls +='<div class="ll comment"><div>6666</div></div>';
-                      htmls +='<div class="ll read"><div>6666</div></div>';
-                      htmls +='<div class="ll share"><div></div></div>';
+                          htmls+='<div class="ll like">';
+                              htmls+='<div><img src="'+data[i]['avatar']+'" alt=""></div>';//用户头像
+                              htmls+='<div>'+data[i]['username']+'</div>';//用户名字
+                          htmls+='</div>';
+                          htmls +='<div class="ll share"><div></div></div>';
                     htmls += '</div>';
               htmls += '</div>';
             }
@@ -577,28 +530,39 @@
         }
       }
       //点赞
-      var userdata = $api.getStorage('userdata');//得出用户数据
-      function like(aid){
-        if(userdata){
-          api.ajax({
-              url:'http://www.juzzn.com/like.php',
-              method:'post',
-              dataType:'json',
-              data: {
-                     values: {
-                       aid:aid,username:userdata['username'],uid:userdata['uid']
-                   }
-               }
-          },function(ret, err){
-            if(ret.status == 1){
-                $api.html($api.byId('like'+aid),ret.data);
-            }else {
-              alert(ret.msg);
+      // var userdata = $api.getStorage('userdata');//得出用户数据
+      // function like(aid){
+      //   if(userdata){
+      //     api.ajax({
+      //         url:'http://www.juzzn.com/like.php',
+      //         method:'post',
+      //         dataType:'json',
+      //         data: {
+      //                values: {
+      //                  aid:aid,username:userdata['username'],uid:userdata['uid']
+      //              }
+      //          }
+      //     },function(ret, err){
+      //       if(ret.status == 1){
+      //           $api.html($api.byId('like'+aid),ret.data);
+      //       }else {
+      //         alert(ret.msg);
+      //       }
+      //     });
+      //   }else{
+      //     // alert('请先登录')
+      //   }
+      // }
+      function OpenDetail(aid){
+        api.openWin({
+            name: 'ArticalDetail',
+            url: 'ArticalDetail.html',
+            pageParam: {
+                aid: aid
             }
-          });
-        }else{
-          // alert('请先登录')
-        }
+        });
+
       }
+
   </script>
   </html>

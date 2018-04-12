@@ -215,9 +215,6 @@
     .main .text .left img {
       width: 40px;
     }
-    .main .text .right {
-      display: flex;
-    }
     .main .text .right .top {
       font-size: 14px;
       color: #4a4a4a;
@@ -248,11 +245,11 @@
       line-height: 22px;
     }
     .main .text .right .mid .answer {
-      background-color: #f5f5f5;
       width: 98%;
       padding-left: 2%;
+      background-color: #f5f5f5;
     }
-    .main .text .right .mid .answer .li {
+    .li {
       width: 100%;
       padding-top: 4px;
       font-size: 14px;
@@ -261,13 +258,12 @@
     .main .text .right .mid .answer a {
       color: #002663;
     }
-    .main .text .right .mid .answer .an {
+    .main .text .right .mid .answer .li.an {
       font-size: 10px;
       color: #003663;
       padding-bottom: 8px;
     }
     .main .text .right .mid .answer span {
-      width: 5px;
       margin: 0 5px 0 5px;
     }
     .main .foot {
@@ -433,7 +429,7 @@
 
 <body>
   <div class="comment_details">
-
+      <div id="details">
         <!-- header -->
         <div class="header">
           <div class="title">
@@ -506,36 +502,10 @@
                 </div>
             </div>
           </div>
-
-          <div class="replay">
-            <div class="text">
-              <div class="left">
-                  <img src="../images/same_content/fly.png" alt="">
-              </div>
-              <div class="right">
-                  <div class="top">afbgn</div>
-                  <i></i>
-                  <div class="mid">
-                      <div class="art">如果你无法简洁的表达你打想法，那只说明你还不够了解它。阿尔伯特·爱因斯坦</div>
-                  </div>
-              </div>
-            </div>
-            <div class="foot">
-                <div class="left">
-                    <div class="date">3-20</div>
-                    <div class="time">15:10</div>
-                </div>
-                <div class="right">
-                    <div class="talk">回复·</div>
-                    <i class="iconfont img">&#xe617;</i>
-                    <div class="share">666</div>
-                </div>
-            </div>
-          </div>
         </div>
 
         <!-- main end -->
-
+    </div>
     <!-- footer -->
     <footer>
       <div class="ii" onclick="api.closeWin();">
@@ -568,6 +538,98 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+apiready=function(){
+  var pageParamTid = api.pageParam.tid
+  var html = '';
+    api.ajax({
+        url: 'http://www.juzzn.com/discDetail.php',
+        method: 'post',
+        data: {
+            values: {
+              tid:pageParamTid
+            }
+        }
+    },function(ret, err){
+        if (ret.status==1) {
+          var data = ret.data;
+          html+='<div class="header">';
+                html+='<div class="title">';
+                      html+='<div class="titl">'+data['subject']+'</div>';//文章标题
+                html+='</div>';
+                html+='<div class="nametime">';
+                      html+='<div class="name">'+data['author']+'<div></div></div>';//名字
+                      html+='<div class="time">'+data['dateline']+'<div></div></div>';//发表时间
+                      html+='<div class="readnum">浏览数：'+data['view']+'</div>';//浏览数
+                html+='</div>';
+                html+='<div class="bottom">'+data['topic']+'</div>';//文章内容
+                html+='<div class="uptop">';
+                      html+='<div class="left">';
+                            html+='<img src="'+data['avatar']+'" alt="">';//关注头像
+                      html+='</div>';
+                      html+='<div class="mid">';
+                            html+='<div class="name">'+data['author']+'</div>';//关注名字
+                            html+='<div class="sign">'+data['sign']+'</div>';//关注个性签名
+                      html+='</div>';
+                      html+='<div class="right">';
+                            html+='<img src="../images/comment_details/follow.png" alt="">';
+                      html+='</div>';
+                html+='</div>';
+          html+='</div>';
+          html+='<div class="main">';
+                html+='<div class="mue">';
+                      html+='<div class="left">评论</div>';
+                html+='</div>';
+                if(data.reply){
+                for(var i = 0;i<data.reply.length;i++){
+                html+='<div class="replay">';
+                      html+='<div class="text">';
+                            html+='<div class="left">';
+                                  html+='<img src="'+data.reply[i]['m_avatar']+'" alt="">';//评论头像
+                            html+='</div>';
+                            html+='<div class="right">';
+                                    html+='<div class="top">'+data.reply[i]['m_name']+'</div>';//评论名字
+                                    html+='<i></i>';
+                                    html+='<div class="mid">';
+                                          html+='<div class="art">'+data.reply[i]['m_message']+'</div>';//评论内容
+                                          html+='<div class="answer">';
+                                          if(data.reply[i]['comments']){
+                                            for(var j = 0;j<data.reply[i]['comments'].length;j++){
+                                                html+='<div class="li">';
+                                                      html+='<a href="">'+data.reply[i]['comments'][j]['m_name']+':</a>';
+                                                      html+='<span>'+data.reply[i]['comments'][j]['msg']+'</span>';
+                                                html+='</div>'
+                                              }
+                                              html+='<div class="an li">';
+                                                    html+='<a href="javascript:void(0)" onclick="OpcomSonSon()">共<span>'+data.reply[i]['comNum']+'</span>条回复&nbsp;></a>';
+                                              html+='</div>'
+                                          }
+                                          html+='</div>';
+                                    html+='</div>';
+                            html+='</div>';
+                      html+='</div>';
+                      html+='<div class="foot">';
+                            html+='<div class="left">';
+                                  html+='<div class="date">'+data.reply[i]['m_dateline']+'</div>';
+                            html+='</div>';
+                            html+='<div class="right">';
+                                  html+='<div class="talk">回复</div>';
+                                  html+='<i class="iconfont img">&#xe617;</i>';
+                                  // html+='<div class="share">'+data.[i]['recNum']+'</div>';
+                            html+='</div>';
+                      html+='</div>';
+                html+='</div>';
+              }
+            }else{
+                html+='<div class="replay" style="margin:30px auto;text-align:center;">暂无评论</div>';
+            }
+          html+='</div>';
+        }else {
+            api.alert(ret.msg);
+        }
+        $api.html($api.byId('details'), html);
+    });
+
+}
   // 打开回复按钮
   function OpcomSonSon() {
     api.openWin({
