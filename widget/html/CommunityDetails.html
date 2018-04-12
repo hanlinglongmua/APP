@@ -56,9 +56,11 @@
       height: 46px;
       border-radius: 50%;
       margin: 0 6px 0 10px;
+      border-radius: 50%;
     }
     .header .uptop .left img {
       width: 46px;
+      border-radius: 50%;
     }
     .header .uptop .mid {
       height: 48px;
@@ -214,6 +216,7 @@
     }
     .main .text .left img {
       width: 40px;
+      border-radius: 50%;
     }
     .main .text .right .top {
       font-size: 14px;
@@ -288,22 +291,22 @@
       left: 90px;
     }
     .main .foot .right{
-      font-size: 10px;
+      font-size: 14px;
       color: #4e4e4e;
     }
     .main .foot .right .talk {
       position: absolute;
-      top: 0;
-      right: 60px;
+      bottom: 0;
+      right: 10px;
     }
     .main .foot .right .img{
       position: absolute;
-      top: 0;
-      right: 38px;
+      bottom: 0;
+      right: 50px;
       width: 16px;
       font-style: normal;
-      font-size: 16px;
-      color: #8f8f8f;
+      font-size: 14px;
+      color: #000;
       font-family: "iconfont" !important;
     }
     .main .foot .right .share {
@@ -332,10 +335,10 @@
     }
     footer .ii>i{
       position: absolute;
-      left: 10px;
-      top:14px;
-      width: 12px;
-      height: 12px;
+      left: 16px;
+      top:18px;
+      width: 10px;
+      height: 10px;
       border: 1px solid #808080;
       border-top: none;
       border-right: none;
@@ -496,9 +499,8 @@
                     <div class="time">15:10</div>
                 </div>
                 <div class="right">
-                    <div class="talk">回复·</div>
-                    <i class="iconfont img">&#xe617;</i>
-                    <div class="share">666</div>
+                    <div><i class="iconfont img">&#xe617;</i></div>
+                    <div class="talk">回复</div>
                 </div>
             </div>
           </div>
@@ -612,8 +614,8 @@ apiready=function(){
                                   html+='<div class="date">'+data.reply[i]['m_dateline']+'</div>';
                             html+='</div>';
                             html+='<div class="right">';
-                                  html+='<div class="talk">回复</div>';
                                   html+='<i class="iconfont img">&#xe617;</i>';
+                                  html+='<div class="talk">回复</div>';
                                   // html+='<div class="share">'+data.[i]['recNum']+'</div>';
                             html+='</div>';
                       html+='</div>';

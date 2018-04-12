@@ -6,6 +6,20 @@
     <title>社区</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
+    @font-face {
+      font-family: 'iconfont';
+      src: url('../icon/iconfont.eot');
+      src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('../icon/iconfont.woff') format('woff'),
+      url('../icon/iconfont.ttf') format('truetype'),
+      url('../icon/iconfont.svg#iconfont') format('svg');
+    }
+    .iconfont{
+      font-family: "iconfont" !important;
+      font-style: normal;
+      font-size: 22px;
+      color: #000;
+    }
     body,html{
       width: 100%;height: 100%;margin: 0;padding: 0;
     }
@@ -61,6 +75,7 @@
       margin-bottom: 10px;
       background-color: #fff;
       display: table;
+      border-bottom: 1px solid #afafaf;
     }
     .artical .head{
       width: 100%;
@@ -138,12 +153,15 @@
     }
     .artical .list .ltls{
       float: left;
-      margin-right: 16px;
+      width: 33.3%;
     }
     .artical .list .ltls .d{
-      float: right;
       height: 100%;
       line-height: 20px;
+      position: relative;
+      display: inline-block;
+      left: 6px;
+      top: -4px;
     }
     .artical .list .ltls img{
       margin-right: 6px;
@@ -207,10 +225,9 @@
                     <div class="textmain">案涉及两个啥感觉拉苏格兰萨洛克金刚砂咖喱鸡块阿斯钢很骄傲圣诞快乐撒了个黄金</div>
                 </div>
                 <div class="list">
-                    <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
-                    <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
-                    <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
-                    <div class="ltls share"><img src="../images/community/share.png" alt=""></div>
+                    <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
+                    <div class="ltls talk"><i class="iconfont">&#xe617;</i><div class="d">3745</div></div>
+                    <div class="ltls look"><i class="iconfont">&#xe617;</i><div class="d">8930</div></div>
                 </div>
             </div>
 
@@ -236,7 +253,6 @@
                     <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
                     <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
                     <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
-                    <div class="ltls share"><img src="../images/community/share.png" alt=""></div>
                 </div>
             </div>
 
@@ -262,7 +278,6 @@
                     <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
                     <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
                     <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
-                    <div class="ltls share"><img src="../images/community/share.png" alt=""></div>
                 </div>
             </div>
 
@@ -288,7 +303,6 @@
                     <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
                     <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
                     <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
-                    <div class="ltls share"><img src="../images/community/share.png" alt=""></div>
                 </div>
             </div>
         </div>
@@ -298,119 +312,131 @@
 </body>
 <script type="text/javascript" src="../script/api.js" ></script>
 <script type="text/javascript">
-apiready = function(){
-  //下拉刷新
-      api.setRefreshHeaderInfo({
-        loadingImg: 'widget://image/refresh.png',
-        bgColor: '#000',
-        textColor: '#fff',
-        textDown: '拉我试试',
-        textUp: '松开刷新...'
-      } , function(ret, err) {
-        // htmls = '';
-        // // discoveryDate(tid,0)
-        // // numb=0;
-        api.refreshHeaderLoadDone();
-      });
-    //上拉加载
-      api.addEventListener({
-        name:'scrolltobottom',
-        extra:{
-        threshold:0 //设置距离底部多少距离时触发，默认值为0，数字类型
+//切换盒子
+        var column =0
+        var btns = document.getElementById('span').getElementsByTagName('li');
+        for(var i=0;i<btns.length;i++){
+            btns[i].index =i
+            btns[i].onclick = function(){
+            //把所有的按钮的类都清除掉！
+              for(var i=0;i<btns.length;i++){
+                    btns[i].className = '';
+               }
+               //确立自己
+                this.className = 'hover';
+                html='';
+                CommunityDate(this.index);
+                column=this.index;
+            }
         }
-      }, function(ret, err){
-          alert(ret)
-      })
-  //ajax
-  var html = '';
-  api.ajax({
-      url:'http://www.juzzn.com/discuss.php',
-      method:'get',
-      cache:false,
-      // charset：'utf-8',
-      dataType:'JSON'
-  },function(ret, err){
-      if (ret.status == 1) {
-        var data = ret.data;
-        for(var i = 0;i<data.length;i++){
-          html += '<div class="artical">';
-              html+='<div class="head">';
-                html+='<div class="headerimg h">';
-                  html+='<img src="'+data[i]['avatar']+'alt="">';
-                html+='</div>';
-                html+='<div class="headername h">';
-                  html+='<div class="hname">'+data[i]['author']+'</div>';
-                  html+='<div class="htime">'+data[i]['dateline']+'</div>';
-                  html+='<div class="himg">';
-                    html+='<img src="../images/community/attention.png" alt="">';
-                  html+='</div>';
-                html+='</div>';
-              html+='</div>';
-              html+='<div class="text" onclick="openCommunityDetails('+data[i]['tid']+')">';
-                  html+='<div class="title">'+data[i]['subject']+'</div>';
-                  html+='<div class="textmain">'+data[i]['message']+'</div>';
-              html+='</div>';
-              if(data[i]['images'].length){
-                html+='<div class="picture">';
-                  html+='<div><img src="'+data[i]['images']+'" alt="" onclick="openimg(this)" onerror="this.src=\'../images/about/Logo.png\'"></div>'
-                html+='</div>';
+        var nums = 0;
+        apiready = function(){
+          CommunityDate(0)
+            //下拉刷新
+            api.setRefreshHeaderInfo({
+                loadingImg: 'widget://image/refresh.png',
+                bgColor: '#fff',
+                textColor: '#000',
+                textDown: '拉我试试',
+                textUp: '松开刷新...',
+                showTime:'false'
+            } , function(ret, err) {
+                  htmls = '';
+                  CommunityDate(column,0)
+                  nums=0;
+                  api.refreshHeaderLoadDone();
+            });
+        //上拉加载
+          api.addEventListener({
+            name:'scrolltobottom',
+            extra:{
+            threshold:0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+          }, function(ret, err){
+              nums++;
+              CommunityDate(nums);
+              num = nums;
+              alert(num)
+          })
+        }
+    //ajax
+        var html = '';
+        function CommunityDate(column,num){
+          api.ajax({
+              url:'http://www.juzzn.com/discuss.php',
+              method:'POST',
+              cache:false,
+              data:{
+                values:{
+                  column:column,num:num
+                }
               }
-              html+='<div class="list">';
-                html+='<div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>';
-                html+='<div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">'+data[i]['num']+'</div></div>';
-                html+='<div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">'+data[i]['views']+'</div></div>';
-                html+='<div class="ltls share"><img src="../images/community/share.png" alt=""></div>';
-              html+='</div>';
-          html += '</div>';
+          },function(ret, err){
+              if (ret.status == 1) {
+                var data = ret.data;
+                for(var i = 0;i<data.length;i++){
+                    html += '<div class="artical">';
+                        html+='<div class="head">';
+                          html+='<div class="headerimg h">';
+                            html+='<img src="'+data[i]['avatar']+'alt="">';
+                          html+='</div>';
+                          html+='<div class="headername h">';
+                            html+='<div class="hname">'+data[i]['author']+'</div>';
+                            html+='<div class="htime">'+data[i]['dateline']+'</div>';
+                            html+='<div class="himg">';
+                              html+='<img src="../images/same_content/attention.png" alt="">';
+                            html+='</div>';
+                          html+='</div>';
+                        html+='</div>';
+                        html+='<div class="text" onclick="openCommunityDetails('+data[i]['tid']+')">';
+                            html+='<div class="title">'+data[i]['subject']+'</div>';
+                            html+='<div class="textmain">'+data[i]['message']+'</div>';
+                        html+='</div>';
+                        if(data[i]['images'].length){
+                          html+='<div class="picture">';
+                            html+='<div><img src="'+data[i]['images']+'" alt="" onclick="openimg(this)" onerror="this.src=\'../images/about/Logo.png\'"></div>'
+                          html+='</div>';
+                        }
+                        html+='<div class="list">';
+                          html+='<div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>';
+                          html+='<div class="ltls talk"><i class="iconfont">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';
+                          html+='<div class="ltls look"><i class="iconfont">&#xf0343;</i><div class="d">'+data[i]['views']+'</div></div>';
+                        html+='</div>';
+                    html += '</div>';
+                  }
+                }else if (ret.status == 2) {
+                  html = '';
+                  html ='<div style="text-align:center;line-height:50px;">没有数据</div>';
+                // msg'错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode);
+               }else {
+                 api.alert(err.msg);
+               }
+                 $api.html($api.byId('maxbox'),html);
+            });
         }
-      }else if (ret.status == 2) {
-        html = '';
-        html ='<div style="text-align:center;line-height:50px;">没有数据</div>';
-        // msg'错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode);
-     }else {
-       api.alert(err.msg);
-     }
-       $api.html($api.byId('maxbox'),html);
-  });
-}
-  window.onload = function(){
-      //切换盒子
-      var btns = document.getElementById('span').getElementsByTagName('li');
-      for(var i=0;i<btns.length;i++){
-          btns[i].index =i
-          btns[i].onclick = function(){
-          //把所有的按钮的类都清除掉！
-             for(var i=0;i<btns.length;i++){
-                  btns[i].className = '';
-             }
-             //确立自己
-              this.className = 'hover';
-          }
-      }
-  }//
     //打开一个新窗口
-    function openCommunityDetails(tid){
-          api.openWin({
-          name: 'CommunityDetails',
-          url: 'CommunityDetails.html',
-          pageParam: {tid:tid}
-        });
-      }
+        function openCommunityDetails(tid){
+            api.openWin({
+            name: 'CommunityDetails',
+            url: 'CommunityDetails.html',
+            pageParam: {tid:tid}
+          });
+        }
       //打开一张图片
-    function openimg(ret) {
-  			var src = ret.getAttribute("src");
-        //图片加载
-        var photoBrowser = api.require('photoBrowser');
-        photoBrowser.open({
-            images: [
-                src
-            ],
+        function openimg(ret) {
+  			    var src = ret.getAttribute("src");
+            //图片加载
+            var photoBrowser = api.require('photoBrowser');
+            photoBrowser.open({
+              images: [
+                  src
+              ],
             bgColor: '#000'
         }, function(ret, err) {
-          if(ret.eventType=='click'){
-              photoBrowser.close();
-          }
-        });
-  		}
+            if(ret.eventType=='click'){
+                photoBrowser.close();
+            }
+          });
+  		  }
 </script>
 </html>
