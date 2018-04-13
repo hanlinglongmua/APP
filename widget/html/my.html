@@ -204,22 +204,23 @@
   </style>
 </head>
 <body>
-  <div class="myindex">
-    <div class="my-header">
-        <div class="tip"></div>
-        <div class="set" onclick="Openset()"></div>
-    </div>
-    <div class="nick">
-          <div class="nick_img">
-          <img src="../images/my/headerSculpture.png" ></div>
-          <div class="nickname">昵称</div>
-          <span class="thisopp" onclick="openLogin()">点击登录</span>
-    </div>
-    <div class="footer">
-          <div class="participate">参与&nbsp;<span>299</span><i></i></div>
-          <div class="concern">关注&nbsp;<span>299</span><i></i></div>
-          <div class="fans">粉丝&nbsp;<span>299</span></div>
-    </div>
+  <div class="myindex" id="myindex">
+      <div class="my-header">
+          <div class="tip"></div>
+          <div class="set" onclick="Openset()"></div>
+      </div>
+      <div class="nick">
+            <div class="nick_img">
+              <img src="../images/my/headerSculpture.png" >
+            </div>
+            <div class="nickname">昵称</div>
+            <span class="thisopp" onclick="openLogin()">点击登录</span>
+      </div>
+      <div class="footer">
+            <div class="participate">参与&nbsp;<span>299</span><i></i></div>
+            <div class="concern">关注&nbsp;<span>299</span><i></i></div>
+            <div class="fans">粉丝&nbsp;<span>299</span></div>
+      </div>
   </div>
         <div class="item_content">
             <div class="phone">
@@ -283,6 +284,45 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+apiready=function(){
+  var userdata = {};
+  userdata = $api.getStorage('userdata');
+  var html = '';
+  if(userdata){
+    api.ajax({
+        url: 'http://www.juzzn.com/myCenter.php',
+        method: 'post',
+        data:{
+          values:{
+              'uid':userdata['uid']
+          }
+        }
+    },function(ret, err){
+        if (ret.status =='1') {
+          var data = ret.data;
+            html+='<div class="my-header">';
+                  html+='<div class="tip"></div>';
+                  html+='<div class="set" onclick="Openset()"></div>';
+            html+='</div>';
+            html+='<div class="nick">';
+                  html+='<div class="nick_img">';
+                        html+='<img src="'+ret.data['avatar']+'" >';
+                  html+='</div>';
+                  html+='<div class="nickname">'+userdata['username']+'</div>';
+                  // html+='<span class="thisopp" onclick="openLogin()">点击登录</span>'
+            html+='</div>';
+            html+='<div class="footer">';
+                  html+='<div class="participate">参与&nbsp;<span>'+ret.data['joinNum']+'</span><i></i></div>';
+                  html+='<div class="concern">关注&nbsp;<span>'+ret.data['followNum']+'</span><i></i></div>';
+                  html+='<div class="fans">粉丝&nbsp;<span>'+ret.data['fansNum']+'</span></div>';
+            html+='</div>';
+        } else {
+            // alert( JSON.stringify( err ) );
+        }
+        $api.html($api.byId('myindex'), html);
+    });
+  }
+}
 function OpenmyAbount(){
    api.openWin({
        name: 'about',

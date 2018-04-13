@@ -20,6 +20,9 @@
       font-size: 22px;
       color: #000;
     }
+    .talkicon{
+      font-size: 20px;
+    }
     body,html{
       width: 100%;height: 100%;margin: 0;padding: 0;
     }
@@ -71,7 +74,7 @@
     .artical{
       height: 100%;
       width: 96%;
-      padding: 0 2% 1% 2%;
+      padding: 0 2% 0 2%;
       margin-bottom: 10px;
       background-color: #fff;
       display: table;
@@ -121,6 +124,7 @@
     .artical .head .headername .himg img{
       width: 100%;
       height: 100%;
+      border-radius: 2px;
     }
     .artical .text{
       padding-top: 10px;
@@ -141,7 +145,7 @@
       -webkit-box-orient:vertical;
     }
     .artical .list{
-      padding: 8px 0 10px 0;
+      padding: 8px 0 0 0;
       font-size: 10px;
       color: #040404;
       line-height: 10px;
@@ -217,7 +221,7 @@
                     <div class="headername h">
                         <div class="hname">风一样的男子</div>
                         <div class="htime">30分钟前</div>
-                        <div class="himg"><img src="../images/community/attention.png" alt=""></div>
+                        <div class="himg"><img src="../images/same_content/attention.png" alt=""></div>
                     </div>
                 </div>
                 <div class="text" onclick="openCommunityDetails()">
@@ -226,8 +230,8 @@
                 </div>
                 <div class="list">
                     <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
-                    <div class="ltls talk"><i class="iconfont">&#xe617;</i><div class="d">3745</div></div>
-                    <div class="ltls look"><i class="iconfont">&#xe617;</i><div class="d">8930</div></div>
+                    <div class="ltls talk"><i class="iconfont talkicon">&#xe75b;</i><div class="d">3745</div></div>
+                    <div class="ltls look"><i class="iconfont">&#xf0343;</i></div>
                 </div>
             </div>
 
@@ -237,7 +241,7 @@
                     <div class="headername h">
                         <div class="hname">科技人</div>
                         <div class="htime">30分钟前</div>
-                        <div class="himg"><img src="../images/community/attention.png" alt=""></div>
+                        <div class="himg"><img src="../images/same_content/attention.png" alt=""></div>
                     </div>
                 </div>
                 <div class="text" onclick="openCommunityDetails()">
@@ -250,9 +254,9 @@
                     <div><img src="../images/community/community3.png" alt=""></div>
                 </div>
                 <div class="list">
-                    <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
-                    <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
-                    <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
+                    <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
+                    <div class="ltls talk"><i class="iconfont">&#xe75b;</i><div class="d">3745</div></div>
+                    <div class="ltls look"><i class="iconfont">&#xf0343;</i></div>
                 </div>
             </div>
 
@@ -262,7 +266,7 @@
                     <div class="headername h">
                         <div class="hname">科技人</div>
                         <div class="htime">30分钟前</div>
-                        <div class="himg"><img src="../images/community/attention.png" alt=""></div>
+                        <div class="himg"><img src="../images/same_content/attention.png" alt=""></div>
                     </div>
                 </div>
                 <div class="text" onclick="openCommunityDetails()">
@@ -275,9 +279,9 @@
                     <div></div>
                 </div>
                 <div class="list">
-                    <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
-                    <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
-                    <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
+                    <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
+                    <div class="ltls talk"><i class="iconfont">&#xe75b;</i><div class="d">3745</div></div>
+                    <div class="ltls look"><i class="iconfont">&#xf0343;</i></div>
                 </div>
             </div>
 
@@ -287,7 +291,7 @@
                     <div class="headername h">
                         <div class="hname">科技人</div>
                         <div class="htime">30分钟前</div>
-                        <div class="himg"><img src="../images/community/attention.png" alt=""></div>
+                        <div class="himg"><img src="../images/same_content/attention.png" alt=""></div>
                     </div>
                 </div>
                 <div class="text" onclick="openCommunityDetails()">
@@ -300,9 +304,9 @@
                     <div></div>
                 </div>
                 <div class="list">
-                    <div class="ltls like"><img src="../images/community/like.png" alt=""><div class="d">2336</div></div>
-                    <div class="ltls talk"><img src="../images/community/talk.png" alt=""><div class="d">3745</div></div>
-                    <div class="ltls look"><img src="../images/community/look.png" alt=""><div class="d">8930</div></div>
+                    <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
+                    <div class="ltls talk"><i class="iconfont">&#xe75b;</i><div class="d">3745</div></div>
+                    <div class="ltls look"><i class="iconfont">&#xf0343;</i></div>
                 </div>
             </div>
         </div>
@@ -350,7 +354,7 @@
           api.addEventListener({
             name:'scrolltobottom',
             extra:{
-            threshold:0 //设置距离底部多少距离时触发，默认值为0，数字类型
+              threshold:0 //设置距离底部多少距离时触发，默认值为0，数字类型
             }
           }, function(ret, err){
               nums++;
@@ -398,9 +402,9 @@
                           html+='</div>';
                         }
                         html+='<div class="list">';
-                          html+='<div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>';
-                          html+='<div class="ltls talk"><i class="iconfont">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';
-                          html+='<div class="ltls look"><i class="iconfont">&#xf0343;</i><div class="d">'+data[i]['views']+'</div></div>';
+                          html+='<div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">'+data[i]['views']+'</div></div>';
+                          html+='<div class="ltls talk"><i class="iconfont talkicon ">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';
+                          html+='<div class="ltls look"><i class="iconfont">&#xf0343;</i><div class="d"></div></div>';
                         html+='</div>';
                     html += '</div>';
                   }
