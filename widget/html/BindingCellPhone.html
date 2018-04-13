@@ -25,7 +25,7 @@
             -webkit-flex-flow: column;
             position: relative;
         }
-
+   /*header头部标签开始*/
         header {
             height: 44px;
             line-height: 44px;
@@ -48,10 +48,10 @@
           border: 1px solid #fff;
           border-top: none;
           border-right: none;
-          transform:rotate(45deg);
+          transform:rotate(45deg);  /*旋转*/
           -webkit-transform:rotate(45deg);
         }
-
+   /*header头部标签结束*/
         .main {
             padding-top: 28px;
         }
@@ -91,7 +91,10 @@
             width:20%;
             font-size: 16px;
         }
-
+        .main li .name.two{
+          width: 34%;
+        }
+     /*手机号输入框开始*/
         .main li .input {
             height: 100%;
             line-height: 40px;
@@ -114,7 +117,8 @@
             color: #b3b3b3;
             outline: none;
         }
-
+        /*手机号输入框结束*/
+      /*获取验证码开始*/
         .main .bg.one .name.yzm {
             position: absolute;
             right: -120px;
@@ -126,7 +130,8 @@
             font-size: 16px;
             padding-left: 0;
         }
-
+      /*获取验证码结束*/
+       /*  开始按钮*/
         .main .bottom {
             height: 40px;
             width: 90%;
@@ -142,28 +147,30 @@
             background-color: #20232a;
             font-size: 16px;
         }
-        .main li .name.two{
-          width: 34%;
-        }
     </style>
 </head>
 
 <body>
+  <!-- header头部开始 -->
     <header>
         <i onclick="CloseBindingCellPhone()"></i>
         <span>绑定手机</span>
     </header>
+    <!-- header头部结束 -->
     <div class="main">
         <ul>
             <li>
+              <!-- 手机号输入框开始 -->
                 <div class="bg">
                     <div class="name">手机号</div>
                     <div class="input">
                         <input type="text" placeholder="请输入手机号">
                     </div>
                 </div>
+                <!-- 手机号输入框结束 -->
             </li>
             <li>
+              <!-- 验证码输入框开始 -->
                 <div class="bg one">
                     <div class="name two">验证码</div>
                     <div class="input one">
@@ -173,6 +180,7 @@
                         获取验证码
                     </div>
                 </div>
+                <!-- 验证码输入框结束 -->
             </li>
         </ul>
         <bottom class="bottom">开始</bottom>

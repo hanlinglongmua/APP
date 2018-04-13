@@ -16,7 +16,7 @@
           input{
             outline: none;
           }
-          /*header 顶部样式*/
+        /*意见反馈头部开始*/
           .header{
             width: 100%;
             height: 44px;
@@ -51,7 +51,7 @@
             transform:rotate(45deg);
             -webkit-transform:rotate(45deg);
          }
-          /*header end*/
+      /*意见反馈头部结束*/
           /*main*/
           .main{
             width: 100%;
@@ -61,6 +61,7 @@
           .main .box{
             padding: 0 10px 0 10px;
           }
+          /*反馈建议开始*/
           .main .box .sug .title{
             font-size: 16px;
             color: #2d2d2d;
@@ -81,6 +82,8 @@
             outline: none;
             resize: none;
           }
+          /*反馈建议结束*/
+          /*联系方式开始*/
           .main .box .link{
             padding: 20px 0 20px 0;
           }
@@ -103,6 +106,10 @@
             height: 100%;
             padding-left: 6px;
           }
+          .main .box .btn input{
+            color: #fff;
+          }
+          /*联系方式结束*/
           .main .box .btn{
             width: 100%;
             height: 45px;
@@ -112,41 +119,45 @@
             text-align: center;
             line-height: 45px;
           }
-          .main .box .btn input{
-            color: #fff;
-          }
+
           /*main end*/
       </style>
   </head>
   <body>
     <div class="feedback">
-      <!-- header -->
+      <!-- 意见反馈头部开始-->
       <div class="header">
         <div class="top">
           <div class="sect left"><i onclick="CloseSuggestionFeedback()"></i></div>
           <div class="sect fo">意见反馈</div>
         </div>
       </div>
-      <!-- header end -->
+        <!-- 意见反馈头部结束-->
       <!-- main -->
       <form class="" action=".html" method="post">
         <div class="main">
           <div class="box">
+            <!-- 反馈建议开始 -->
             <div class="sug">
               <div class="title">你要反馈的意见或者建议:</div>
               <div class="text">
                 <textarea type="text" name="" id="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
               </div>
             </div>
+            <!-- 反馈建议结束 -->
+            <!-- 联系方式开始 -->
             <div class="link">
               <div class="lt">您的联系方式：</div>
               <div class="li">
                 <input type="text" name="" value="" placeholder="请留下您的QQ或者邮箱">
               </div>
             </div>
+            <!-- 联系方式结束 -->
+            <!-- 提交开始 -->
             <div class="btn">
               <input type="button" value="提交">
             </div>
+            <!-- 提交结束 -->
           </div>
         </div>
       </form>
