@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"  />
-  <title>视频详情</title>
+  <title>文章详情</title>
   <link rel="stylesheet" type="text/css" href="../css/api.css" />
   <style>
     @font-face {
@@ -98,7 +98,7 @@
     .header .nametime .reasonfor{
       font-size: 12px;
       color: #555;
-      margin-left: 38px;
+      margin-left: 30px;
       align-items: center;
 }
    /*资讯标签条结束*/
@@ -109,6 +109,7 @@
 
    .photoprojector .video {
      width: 100%;
+     height: 150;
    }
 
    .photoprojector .playmode {
@@ -173,6 +174,12 @@
       margin-top: -12px;
       right: 10px;
     }
+    .artbook p{
+      display: inline-block;
+      margin-left: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
     /*最最新咨讯结束*/  /*header end*/
     /*new开始 相关推荐开始*/
     .news {
@@ -219,26 +226,7 @@
       font-size: 9px;
       color: #8d8d8d;
             }
-    .empire {
-      position: relative;
-    }
-    .empire .playpoor {
-      position: absolute;
-      height: 20px;
-      top: 40%;
-      left: 44px;
-      width: 25px;
-    }
-    .tableempire {
-      position: relative;
-    }
-    .tableempire .playboor {
-      position: absolute;
-      height: 20px;
-      top: 40%;
-      left: 44px;
-      width: 25px;
-    }
+
     /*new结束*//*相关推荐结束*/
     /*main开始*/
     .main {
@@ -507,7 +495,7 @@
       right: 0;
     }
   /*上升标签开始*/
-    .top-get {
+    .topget {
       height: 30px;
       width: 30px;
       position: fixed;
@@ -545,7 +533,15 @@
       <!-- 视频界面开始 -->
       <div class="photoprojector">
         <img class="video" src="../images/discovery/article_image2.png" alt="">
-        <img class="playmode" src="../images/discovery/discovery_playbtn.png">
+      </div>
+      <div class="artbook">
+        <p>蛋白质受热会凝固,蛋白质受热会凝固,蛋白质受热会凝固</p>
+      </div>
+      <div class="photoprojector">
+        <img class="video" src="../images/discovery/article_image2.png" alt="">
+      </div>
+      <div class="artbook">
+        <p>蛋白质受热会凝固,蛋白质受热会凝固,蛋白质受热会凝固</p>
       </div>
       <!-- 视频界面结束 -->
       <!-- 最最新咨讯界面开始 -->
@@ -572,7 +568,6 @@
           <a href="javascript:;">
             <div class="empire">
               <img src="../images/discovery/article_image3.png" alt="">
-              <img class="playpoor" src="../images/discovery/discovery_playbtn.png">
             </div>
             <div>
               <p>2年时间造出5款机器人</p>
@@ -584,7 +579,6 @@
           <a href="javascript:;">
             <div class="tableempire">
               <img src="../images/discovery/article_image1.png" alt="">
-              <img class="playboor" src="../images/discovery/discovery_playbtn.png">
             </div>
             <div>
               <p>价格是Touch的两倍，科技科技科技</p>
@@ -639,7 +633,7 @@
             <div class="time">15:10</div>
           </div>
           <div class="right">
-            <i class="iconfont img">&#xe617;</i>
+            <div><i class="iconfont img">&#xe617;</i></div>
             <div class="talk">回复</div>
           </div>
         </div>
@@ -663,8 +657,7 @@
             <div class="time">15:10</div>
           </div>
           <div class="right">
-
-            <i class="iconfont img">&#xe617;</i>
+            <div><i class="iconfont img">&#xe617;</i></div>
             <div class="talk">回复</div>
           </div>
         </div>
@@ -705,13 +698,13 @@
     <!-- footer end -->
   </div>
   <!-- 上升标签开始 -->
-  <div class="top-get">
+  <div class="topget">
   </div>
   <!-- 上升标签结束 -->
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-  var toTop = document.querySelector(".top-get")
+  var toTop = document.querySelector(".topget")
   toTop.addEventListener("click", function () {
     console.log(123);
     window.scrollTo(0, 0)
