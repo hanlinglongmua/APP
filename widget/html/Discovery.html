@@ -6,6 +6,14 @@
       <title发现</title>
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <style>
+        @font-face {
+          font-family: 'iconfont';
+          src: url('../icon/iconfont.eot');
+          src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+          url('../icon/iconfont.woff') format('woff'),
+          url('../icon/iconfont.ttf') format('truetype'),
+          url('../icon/iconfont.svg#iconfont') format('svg');
+        }
           body,html{
             width: 100%;height: 100%; margin: 0; padding: 0;
           }
@@ -18,11 +26,11 @@
           }
 /*picture carousel css*/
           .content{
-            overflow:hidden;  height: 153px;  position: relative;
+            overflow:hidden;  height: 160px;  position: relative;
           }
 
           .scroll{
-            position: absolute; height: 153px; width: 2898px;
+            position: absolute; height: 160px; width: 2898px;
           }
 
           .scroll img{
@@ -70,14 +78,22 @@
             z-index: 1;
           }
 
-          .mue div{
+          .mue .click{
             float: left;
             height: 100%;
             width: 20%;
             text-align: center;
-            line-height: 35px;
+            line-height: 40px;
             font-size: 15px;
             color: #808080;
+            position: relative;
+          }
+          .mue div span{
+            border-right: 1px solid #cfcfcf;
+            position: absolute;
+            right: 0;
+            top: 12px;
+            height: 12px;
           }
           .mue div.hover{
             color: #000;
@@ -97,45 +113,36 @@
             width: 100%;
           }
           .section .article{
-            border-bottom: 5px solid #e1e1e1;
-            padding: 7.5px;
+            border-bottom: 2px solid #e1e1e1;
+            padding: 7.5px 7.5px 0 7.5px;
             padding-top: 0;
-            margin-bottom: 6px;
+            /*margin-bottom: 6px;*/
           }
           .section .article .picture{
             position: relative;
             width: 100%;
-            height: 130px
+            height: 150px;
+            border-radius: 5px;
+            margin-top: 4px;
           }
           .section .article .picture img{
             width: 100%;
             height: 100%;
+            border-radius: 5px;
           }
-          .section .article .picture .icotext{
-            position: absolute;
-            left: 4px;
-            bottom: 4px;
-            color: #fff;
-            font-size: 8px;
-            line-height: 30px;
-            display: inline-flex;
-          }
-          .section .article .picture .icotext img{
-            width: auto;
-            height: 26px;
-            display: inline-flex;
-          }
-          .section .article .picture .icotext div{
-            display: inline-flex;
-            margin-left: 3px;
-          }
+
           .section .article .text{
             width: 100%;
           }
           .section .article .text .title{
             color: #1a1a1a;
             font-size: 15px;
-            padding: 5px 0 5px 0;
+            padding-top: 5px;
+            overflow : hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
           }
           .section .article .text .content{
             color:#5e5e5e;
@@ -145,43 +152,40 @@
           }
           .section .article .ltls{
             position: relative;
-            height: 20px;
             font-size: 10px;
             line-height: 15px;
+            padding-top: 5px;
           }
           .section .article .ltls .ll{
-            position: absolute;
-            width: 100px;
-            height: 30px;
-            padding-left: 25px;
+            position: relative;
           }
-          .section .article .ltls .like{
-            background: url('../images/discovery/discovery_like.png') no-repeat;
-              background-size: 15%;
+          .section .article .ltls div{
+            display: inline-flex;
+            height: 32px;
+            line-height: 35px;
+            margin-left: 2px;
+            color: #808080;
+            font-size: 12px;
           }
-          .section .article .ltls .comment{
-            background: url('../images/discovery/discovery_talk.png') no-repeat;
-            left:22.5%;
-            background-size: 15%;
-          }
-          .section .article .ltls .read{
-            background: url('../images/discovery/discovery_look.png') no-repeat;
-            left: 45%;
-            background-size: 15%;
+          .section .article .ltls div img{
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            padding-right: 6px;
           }
           .section .article .ltls .share{
-            background: url('../images/discovery/discovery_share.png') no-repeat;
-            right:0%;
-            width: 1%;
-            background-size: 60%;
+            right:0;
+            position: absolute;
+            width: 25px;
+            top:8px;
           }
 
 /*article end*/
 
         /*video*/
         .section .video{
-          border-bottom: 5px solid #e1e1e1;
-          padding: 7.5px;
+          border-bottom: 2px solid #e1e1e1;
+          padding: 7.5px 7.5px 0 7.5px;
           padding-top: 0;
         }
         .section .video .picture{
@@ -192,20 +196,6 @@
         .section .video .picture .img{
           width: 100%;
           height: 100%;
-        }
-        .section .video .picture .icotext{
-          position: absolute;
-          left: 4px;
-          bottom: 4px;
-          color: #fff;
-          font-size: 8px;
-          line-height: 30px;
-          display: inline-flex;
-        }
-        .section .video .picture .icotext img{
-          width: auto;
-          height: 26px;
-          display: inline-flex;
         }
         .section .video .picture .playbtn{
           position: absolute;
@@ -231,6 +221,11 @@
           border-radius: 5px;
           width: 25px;
           text-align: center;
+          overflow : hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
         .section .video .text{
           width: 100%;
@@ -238,7 +233,7 @@
         .section .video .text .title{
           color: #1a1a1a;
           font-size: 15px;
-          padding: 5px 0 5px 0;
+          padding-top: 5px;
         }
         .section .video .text .content{
           color:#5e5e5e;
@@ -248,44 +243,44 @@
         }
         .section .video .ltls{
           position: relative;
-          height: 20px;
           font-size: 10px;
           line-height: 15px;
+          padding-top: 5px;
         }
         .section .video .ltls .ll{
-          position: absolute;
-          width: 100px;
-          height: 30px;
-          padding-left: 25px;
+          position: relative;
         }
-        .section .video .ltls .like{
-          background: url('../images/discovery/discovery_like.png') no-repeat;
-            background-size: 15%;
+        .video .ltls div{
+          display: inline-flex;
+          height: 32px;
+          line-height: 32px;
+          margin-left: 2px;
+          color: #808080;
+          font-size: 12px;
         }
-        .section .video .ltls .comment{
-          background: url('../images/discovery/discovery_talk.png') no-repeat;
-          left:22.5%;
-          background-size: 15%;
-        }
-        .section .video .ltls .read{
-          background: url('../images/discovery/discovery_look.png') no-repeat;
-          left: 45%;
-          background-size: 15%;
+        .video .ltls div img{
+          border-radius: 50%;
+          padding-right: 6px;
         }
         .section .video .ltls .share{
-          background: url('../images/discovery/discovery_share.png') no-repeat;
-          right:0%;
-          width: 1%;
-          background-size: 60%;
+          right:0;
+          position: absolute;
+          width: 25px;
+          top:10px;
         }
         /*video end*/
-
+        .iconfont{
+          font-family: "iconfont" !important;
+          font-style: normal;
+          font-size: 22px;
+          color: #000;
+        }
       </style>
   </head>
   <body>
     <div class="find_style">
         <!-- picture carousel -->
-      <div class="content">
+      <div class="content" id="content">
         <div class="scroll" id="scroll">
             <img src="../images/discovery/discovery_banner1.png" / alt="1">
             <img src="../images/discovery/discovery_banner2.png" / alt="2">
@@ -305,11 +300,11 @@
 
         <!-- mue -->
         <div class="mue" id="mueToggle">
-          <div class="click hover">推荐</div>
-          <div class="click">新品</div>
-          <div class="click">资讯</div>
-          <div class="click">测评</div>
-          <div class="click">技巧分享</div>
+          <div class="click hover">推荐<span></span></div>
+          <div class="click">新品<span></span></div>
+          <div class="click">资讯<span></span></div>
+          <div class="click">测评<span></span></div>
+          <div class="click">技巧</div>
         </div>
         <!-- mue-end -->
 
@@ -320,29 +315,26 @@
         <div class="article">
             <div class="picture">
                 <img class="img" src="../images/discovery/article_image1.png" alt="">
-                <div class="icotext">
-                    <img src="../images/discovery/headerpicture1.png" alt="">
-                    <div>风一样的男子</div>
-                </div>
             </div>
             <div class="text">
-                <div class="title">价格比Xpeia Touch低了三十多倍！这投影仪能和索尼互杠</div>
+                <div class="title">asfdasdfasdfsadfsdfaasdfsfd价格比Xpeia Touch低了三十多倍！这投影仪能和索尼互杠</div>
             </div>
             <div class="ltls">
-                <div class="ll like"><div>6666</div></div>
-                <div class="ll comment"><div>6666</div></div>
-                <div class="ll read"><div>6666</div></div>
-                <div class="ll share"></div>
+                <div class="ll like">
+                        <div>
+                            <img src="../images/discovery/headerpicture1.png" alt="">
+                        </div>
+                        <div>风一样的男子</div>
+                </div>
+                <div class="ll share">
+                  <i class="iconfont">&#xf0343;</i>
+                </div>
             </div>
         </div>
 
         <div class="video">
           <div class="picture">
               <img class="img" src="../images/discovery/article_image1.png" alt="">
-              <div class="icotext">
-                <img src="../images/discovery/headerpicture1.png" alt="">
-                <div>风一样的男子</div>
-              </div>
               <div class="playbtn"><img src="../images/discovery/discovery_playbtn.png" alt=""></div>
               <div class="playlength">1:30</div>
           </div>
@@ -350,10 +342,15 @@
               <div class="title">价格比Xpeia Touch低了三十多倍！这投影仪能和索尼互杠</div>
           </div>
           <div class="ltls">
-              <div class="ll like"><div>6666</div></div>
-              <div class="ll comment"><div>6666</div></div>
-              <div class="ll read"><div>6666</div></div>
-              <div class="ll share"></div>
+            <div class="ll like">
+                    <div>
+                        <img src="../images/discovery/headerpicture1.png" alt="">
+                    </div>
+                    <div>风一样的男子</div>
+            </div>
+            <div class="ll share">
+              <i class="iconfont">&#xf0343;</i>
+            </div>
           </div>
         </div>
       </div>
@@ -371,9 +368,9 @@
         btns[j].index = j;
         btns[j].onclick =  function(){
             for(var x=0;x<btns.length;x++){
-                btns[x].className = '';
+                btns[x].className = 'click';
               }
-              this.className = 'hover';
+              this.className = 'click hover';
               htmls = '';
               discoveryDate(this.index);
               tid = this.index;
@@ -387,10 +384,11 @@
           //下拉刷新
               api.setRefreshHeaderInfo({
                 loadingImg: 'widget://image/refresh.png',
-                bgColor: '#000',
-                textColor: '#fff',
+                bgColor: '#fff',
+                textColor: '#000',
                 textDown: '拉我试试',
-                textUp: '松开刷新...'
+                textUp: '松开刷新...',
+                showTime:'false'
               } , function(ret, err) {
                 htmls = '';
                 discoveryDate(tid,0)
@@ -433,26 +431,23 @@
               // htmls = '';
               for(var i=0;i<data.length;i++){
                 htmls += '<div class="article">';
-                    htmls += '<div class="picture">';
-                      //图片数据
-                        htmls += '<img width="100%" src="http://www.juzzn.com/data/attachment/'+data[i]['pic']+'">';
-                        htmls +="<div class='icotext'>";
-                        //用户头像
-                          htmls += '<img src="'+data[i]['avatar']+'">';
-                        //用户名字
-                          htmls += '<div>'+data[i]['username']+'</div>';
-                        htmls += '</div>';
-                    htmls += '</div>';
-                    //文章标题
-                    htmls += '<div class="text">';
-                      htmls += '<div class="title">'+data[i]['title']+'</div>';
-                    htmls += '</div>';
+                    htmls+='<div onclick=OpenDetail('+data[i]['aid']+')>'
+                          htmls += '<div class="picture">';
+                          //图片数据
+                              htmls += '<img width="100%" src="http://www.juzzn.com/data/attachment/'+data[i]['pic']+'">';
+                          htmls += '</div>';
+                          //文章标题
+                          htmls += '<div class="text">';
+                                htmls += '<div class="title">'+data[i]['title']+'</div>';
+                          htmls += '</div>';
+                    htmls+='</div>'
                     //文章主体
                     htmls += '<div class="ltls">';
-                      htmls +='<div class="ll like" onclick="like('+data[i]['aid']+')"><div id="like'+data[i]['aid']+'">'+data[i]['likeNum']+'</div></div>';
-                      htmls +='<div class="ll comment"><div>6666</div></div>';
-                      htmls +='<div class="ll read"><div>6666</div></div>';
-                      htmls +='<div class="ll share"><div></div></div>';
+                          htmls+='<div class="ll like">';
+                              htmls+='<div><img src="'+data[i]['avatar']+'" alt=""></div>';//用户头像
+                              htmls+='<div>'+data[i]['username']+'</div>';//用户名字
+                          htmls+='</div>';
+                          htmls +='<div class="ll share"><i class="iconfont">&#xf0343;</i><div></div></div>';
                     htmls += '</div>';
               htmls += '</div>';
             }
@@ -562,43 +557,57 @@
           clearInterval(timer)
           timer = setInterval(function(){
             animate()
-          },2000)
+          },5000)
       }
       //滑动到指定位置定死
-      var mueToggle = document.getElementById('mueToggle')
+      var mueToggle = document.getElementById('mueToggle');
+      var content = document.getElementById('content');
       window.onscroll = function(){
         var bodyScrollTop = document.body.scrollTop;
         if(bodyScrollTop>153){
-          mueToggle.style.position = 'fixed'
-          mueToggle.style.top = '0px'
-          mueToggle.style.background = '#fff'
-        }else{
-          mueToggle.style.position = 'static'
+          mueToggle.style.position = 'fixed';
+          mueToggle.style.top = '0px';
+          mueToggle.style.background = '#fff';
+          content.style.display = 'none';
+        }else if(bodyScrollTop==0){
+            mueToggle.style.position = 'static';
+            content.style.display = 'block';
         }
       }
       //点赞
-      var userdata = $api.getStorage('userdata');//得出用户数据
-      function like(aid){
-        if(userdata){
-          api.ajax({
-              url:'http://www.juzzn.com/like.php',
-              method:'post',
-              dataType:'json',
-              data: {
-                     values: {
-                       aid:aid,username:userdata['username'],uid:userdata['uid']
-                   }
-               }
-          },function(ret, err){
-            if(ret.status == 1){
-                $api.html($api.byId('like'+aid),ret.data);
-            }else {
-              alert(ret.msg);
+      // var userdata = $api.getStorage('userdata');//得出用户数据
+      // function like(aid){
+      //   if(userdata){
+      //     api.ajax({
+      //         url:'http://www.juzzn.com/like.php',
+      //         method:'post',
+      //         dataType:'json',
+      //         data: {
+      //                values: {
+      //                  aid:aid,username:userdata['username'],uid:userdata['uid']
+      //              }
+      //          }
+      //     },function(ret, err){
+      //       if(ret.status == 1){
+      //           $api.html($api.byId('like'+aid),ret.data);
+      //       }else {
+      //         alert(ret.msg);
+      //       }
+      //     });
+      //   }else{
+      //     // alert('请先登录')
+      //   }
+      // }
+      function OpenDetail(aid){
+        api.openWin({
+            name: 'ArticalDetail',
+            url: 'ArticalDetail.html',
+            pageParam: {
+                aid: aid
             }
-          });
-        }else{
-          // alert('请先登录')
-        }
+        });
+
       }
+
   </script>
   </html>

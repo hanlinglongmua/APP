@@ -28,14 +28,13 @@
             font-size: 20px;
             text-align: center;
             position: relative;
-
         }
         .header.myself,header.main{
             background: #666;
             line-height: 44px;
             color: #fff;
         }
-        .index>div{
+        .index .discov{
           display: inline-block;
           width: 50%;
           height: 100%;
@@ -45,27 +44,30 @@
           left: 50%;
           margin-left: -25%;
         }
-        .index>span{
-          width: 20px;
-          height:20px;
-          background:url(images/same_content/search.png) no-repeat;
-          -webkit-background-size: 100% 100%;
-          background-size: 100% 100%;
-          position: absolute;
-          right:20px;
-          top:10px;
-        }
-        .index>div>i{
+        .index .discov>i{
           border-left:1px solid #e5e5e5;
           border-right:1px solid #e5e5e5;
         }
-        .index>div>a{
+        .index .discov>a{
           color: #808080;
           width: 38%;
         }
-        .index>div>a.hover{
+        .index .discov>a.hover{
           color:#0d0d0d;
           height: 36px;
+        }
+        .index .serchedit{
+          width: 56px;
+          position: absolute;
+          right:14px;
+          top:2px;
+        }
+        .index .edit{
+          margin-left: 10px;
+          width: 16px;
+        }
+        header img{
+          width: 18px;
         }
         /*脚步*/
         footer {
@@ -129,19 +131,31 @@
           display: none;
         }
         .header.current{
-          display: block;;
+          display: block;
+        }
+        .serchedit{
+          display: none;
+        }
+        .serchedit.current{
+          display: block;
         }
     </style>
 </head>
 
 <body class="wrap">
     <header class="header index current" id="header">
-      <div>
+      <div class="discov">
         <a style="margin-right:-5px;" class="menu hover" onclick="fnSetNavMenuIndex(0)">发现</a>
         <i></i>
         <a class="menu" onclick="fnSetNavMenuIndex(1)">社区</a>
       </div>
-      <span onclick="openSearch()"></span>
+      <div class="serchedit" id="serchedit">
+        <img onclick="openSearch()" src="images/same_content/search.png" alt="">
+        <img class="edit" src="images/same_content/edit.png" alt="">
+      </div>
+      <div class="serchedit current" id="serchedit current">
+        <img onclick="openSearch()" src="images/same_content/search.png" alt="">
+      </div>
     </header>
 
 
@@ -203,6 +217,15 @@ apiready = function() {
     ]
   }, function(ret, err){
       SetClass(ret.index);
+      var serchedit = document.getElementById('serchedit');
+      var onserchedit = document.getElementById('serchedit current');
+      if(ret.index==0){
+        serchedit.style.display = 'none';
+        onserchedit.style.display = 'block';
+      }else if(ret.index==1){
+        serchedit.style.display = 'block';
+        onserchedit.style.display = 'none';
+      }
   });
 };
 //定义全局元素
