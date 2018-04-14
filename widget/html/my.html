@@ -285,6 +285,17 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
 apiready=function(){
+  VueUser();
+  //监听刷新
+  api.addEventListener({
+      name: 'RefreshMy'
+  }, function(ret, err){
+      VueUser();
+  });
+
+}
+//ajax
+function VueUser(){
   var userdata = {};
   userdata = $api.getStorage('userdata');
   var html = '';
@@ -306,7 +317,7 @@ apiready=function(){
             html+='</div>';
             html+='<div class="nick">';
                   html+='<div class="nick_img">';
-                        html+='<img src="'+ret.data['avatar']+'" >';
+                        html+='<img src="'+ret.data['avatar']+'" onerror="this.src=\'../images/about/Logo.png\'">';
                   html+='</div>';
                   html+='<div class="nickname">'+userdata['username']+'</div>';
                   // html+='<span class="thisopp" onclick="openLogin()">点击登录</span>'
@@ -386,7 +397,6 @@ function OpenmyAbount(){
        name: 'Login',
        url: 'Login.html'
    });
-
  }
 </script>
 </html>

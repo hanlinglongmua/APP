@@ -104,24 +104,20 @@
         footer ul li div.footerBg div{
             width: 26px;
             height: 26px;
-            color: #999;
-            border:1px solid #999;
-            border-radius: 50%;
             position: relative;
-            background: #999;
             margin: 0 auto;
             top:6px;
           }
         footer ul li div.footerBg.big{
           width: 40px;
           height: 40px;
-          color: #999;
-          border:1px solid #999;
-          border-radius: 50%;
           position: relative;
-          background: #999;
           margin: 0 auto;
-          margin-top: 2px;
+          border-radius: 50%;
+          background: url('images/index/mained.png') no-repeat center center;
+          background-color: #000;
+          -webkit-background-size: 180% 180%;
+          background-size: 180% 180%;
         }
         .flex-1 {
             -webkit-box-flex: 1;
@@ -149,12 +145,12 @@
         <i></i>
         <a class="menu" onclick="fnSetNavMenuIndex(1)">社区</a>
       </div>
+      <div class="serchedit current" id="serchedit current">
+        <img onclick="openSearch()" src="images/same_content/search.png" alt="">
+      </div>
       <div class="serchedit" id="serchedit">
         <img onclick="openSearch()" src="images/same_content/search.png" alt="">
         <img class="edit" src="images/same_content/edit.png" alt="">
-      </div>
-      <div class="serchedit current" id="serchedit current">
-        <img onclick="openSearch()" src="images/same_content/search.png" alt="">
       </div>
     </header>
 
@@ -165,7 +161,7 @@
         <ul>
           <li onclick="clickRandomSwiBtn1()">
               <div class="footerBg one current">
-                  <div></div>
+                  <div><img src="images/index/indexed.png" alt="" width="100%" height="100%"></div>
               </div>
               <div>首页</div>
           </li>
@@ -175,7 +171,7 @@
           </li>
           <li onclick="clickRandomSwiBtn3()">
               <div class="footerBg three current">
-                <div></div>
+                <div><img src="images/index/mined.png" alt="" width="100%" height="100%"></div>
               </div>
               <div>我的</div>
           </li>

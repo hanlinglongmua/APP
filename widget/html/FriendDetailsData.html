@@ -64,14 +64,15 @@
           header .headermain .namedatails .headerimg{
             height: 60px;
             width: 60px;
-            border-radius: 50%;
             border: 2px solid #fff;
             position: absolute;
             left: 50%;
             margin-left: -30px;
+            border-radius: 50%;
           }
           header .headermain .namedatails .headerimg img{
             width: 100%;
+            border-radius: 50%;
           }
           header .headermain .namedatails .name{
             width: 100%;
@@ -342,7 +343,7 @@
                 <i onclick="api.closeWin()"></i>
                 <ul><li></li><li></li><li></li></ul>
             </div>
-            <div class="headermain">
+            <div class="headermain" id="headermain">
                 <div class="namedatails">
                     <div class="headerimg"><img src="../images/same_content/fly.png" alt=""></div>
                     <div class="name"><span>辣椒酱</span></div>
@@ -509,6 +510,37 @@
           maxboxs[this.index].className = 'main current'
       }
   }
+}
+
+apiready = function(){
+  var uid = api.pageParam.uid;
+  var html = '';
+  api.ajax({
+      url: 'http://www.juzzn.com/myCenter.php',
+      method: 'post',
+      data: {
+          values: {
+              uid: uid
+          }
+      }
+  },function(ret, err){
+      if (ret.status==1) {
+          var data = ret.data;
+          html+='<div class="namedatails">';
+            html+='<div class="headerimg"><img src="'+data['avatar']+'" alt=""></div>';//发帖人头像
+            html+='<div class="name"><span>'+data['username']+'</span></div>';//资讯发布人名称
+            html+='<div class="sign"><span>'+data['author']+'</span></div>'
+          html+='</div>';
+          html+='<div class="headerfooter">';
+            html+='<div class="tlf"><div class="tl"><div class="toright">参与</div><div class="toleft">'+data['']+'</div></div><span></span></div>';
+            html+='<div class="tlf"><div class="tl"><div class="toright">关注</div><div class="toleft">269</div></div><span></span></div>';
+            html+='<div class="tlf"><div class="tl"><div class="toright">粉丝</div><div class="toleft">489</div></div></div>';
+          html+='</div>';
+      } else {
+          alert(err.msg)
+      }
+      $api.html($api.byId('headermain'), html);
+  });
 
 }
   </script>
