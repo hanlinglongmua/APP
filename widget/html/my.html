@@ -327,8 +327,10 @@ function VueUser(){
                   html+='<div class="concern">关注&nbsp;<span>'+ret.data['followNum']+'</span><i></i></div>';
                   html+='<div class="fans">粉丝&nbsp;<span>'+ret.data['fansNum']+'</span></div>';
             html+='</div>';
+
+            $api.html($api.byId('myindex'), html);
         } else {
-            // alert( JSON.stringify( err ) );
+            alert( JSON.stringify( err ) );
         }
         $api.html($api.byId('myindex'), html);
     });

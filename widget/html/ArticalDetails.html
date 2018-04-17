@@ -14,13 +14,11 @@
       url('../icon/iconfont.ttf') format('truetype'),
       url('../icon/iconfont.svg#iconfont') format('svg');
     }
-    body,
-    html {
+    body,html {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      font-family: "son mincho";
     }
     ul li {
       list-style-type: none;
@@ -44,9 +42,6 @@
       padding: 14px 0 14px 0;
       position: relative;
       font-weight: bold;
-    }
-    .header .title .titl {
-      margin-right: 20px;
     }
     /*标题结束*/
     /*资讯标签条开始*/
@@ -110,6 +105,7 @@
    }
   .photoprojector img{
     width: 100%;
+    height: 150px;
   }
    .photoprojector .playmode {
      position: absolute;
@@ -288,8 +284,8 @@
       position: absolute;
       right: 15px;
       top: 6px;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border: 1px solid #808080;
       border-top: none;
       border-right: none;
@@ -361,12 +357,12 @@
     .main .foot .right .talk {
       position: absolute;
       top: 0;
-      right: 25px;
+      right: 10px;
     }
     .main .foot .right .img {
       position: absolute;
       top: 0;
-      right: 50px;
+      right: 36px;
       width: 16px;
       font-style: normal;
       font-size: 14px;
@@ -738,47 +734,57 @@ return_top.onclick = function (){
     });
   }
 
-  function openFriendDetailsData(){
+  function openFriendDetailsData(uid){
     api.openWin({
         name: 'FriendDetailsData',
         url: 'FriendDetailsData.html',
         pageParam: {
-            name: 'test'
+            uid: uid
         }
     });
   }
+
+
+  var pageParamAid;
+  var userdata = {};
+  userdata = $api.getStorage('userdata');
+  var data = {};
   apiready=function(){
-    var pageParamAid = api.pageParam.aid;
+    pageParamAid = api.pageParam.aid;
     var html = '';
     api.ajax({
         url: 'http://www.juzzn.com/articleDetail.php',
         method: 'post',
         data: {
             values: {
-                aid: pageParamAid
+                aid: pageParamAid,uid:userdata.uid
             }
         }
     },function(ret, err){
+        data = ret.data;
         if (ret.status==1) {
-            var data = ret.data;
             html+='<div class="comment_details">';
                 html+='<div class="header">';
                   html+='<div class="title">';
                     html+='<div class="titl">'+data['title']+'</div>';//文章标题
                   html+='</div>';
                   html+='<div class="nametime">';
-                    html+='<div class="name">'+data['username']+'<div></div></div>';//文章作者
+                    html+='<div class="name" onclick="openFriendDetailsData('+data['uid']+')">'+data['username']+'<div></div></div>';//文章作者
                     html+='<div class="time">'+data['dateline']+'<div></div></div>';//文章发布时间
                     html+='<div class="readnum">浏览次数：'+data['viewnum']+'</div>';//查看次数
                     html+='<div class="reasonfor">来源：'+data['from']+'</div>';//来源
                   html+='</div>';
                   html+='<div class="photoprojector">'+data['content']+'</div>';//内容
                   html+='<div class="uptop">';
-                    html+='<div class="left"><img src="'+data['avatar']+'" alt="" onclick="openFriendDetailsData()"></div>';//发布人头像
+                    html+='<div class="left"><img src="'+data['avatar']+'" alt="" onclick="openFriendDetailsData('+data['uid']+')"></div>';//发布人头像
                     html+='<div class="mid">';
                       html+='<div class="name">'+data['username']+'</div>';//发布人名称
                       html+='<div class="sign">'+data['sign']+'</div>';//签名
-                      html+='<div class="right"><img src="../images/same_content/attention.png" alt=""></div>';
+                      if(data['haveFollow']){
+                        html+='<div class="right" id="follow"><img src="../images/same_content/attentioned.png" onclick="follow()" alt=""></div>';//已关注
+                      }else {
+                        html+='<div class="right" id="follow"><img src="../images/same_content/attention.png" onclick="follow()" alt=""></div>';//未关注
+                      }
                     html+='</div>';
                   html+='</div>';
                 html+='</div>';
@@ -787,9 +793,9 @@ return_top.onclick = function (){
                   html+='<h3>相关推荐</h3>';
                   html+='<ul>';
                   for(var i=0;i<5;i++){
-                    html+='<li>';
+                    html+='<li onclick="OpenDetail('+data['relates'][i]['aid']+')">';
                       html+='<a href=" ">';
-                        html+='<div class="empire"><img src="http://www.juzzn.com/data/attachment/'+data['relates'][i]['pic']+'" alt="" onclick="openFriendDetailsData()"></div>';//相关推荐图片
+                        html+='<div class="empire"><img src="http://www.juzzn.com/data/attachment/'+data['relates'][i]['pic']+'" alt=""></div>';//相关推荐图片
                         html+='<div><p>'+data['relates'][i]['title']+'</p><span>'+data['relates'][i]['dateline']+'</span></div>';//相关推荐
                       html+='</a>';
                     html+='</li>';
@@ -797,40 +803,43 @@ return_top.onclick = function (){
                   html+='</ul>';
                 html+='</div>';
 
-                html+='<div class="main">';
-                  html+='<div class="mue"><div class="left">评论</div></div>';
+
                   if(data.comments.length){
-                    for(i=0;i<data.comments.length;i++){
-                      html+='<div class="replay">';
-                        html+='<div class="text">';
-                          html+='<div class="left"><img src="'+data.comments[i]['avatar']+'" alt=""></div>';//评论头像
-                          html+='<div class="right">';
-                            html+='<div class="top">'+data.comments[i]['username']+'</div>';//评论人
-                            html+='<i></i>';
-                            html+='<div class="mid">';
-                              html+='<div class="art">'+data.comments[i]['message']+'</div>';//评论内容
-                              // html+='<div class="answer">';
-                              //   html+='';
-                              // html+='</div>';
+                    html+='<div class="main">';
+                      html+='<div class="mue"><div class="left">评论</div></div>';
+                      for(i=0;i<data.comments.length;i++){
+                        html+='<div class="replay">';
+                          html+='<div class="text">';
+                            html+='<div class="left"><img src="'+data.comments[i]['avatar']+'" alt="" onclick="openFriendDetailsData('+data.comments[i]['uid']+')"></div>';//评论头像
+                            html+='<div class="right">';
+                              html+='<div class="top" onclick="openFriendDetailsData('+data.comments[i]['uid']+')">'+data.comments[i]['username']+'</div>';//评论人
+                              html+='<i></i>';
+                              html+='<div class="mid">';
+                                html+='<div class="art">'+data.comments[i]['message']+'</div>';//评论内容
+                                // html+='<div class="answer">';
+                                //   html+='';
+                                // html+='</div>';
+                              html+='</div>';
+                            html+='</div>';
+                          html+='</div>';
+                          html+='<div class="foot">';
+                            html+='<div class="left">';
+                              html+='<div class="date">'+data.comments[i]['dateline']+'</div>';//评论时间
+                            html+='</div>';
+                            html+='<div class="right">';
+                              html+='<div><i class="iconfont img">&#xe617;</i></div>';
+                              html+='<div class="talk">回复</div>';
                             html+='</div>';
                           html+='</div>';
                         html+='</div>';
-                        html+='<div class="foot">';
-                          html+='<div class="left">';
-                            html+='<div class="date">'+data.comments[i]['dateline']+'</div>';//评论时间
-                          html+='</div>';
-                          html+='<div class="right">';
-                            html+='<div><i class="iconfont img">&#xe617;</i></div>';
-                            html+='<div class="talk">回复</div>';
-                          html+='</div>';
-                        html+='</div>';
-                      html+='</div>';
-                    }
+                      }
+                    html+='</div>';
                   }else{
-                    html+='<div class="replay" style="text-align:center;">暂无评论<div>';
+                    html+='<div class="main" style="text-align:center;padding-bottom:44px;">';
+                      html+='<div class="mue"><div class="left">暂无评论</div></div>';
+                    html+='</div>';
                   }
-                html+='</div>';
-                // alert("评论数"+data['commentnum'])
+
                 html+='<footer>';
                   html+='<div class="ii" onclick="api.closeWin();"><i></i></div>';
                   html+='<div class="list">';
@@ -839,7 +848,7 @@ return_top.onclick = function (){
                       html+='<a href="javascript:;"><i class="iconfont icontalk">&#xe75b;</i><div class="talknum">'+data['commentnum']+'</div></a>';//评论次数
                       html+='<a href="javascript:;"><i class="iconfont iconlike">&#xe617;</i><div class="likenum">'+data['likeNum']+'</div></a>';//点赞次数
                       html+='<a href="javascript:;"><i class="iconfont iconcollection">&#xe6a7;</i></a>';
-                      html+='<a href="javascript:;"><i class="iconfont iconshare">&#xf0343;</i></a>';
+                      html+='<a href="javascript:;"><i class="iconfont iconshare" onclick="openShareOther()">&#xe600;</i></a>';
                     html+='</div>';
                   html+='</div>';
                 html+='</footer>';
@@ -850,6 +859,65 @@ return_top.onclick = function (){
         $api.html($api.byId('articalDetails'), html);
     });
 
+  }
+
+  function follow(){
+    api.ajax({
+        url: 'http://www.juzzn.com/action.php?action=follow',
+        method: 'post',
+        data: {
+            values: {
+                uid:userdata.uid,
+                username:userdata.username,
+                followuid:pageParamAid,
+                fusername:data.username
+            }
+        }
+    },function(ret, err){
+        if (ret.status == 1) {
+            alert('关注成功');
+            var follow = document.getElementById('follow');
+            $api.html($api.byId('follow'), '<img src="../images/same_content/attentioned.png" onclick="follow()" alt="">');
+        } else {
+            alert(ret.msg);
+        }
+    });
+  }
+
+  function openShareOther(){
+    api.openFrame({
+        name: 'ShareOther',
+        url: 'ShareOther.html',
+        rect: {
+            x: 0,
+            y: 0,
+            marginTop:415,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            name: 'test'
+        },
+        animation:{
+          type:"push",
+          subType:"from_bottom",
+          duration:300
+        },
+        bounces: false,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false
+    });
+  }
+
+  function OpenDetail(aid){
+    api.openWin({
+        name: 'ArticalDetails',
+        url: 'ArticalDetails.html',
+        pageParam: {
+            aid: aid
+        }
+    });
   }
 </script>
 

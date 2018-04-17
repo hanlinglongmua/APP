@@ -231,7 +231,7 @@
                 <div class="list">
                     <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
                     <div class="ltls talk"><i class="iconfont talkicon">&#xe75b;</i><div class="d">3745</div></div>
-                    <div class="ltls look"><i class="iconfont">&#xf0343;</i></div>
+                    <div class="ltls look"><i class="iconfont">&#xe600;</i></div>
                 </div>
             </div>
 
@@ -256,7 +256,7 @@
                 <div class="list">
                     <div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">2336</div></div>
                     <div class="ltls talk"><i class="iconfont">&#xe75b;</i><div class="d">3745</div></div>
-                    <div class="ltls look"><i class="iconfont">&#xf0343;</i></div>
+                    <div class="ltls look"><i class="iconfont">&#xe600;</i></div>
                 </div>
             </div>
 
@@ -392,19 +392,21 @@
                             html+='</div>';
                           html+='</div>';
                         html+='</div>';
-                        html+='<div class="text" onclick="openCommunityDetails('+data[i]['tid']+')">';
+                        html+='<div class="text" onclick="openCommunityDetails('+data[i]['tid']+','+data[i]['authorid']+')">';
                             html+='<div class="title">'+data[i]['subject']+'</div>';
                             html+='<div class="textmain">'+data[i]['message']+'</div>';
                         html+='</div>';
                         if(data[i]['images'].length){
                           html+='<div class="picture">';
-                            html+='<div><img src="'+data[i]['images']+'" alt="" onclick="openimg(this)" onerror="this.src=\'../images/about/Logo.png\'"></div>'
+                            for(var j = 0;j<3;j++){
+                            html+='<div><img src="'+data[i]['images'][j]+'" alt="" onclick="openimg(this)" onerror="this.src=\'../images/about/Logo.png\'"></div>'
+                            }
                           html+='</div>';
                         }
                         html+='<div class="list">';
                           html+='<div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">'+data[i]['views']+'</div></div>';
-                          html+='<div class="ltls talk"><i class="iconfont talkicon ">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';
-                          html+='<div class="ltls look"><i class="iconfont">&#xf0343;</i><div class="d"></div></div>';
+                          html+='<div class="ltls talk"><i class="iconfont talkicon">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';
+                          html+='<div class="ltls look"><i class="iconfont">&#xe600;</i><div class="d"></div></div>';
                         html+='</div>';
                     html += '</div>';
                   }
@@ -419,11 +421,11 @@
             });
         }
     //打开一个新窗口
-        function openCommunityDetails(tid){
+        function openCommunityDetails(tid,authorid){
             api.openWin({
             name: 'CommunityDetails',
             url: 'CommunityDetails.html',
-            pageParam: {tid:tid}
+            pageParam: {tid:tid,authorid:authorid}
           });
         }
       //打开一张图片
@@ -438,9 +440,10 @@
             bgColor: '#000'
         }, function(ret, err) {
             if(ret.eventType=='click'){
+
                 photoBrowser.close();
             }
           });
-  		  }
+  		}
 </script>
 </html>

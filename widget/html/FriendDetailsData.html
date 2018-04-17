@@ -103,24 +103,18 @@
           header .headermain .headerfooter .tlf{
             float: left;
             width: 33.3%;
+            position: relative;
           }
           header .headermain .headerfooter .tlf .tl div{
             width: 46%;
             float: left;
-          }
-          header .headermain .headerfooter .tlf .tl .toright{
-            text-align: right;
-            margin-right: 2%;
-          }
-          header .headermain .headerfooter .tlf .tl .toleft{
-            text-align: left;
-            margin-left: 2%;
           }
           header .headermain .headerfooter span{
             height: 14px;
             border-right: 1px solid #fff;
             position: absolute;
             top:6px;
+            right: 0;
           }
           /*header end*/
 
@@ -185,6 +179,7 @@
           }
           section .main .article img{
             height: 60px;
+            width: 100px;
           }
           section .main .article .text{
             width: 100%;
@@ -350,9 +345,9 @@
                     <div class="sign"><span>暂无签名</span></div>
                 </div>
                 <div class="headerfooter">
-                    <div class="tlf"><div class="tl"><div class="toright">参与</div><div class="toleft">222</div></div><span></span></div>
-                    <div class="tlf"><div class="tl"><div class="toright">关注</div><div class="toleft">269</div></div><span></span></div>
-                    <div class="tlf"><div class="tl"><div class="toright">粉丝</div><div class="toleft">489</div></div></div>
+                    <div class="tlf"><div class="tl">参与</div><span></span></div>
+                    <div class="tlf"><div class="tl">关注</div><span></span></div>
+                    <div class="tlf"><div class="tl">粉丝</div></div>
                 </div>
             </div>
         </header>
@@ -368,7 +363,7 @@
         <section style="overflow:hidden;height:100%;padding-top:205px;margin-bottom:50px;">
 
           <!-- 发表 end -->
-          <div class="main current">
+          <div class="main current" id="main">
             <!-- 有图片的文章 -->
 
             <div class="article">
@@ -439,7 +434,7 @@
           <!-- 发表 end -->
 
           <!-- 资料 -->
-          <div class="main">
+          <div class="main" id="data">
               <div class="listbiao">
                   <div class="li">
                     <div class="left">性别</div>
@@ -462,10 +457,10 @@
           <!-- 资料 end-->
         </section>
 
-        <footer>
+        <footer id="footer">
             <div class="footer">私信</div>
             <span></span>
-            <div class="footer">加关注</div>
+            <div class="footer" id="follow">加关注</div>
         </footer>
       </div>
   </body>
@@ -512,36 +507,132 @@
   }
 }
 
+
+var uid = '';
+var data = {};
+var html = '';
+var htmlmain = '';
+var htmldata = '';
+var opendetails = '';
+var htmlfoot = '';
+var userdata = {};
+userdata = $api.getStorage('userdata');
 apiready = function(){
-  var uid = api.pageParam.uid;
-  var html = '';
+  uid = api.pageParam.uid;
   api.ajax({
       url: 'http://www.juzzn.com/myCenter.php',
       method: 'post',
       data: {
           values: {
-              uid: uid
+              uid: uid,myuid:userdata.uid
           }
       }
   },function(ret, err){
       if (ret.status==1) {
-          var data = ret.data;
+          data = ret.data;
           html+='<div class="namedatails">';
             html+='<div class="headerimg"><img src="'+data['avatar']+'" alt=""></div>';//发帖人头像
             html+='<div class="name"><span>'+data['username']+'</span></div>';//资讯发布人名称
-            html+='<div class="sign"><span>'+data['author']+'</span></div>'
+            html+='<div class="sign"><span>'+data['author']+'</span></div>';//签名
           html+='</div>';
           html+='<div class="headerfooter">';
-            html+='<div class="tlf"><div class="tl"><div class="toright">参与</div><div class="toleft">'+data['']+'</div></div><span></span></div>';
-            html+='<div class="tlf"><div class="tl"><div class="toright">关注</div><div class="toleft">269</div></div><span></span></div>';
-            html+='<div class="tlf"><div class="tl"><div class="toright">粉丝</div><div class="toleft">489</div></div></div>';
+            html+='<div class="tlf"><div class="tl">参与&nbsp;&nbsp;'+data['joinNum']+'</div><span></span></div>';
+            html+='<div class="tlf"><div class="tl">关注&nbsp;&nbsp;'+data['followNum']+'</div><span></span></div>';
+            html+='<div class="tlf"><div class="tl">粉丝&nbsp;&nbsp;'+data['fansNum']+'</div></div>';
           html+='</div>';
+
+          for(var i=0;i<data.sentData.length;i++){
+            //判断文章和社区
+            if(data.sentData[i]['idtype']=='aid'){
+              opendetails = 'toartical('+data.sentData[i]['id']+')';
+            }else {
+              opendetails = 'tocommunity('+data.sentData[i]['id']+')';
+            }
+            if(data.sentData[i]['pic']!=''){
+              htmlmain+='<div class="article" onclick="'+opendetails+'">';
+                htmlmain+='<div class="image"><img src="http://www.juzzn.com/data/attachment/'+data['sentData'][i]['pic']+'" alt=""></div>';
+                htmlmain+='<div class="text">';
+                  htmlmain+='<div class="title t">'+data['sentData'][i]['title']+'</div>';
+                  htmlmain+='<div class="foot t">';
+                    htmlmain+='<div class="from">'+data['sentData'][i]['dateline']+'</div>';
+                    htmlmain+='<div class="read">'+data['sentData'][i]['views']+'阅读</div>';
+                  htmlmain+='</div>'
+                htmlmain+='</div>';
+              htmlmain+='</div>';
+            }
+          }
+
+          htmldata+='<div class="listbiao">';
+            htmldata+='<div class="li"><div class="left">性别</div><div class="right">'+data['sex']+'</div></div>';
+          htmldata+='</div>';
+          htmldata+='<div class="listbiao">';
+            htmldata+='<div class="list">';
+              htmldata+='<div class="li underline"><div class="left">积分</div><div class="right">'+data['score']+'</div></div>';
+              htmldata+='<div class="li"><div class="left">智币</div><div class="right">'+data['score']+'</div></div>';
+            htmldata+='</div>';
+          htmldata+='</div>';
+
+          htmlfoot+='<div class="footer">私信</div>';
+          htmlfoot+='<span></span>';
+          if(data.hasFollow){
+              htmlfoot+='<div class="footer" id="follow" onclick="follow()">已关注</div>';
+          }else {
+              htmlfoot+='<div class="footer" id="follow" onclick="follow()">加关注</div>';
+          }
       } else {
           alert(err.msg)
       }
       $api.html($api.byId('headermain'), html);
+      $api.html($api.byId('main'), htmlmain);
+      $api.html($api.byId('data'), htmldata);
+      $api.html($api.byId('footer'), htmlfoot);
   });
 
+}
+
+function follow(){
+  api.ajax({
+      url: 'http://www.juzzn.com/action.php?action=follow',
+      method: 'post',
+      data: {
+          values: {
+              uid:userdata.uid,
+              username:userdata.username,
+              followuid:uid,
+              fusername:data.username
+          }
+      }
+  },function(ret, err){
+      if (ret.status == 1) {
+          alert('关注成功');
+          var follow = document.getElementById('follow');
+          $api.text($api.byId('follow'), '已关注');
+      } else {
+          alert(ret.msg);
+      }
+  });
+
+}
+
+//id类型
+function toartical(aid){
+    api.openWin({
+        name: 'ArticalDetails',
+        url: 'ArticalDetails.html',
+        pageParam: {
+            aid: aid
+        }
+    });
+}
+
+function tocommunity(tid){
+    api.openWin({
+        name: 'CommunityDetails',
+        url: 'CommunityDetails.html',
+        pageParam: {
+            tid: tid
+        }
+    });
 }
   </script>
   </html>
