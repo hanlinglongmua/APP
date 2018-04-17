@@ -13,7 +13,6 @@
        box-sizing: border-box;
       }
 	html{
-
 	}
      body {
        font-family: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -26,15 +25,12 @@
        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         display: block;
       }
-
         input {
         border: none;
       }
-
          ul,li,ol {
         list-style: none;
      }
-
         h1, h2,h3,h4,h5 {
          font-weight: 400;
         }
@@ -54,14 +50,13 @@
            overflow-x:hidden
          }
          /*my-header*/
-         .myheader{
+         .my-header{
            width: 100%;
            height:9rem;
            background:url('../images/my/headerMy.png') no-repeat;
            background-size:100%;
-
          }
-         .myheader .tip{
+         .my-header .tip{
            position: absolute;
            width: 40px;
            height: 50px;
@@ -71,8 +66,8 @@
            -webkit-background-size: 100% 100%;
            background-size: 100% 100%;
          }
-         .myheader .set {
-          background:url(../images/my/headerSet.png) no-repeat;
+         .my-header .set {
+          background:url(../images/my/headerset.png) no-repeat;
           position: absolute;
           width: 40px;
           height: 50px;
@@ -80,14 +75,18 @@
          -webkit-background-size: 100% 100%;
           background-size: 100% 100%;
          }
-         .myheader img{
+         .my-header img{
           height: 30px;
           width: 10%;
         }
-          .nickpicture img{
+          .nick_img img{
            width: 60px;
            height: 60px;
-          
+         }
+          .nickname{
+           font-size:13px;
+           color:#7b7b7b;
+           padding-top: 8px;
          }
           .nick{
            width:80px;
@@ -118,7 +117,6 @@
           .footer{
            line-height: 40px;
          }
-
           .participate{
            position: absolute;
            float: left;
@@ -139,7 +137,6 @@
           color: #3c3c3c;
           padding-top: -10px;
        }
-
          .fans{
           float: right;
           width: 40.3%;
@@ -150,17 +147,10 @@
           color: #3c3c3c;
           padding-top: -10px;
       }
-        .nickname{
-         font-size: 12px;
-         width: 100%;
-         height: 20px;
-         line-height: 20px;
-         padding-top: 5px;
-       }
-         .itemcontent .phone,.itemcontent .mine{
+         .item_content .phone,.item_content .mine{
           margin-bottom: 10px;
      }
-         .itemcontent a {
+         .item_content a {
           display:flex;
           justify-content: space-between;
           flex-wrap: wrap;
@@ -169,17 +159,17 @@
           align-items: center;
           border-bottom: 1px solid #eee;
       }
-         .itemcontent a img{
+         .item_content a img{
           width: 25px;
           display: inline-block;
           padding-left: 8px;
    }
-         .itemcontent a .title{
+         .item_content a .title{
           vertical-align: top;
           font-size: 15px;
           color: #3c3c3c;
      }
-        .itemcontent a .arrow{
+        .item_content a .arrow{
          display: inline-block;
          border-right: 1px solid #666;
          border-bottom: 1px solid #666;
@@ -188,7 +178,6 @@
          transform: rotate(-45deg);
          -webkit- transform: rotate(-45deg);
      }
-
         .notmean{
          display: inline-block;
          font-size: 12px;
@@ -206,24 +195,24 @@
 </head>
 <body>
   <div class="myindex" id="myindex">
-      <div class="myheader">
+      <div class="my-header">
           <div class="tip"></div>
           <div class="set" onclick="Openset()"></div>
       </div>
-      <div class="nick" onclick="openLogin()">
-            <div class="nickpicture" >
+      <div class="nick">
+            <div class="nick_img">
               <img src="../images/my/headerSculpture.png" >
-            <div class="nickname"  >点击登录</div>
-              </div>
+            </div>
+            <div class="nickname">昵称</div>
+            <span class="thisopp" onclick="openLogin()">点击登录</span>
       </div>
       <div class="footer">
             <div class="participate">参与&nbsp;<span>299</span><i></i></div>
             <div class="concern">关注&nbsp;<span>299</span><i></i></div>
             <div class="fans">粉丝&nbsp;<span>299</span></div>
       </div>
-
   </div>
-        <div class="itemcontent">
+        <div class="item_content">
             <div class="phone">
                 <a href="javascript:;" onclick="OpenDeviceShare()" >
                     <div>
@@ -235,7 +224,7 @@
                 <a href="javascript:;" onclick="OpenBindingCellPhone()">
                     <div>
                         <img src="../images/same_content/bodytel.png" alt="">
-                        <span class="title">手机<span class="notmean">未绑定</span></span>
+                        <span class="title">手机<span class="notmean">未定义</span></span>
                     </div>
                     <span class="arrow"></span>
                 </a>
@@ -293,7 +282,6 @@ apiready=function(){
   }, function(ret, err){
       VueUser();
   });
-
 }
 //ajax
 function VueUser(){
@@ -328,7 +316,6 @@ function VueUser(){
                   html+='<div class="concern">关注&nbsp;<span>'+ret.data['followNum']+'</span><i></i></div>';
                   html+='<div class="fans">粉丝&nbsp;<span>'+ret.data['fansNum']+'</span></div>';
             html+='</div>';
-
             $api.html($api.byId('myindex'), html);
         } else {
             alert( JSON.stringify( err ) );
@@ -393,7 +380,6 @@ function OpenmyAbount(){
        name: 'MyReport',
        url: 'MyReport.html'
    });
-
  }
  function openLogin(){
    api.openWin({
