@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+  />
+  <title>设备连接通知</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      background-color: #f1f1f1;
+    }
+    ul li {
+      list-style-type: none;
+    }
+    /*header 顶部样式*/
+
+    .header {
+      width: 100%;
+      height: 44px;
+      position: fixed;
+      z-index: 999;
+    }
+
+    .header .top {
+      width: 100%;
+      height: 44px;
+      background: url('../images/same_content/Header.jpg');
+    }
+
+    .header .top .sect {
+      float: left;
+      width: 33.33%;
+      height: 100%;
+    }
+
+    .header .top .fo {
+      font-size: 16px;
+      color: #fff;
+      line-height: 44px;
+      text-align: center;
+    }
+
+    .header .top .left .m {
+      position: absolute;
+      left: 15px;
+      top: 14px;
+      height: 12px;
+      font-size: 14px;
+      color: #dfdfdf;
+    }
+
+    .header .top .right {
+      position: relative;
+    }
+
+    .header .top .right .t {
+      position: absolute;
+      font-size: 14px;
+      color: #dfdfdf;
+      right: 12px;
+      text-align: center;
+      line-height: 44px;
+    }
+
+
+    /*header end*/
+
+    .main_content {
+      padding-top: 50px;
+      justify-content: center;
+    }
+
+    .main_content .time {
+      border-radius: 5px;
+      background-color: #d4d4d4;
+      font-size: 9px;
+      color: #808080;
+      width: 80px;
+      height: 15px;
+      line-height: 15px;
+      display: flex;
+      margin-left: 130px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .singonlick{
+      background-color: #fff;
+      font-size: 13px;
+      color: #1e1e1e;
+      width: 250px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      margin-top: 8px;
+      margin-left: 50px;
+      position: relative;
+    }
+    .mood{
+      width: 20px;
+      height: 20px;
+      border: 2px solid;
+      position: absolute;
+      margin-left: 15px;
+      margin-top: -27px;
+      background-color:#f2f2f2;
+      border-color: #dcdcdc;
+      border-radius: 30px;
+    }
+    .allblue img{
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      margin-top: -30px;
+      margin-left: 15px;
+
+    }
+    .deleteall{
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      background-color: #fff;
+    }
+    .deleteall .delete{
+      height: 48px;
+      width: 100%;
+      line-height: 48px;
+      text-align: center;
+      color: #000;
+      font-size: 16px;
+    }
+    .deleteall .delete{
+      border-bottom: 1px solid #e1e1e1;
+    }
+    .deleteall .delete{
+      border-bottom: 3px solid #e1e1e1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="deviceattacnment">
+    <div class="header">
+      <div class="top">
+        <div class="sect left">
+          <div class="m">全选</div>
+        </div>
+        <div class="sect fo">设备连接通知</div>
+        <div class="sect right">
+          <div class="t">完成</div>
+        </div>
+      </div>
+    </div>
+    <div class="main_content">
+      <div class="time">
+        <span>2018/03/20&nbsp;&nbsp;20:30</span>
+      </div>
+      <div class="singonlick">
+        <span>20:32多功能网关&nbsp;&nbsp;感应到单机动作</span>
+      </div>
+      <div class="allblue">
+        <img src="../images/same_content/allright.png">
+      </div>
+      <div class="time">
+        <span>2018/03/20&nbsp;&nbsp;20:30</span>
+      </div>
+      <div class="singonlick">
+        <span>20:32多功能网关&nbsp;&nbsp;感应到单机动作</span>
+      </div>
+      <div class="mood">
+      </div>
+      <div class="time">
+        <span>2018/03/20&nbsp;&nbsp;20:30</span>
+      </div>
+      <div class="singonlick">
+        <span>20:32多功能网关&nbsp;&nbsp;感应到移动</span>
+      </div>
+      <div class="mood">
+      </div>
+      <div class="time">
+        <span>2018/03/20&nbsp;&nbsp;20:30</span>
+      </div>
+      <div class="singonlick">
+        <span>20:32多功能网关&nbsp;&nbsp;感应到移动</span>
+      </div>
+      <div class="mood">
+      </div>
+    </div>
+    <footer>
+      <div class="deleteall">
+          <div class="delete">删除</div>
+      </div>
+    </footer>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function () {
+
+  };
+</script>
+
+</html>

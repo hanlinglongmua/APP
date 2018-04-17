@@ -348,6 +348,7 @@
       height: 30px;
       line-height: 30px;
       position: relative;
+      padding-bottom: 14px;
     }
 
     .main .foot div {
@@ -356,6 +357,7 @@
     .main .foot .left {
       font-size: 10px;
       color: #8d8d8d;
+      padding-bottom: 14px;
     }
     .main .foot .left .date {
       position: absolute;
@@ -396,7 +398,7 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-      height: 32px;
+      height: 40px;
       display: flex;
       background-color: #fff;
       border: 1px solid #e1e1e1;
@@ -507,7 +509,7 @@
       right: 0;
     }
   /*上升标签开始*/
-    .top-get {
+    .toget {
       height: 30px;
       width: 30px;
       position: fixed;
@@ -516,6 +518,9 @@
       background: url("../images/articalDetails/up.png");
       background-size: 100% 100%;
       transition: all 1s;
+    }
+    .toget.active {
+      display: block;
     }
     /*footer结束*/
   </style>
@@ -588,6 +593,42 @@
             </div>
             <div>
               <p>价格是Touch的两倍，科技科技科技</p>
+              <span>2018/3/24</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <div class="empire">
+              <img src="../images/discovery/article_image3.png" alt="">
+              <img class="playpoor" src="../images/discovery/discovery_playbtn.png">
+            </div>
+            <div>
+              <p>2年时间造出5款机器人</p>
+              <span>2018/3/24</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <div class="empire">
+              <img src="../images/discovery/article_image3.png" alt="">
+              <img class="playpoor" src="../images/discovery/discovery_playbtn.png">
+            </div>
+            <div>
+              <p>2年时间造出5款机器人</p>
+              <span>2018/3/24</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <div class="empire">
+              <img src="../images/discovery/article_image3.png" alt="">
+              <img class="playpoor" src="../images/discovery/discovery_playbtn.png">
+            </div>
+            <div>
+              <p>2年时间造出5款机器人</p>
               <span>2018/3/24</span>
             </div>
           </a>
@@ -705,18 +746,32 @@
     <!-- footer end -->
   </div>
   <!-- 上升标签开始 -->
-  <div class="top-get">
+    <div id="topget" class="topget">
   </div>
   <!-- 上升标签结束 -->
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-  var toTop = document.querySelector(".top-get")
-  toTop.addEventListener("click", function () {
-    console.log(123);
-    window.scrollTo(0, 0)
-  })
-  // 打开回复按钮
+var return_top = document.querySelector("#topget")
+var sTop;
+window.onscroll = function () { //sTop :滚动条距离顶部的距离数值 sTop
+  sTop = document.body.scrollTop || document.documentElement.scrollTop;
+  if (sTop > 300) {
+    return_top.className = "toget active";
+  } else {
+    return_top.className = "toget";
+  }
+}
+return_top.onclick = function () {
+  var termId = setInterval(function () {
+    sTop -= 50;
+    if (sTop <=
+      0) {
+      clearInterval(termId);
+    }
+    window.scrollTo(0, sTop);
+  }, 1);
+}  // 打开回复按钮
   function OpcomSonSon() {
     api.openWin({
       name: 'CommunityCommentDetails',

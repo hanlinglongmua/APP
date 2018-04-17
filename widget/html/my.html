@@ -54,14 +54,14 @@
            overflow-x:hidden
          }
          /*my-header*/
-         .my-header{
+         .myheader{
            width: 100%;
            height:9rem;
            background:url('../images/my/headerMy.png') no-repeat;
            background-size:100%;
 
          }
-         .my-header .tip{
+         .myheader .tip{
            position: absolute;
            width: 40px;
            height: 50px;
@@ -71,7 +71,7 @@
            -webkit-background-size: 100% 100%;
            background-size: 100% 100%;
          }
-         .my-header .set {
+         .myheader .set {
           background:url(../images/my/headerSet.png) no-repeat;
           position: absolute;
           width: 40px;
@@ -80,13 +80,14 @@
          -webkit-background-size: 100% 100%;
           background-size: 100% 100%;
          }
-         .my-header img{
+         .myheader img{
           height: 30px;
           width: 10%;
         }
-          .nick_img img{
+          .nickpicture img{
            width: 60px;
            height: 60px;
+          
          }
           .nick{
            width:80px;
@@ -156,10 +157,10 @@
          line-height: 20px;
          padding-top: 5px;
        }
-         .item_content .phone,.item_content .mine{
+         .itemcontent .phone,.itemcontent .mine{
           margin-bottom: 10px;
      }
-         .item_content a {
+         .itemcontent a {
           display:flex;
           justify-content: space-between;
           flex-wrap: wrap;
@@ -168,17 +169,17 @@
           align-items: center;
           border-bottom: 1px solid #eee;
       }
-         .item_content a img{
+         .itemcontent a img{
           width: 25px;
           display: inline-block;
           padding-left: 8px;
    }
-         .item_content a .title{
+         .itemcontent a .title{
           vertical-align: top;
           font-size: 15px;
           color: #3c3c3c;
      }
-        .item_content a .arrow{
+        .itemcontent a .arrow{
          display: inline-block;
          border-right: 1px solid #666;
          border-bottom: 1px solid #666;
@@ -205,12 +206,12 @@
 </head>
 <body>
   <div class="myindex" id="myindex">
-      <div class="my-header">
+      <div class="myheader">
           <div class="tip"></div>
           <div class="set" onclick="Openset()"></div>
       </div>
       <div class="nick" onclick="openLogin()">
-            <div class="nick_img" >
+            <div class="nickpicture" >
               <img src="../images/my/headerSculpture.png" >
             <div class="nickname"  >点击登录</div>
               </div>
@@ -222,7 +223,7 @@
       </div>
 
   </div>
-        <div class="item_content">
+        <div class="itemcontent">
             <div class="phone">
                 <a href="javascript:;" onclick="OpenDeviceShare()" >
                     <div>
