@@ -444,10 +444,10 @@
                     //文章主体
                     htmls += '<div class="ltls">';
                           htmls+='<div class="ll like">';
-                              htmls+='<div><img src="'+data[i]['avatar']+'" alt=""></div>';//用户头像
+                              htmls+='<div><img src="'+data[i]['avatar']+'" alt="" onclick="openFriendDetailsData('+data[i]['uid']+')"></div>';//用户头像
                               htmls+='<div>'+data[i]['username']+'</div>';//用户名字
                           htmls+='</div>';
-                          htmls +='<div class="ll share"><i class="iconfont">&#xf0343;</i><div></div></div>';
+                          htmls +='<div class="ll share"><i class="iconfont" onclick="openShareOther()">&#xe600;</i><div></div></div>';
                     htmls += '</div>';
               htmls += '</div>';
             }
@@ -457,7 +457,6 @@
           }else{
               alert(err.msg);
           }
-
             $api.html($api.byId('sectRcmd'),htmls);
         });
       }
@@ -600,14 +599,47 @@
       // }
       function OpenDetail(aid){
         api.openWin({
-            name: 'ArticalDetail',
-            url: 'ArticalDetail.html',
+            name: 'ArticalDetails',
+            url: 'ArticalDetails.html',
             pageParam: {
                 aid: aid
             }
         });
-
+      }
+      function openShareOther(){
+        api.openFrame({
+            name: 'ShareOther',
+            url: 'ShareOther.html',
+            rect: {
+                x: 0,
+                y: 0,
+                marginTop:415,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                name: 'test'
+            },
+            animation:{
+              type:"push",
+              subType:"from_bottom",
+              duration:300
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false
+        });
       }
 
+      function openFriendDetailsData(uid){
+        api.openWin({
+            name: 'FriendDetailsData',
+            url: 'FriendDetailsData.html',
+            pageParam: {
+                uid: uid
+            }
+        });
+      }
   </script>
   </html>

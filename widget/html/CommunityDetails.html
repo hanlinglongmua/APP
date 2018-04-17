@@ -426,13 +426,65 @@
       right: 0;
     }
     /*footer end*/
-
+    /*textareaMain*/
+    .textareaMain{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      max-height: 120px;
+      background-color: #fff;
+      border-top: 1px solid #e1e1e1;
+      display: none;
+    }
+    .textareaMain textarea{
+      font-size: 12px;
+      color: #8f8f8f;
+      background-color: #eee;
+      line-height: 18px;
+      border-radius: 10px;
+      height: 50px;
+      max-height: 62px;
+      padding:3px 0 3px 0;
+      margin: 0 2% 0 2%;
+      width: 96%;
+      outline: none;
+      resize: none;
+      overflow: visible;
+      -webkit-voerflow:visible;
+      position: absolute;
+      bottom: 6px;
+    }
+    .textareaMain .text{
+      top: 0;
+      width: 100%;
+      height: 38px;
+    }
+    .textareaMain .text .attention input{
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #eee;
+    }
+    .textareaMain .text .attention .atttext{
+      position: absolute;
+      top: 9px;
+      left: 28px;
+      font-size: 12px;
+    }
+    .textareaMain .text .send{
+      position: absolute;
+      top: 10px;
+      right: 8px;
+      color:#8f8f8f;
+    }
+    /*textareaMain end*/
   </style>
 </head>
 
 <body>
   <div class="comment_details">
-      <div id="details">
+      <div id="details" onclick='toggleFooter()'>
         <!-- header -->
         <div class="header">
           <div class="title">
@@ -509,40 +561,74 @@
         <!-- main end -->
     </div>
     <!-- footer -->
-    <footer>
-      <div class="ii" onclick="api.closeWin();">
-        <i></i>
-      </div>
-      <div class="list">
-        <div class="li">
-            <input type="text" name="" id="talk" placeholder="写评论...">
-        </div>
-        <div class="li">
-          <a href="javascript:;" >
-              <i class="iconfont icontalk">&#xe75b;</i>
-              <div class="talknum">28</div>
-          </a>
-          <a href="javascript:;">
-              <i class="iconfont iconlike">&#xe617;</i>
-              <div class="likenum">28</div>
-          </a>
-          <a href="javascript:;">
-              <i class="iconfont iconcollection">&#xe6a7;</i>
-          </a>
-          <a href="javascript:;">
-              <i class="iconfont iconshare">&#xf0343;</i>
-          </a>
-        </div>
-      </div>
+    <footer id="footer">
+            <div class="ii" onclick="api.closeWin();">
+                  <i></i>
+            </div>
+            <div class="list">
+                  <div class="li">
+                      <input type="text" name="" id="talk" placeholder="写评论..." onclick="inputFouse();">
+                  </div>
+                  <div class="li">
+                    <a href="javascript:;">
+                        <i class="iconfont icontalk">&#xe75b;</i>
+                        <div class="talknum">28</div>
+                    </a>
+                    <a href="javascript:;" onclick = "footerAll('like')">
+                        <i class="iconfont iconlike">&#xe617;</i>
+                        <div class="likenum">28</div>
+                    </a>
+                    <a href="javascript:;" onclick = "footerAll('favorite')">
+                        <i class="iconfont iconcollection">&#xe6a7;</i>
+                    </a>
+                    <a href="javascript:;">
+                        <i class="iconfont iconshare">&#xe600;</i>
+                    </a>
+                  </div>
+            </div>
     </footer>
     <!-- footer end -->
-  </div>
+    <!-- 增大后的评论 -->
+    <div class="textareaMain" id="textareaMain">
+        <div class="text" id="text">
+            <div class="attention">
+                <input type="checkbox">
+                <div class="atttext">同时关注这篇文章作者</div>
+            </div>
+            <div class="send" onclick="criticism()">发送</div>
+        </div>
+        <textarea name="textarea" id="textarea" cols="40" rows="1" autofocus placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
+    </div>
+    <!-- 增大后的评论 -->
+    </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-apiready=function(){
-  var pageParamTid = api.pageParam.tid
   var html = '';
+  var data = {};
+  var pageParamTid;
+  //评论盒子显示和消失
+  var textareaMain = document.getElementById('textareaMain')
+  var footer = document.getElementById('footer')
+  var replyPid = 0;
+  function inputFouse(type){
+      replyPid = type;
+      if(replyPid){
+        event.stopPropagation();
+      }
+      textareaMain.style.display = 'block';
+      footer.style.display = 'none';
+  }
+  //点击切换底部
+  function toggleFooter(){
+    textareaMain.style.display = 'none';
+    footer.style.display = 'flex';
+  }
+apiready=function(){
+  pageParamTid = api.pageParam.tid;
+    CommentDetailsData();
+}//
+function CommentDetailsData(){
     api.ajax({
         url: 'http://www.juzzn.com/discDetail.php',
         method: 'post',
@@ -553,7 +639,8 @@ apiready=function(){
         }
     },function(ret, err){
         if (ret.status==1) {
-          var data = ret.data;
+          html = '';
+          data = ret.data;
           html+='<div class="header">';
                 html+='<div class="title">';
                       html+='<div class="titl">'+data['subject']+'</div>';//文章标题
@@ -572,7 +659,7 @@ apiready=function(){
                             html+='<div class="name">'+data['author']+'</div>';//关注名字
                             html+='<div class="sign">'+data['sign']+'</div>';//关注个性签名
                       html+='</div>';
-                      html+='<div class="right">';
+                      html+='<div class="right" onclick="footerAll(\'follow\')">';
                             html+='<img src="../images/comment_details/follow.png" alt="">';
                       html+='</div>';
                 html+='</div>';
@@ -615,7 +702,7 @@ apiready=function(){
                             html+='</div>';
                             html+='<div class="right">';
                                   html+='<i class="iconfont img">&#xe617;</i>';
-                                  html+='<div class="talk">回复</div>';
+                                  html+='<div class="talk" onclick="inputFouse('+data.reply[i]['pid']+')">回复</div>';
                                   // html+='<div class="share">'+data.[i]['recNum']+'</div>';
                             html+='</div>';
                       html+='</div>';
@@ -629,9 +716,8 @@ apiready=function(){
             api.alert(ret.msg);
         }
         $api.html($api.byId('details'), html);
-    });
-
-}
+    })
+  }
   // 打开回复按钮
   function OpcomSonSon() {
     api.openWin({
@@ -639,7 +725,121 @@ apiready=function(){
       url: 'CommunityCommentDetails.html'
     });
   }
-
+  //打开一张图片
+    function openimg(ret) {
+        var src = ret.getAttribute("src");
+        //图片加载
+        var photoBrowser = api.require('photoBrowser');
+        photoBrowser.open({
+          images: [
+              src
+          ],
+        bgColor: '#000'
+    }, function(ret, err) {
+        if(ret.eventType=='click'){
+            photoBrowser.close();
+        }
+      });
+  }
+  //评论自动换行
+  function changeHeight(i){
+    i.style.height = 'auto';
+    i.style.height=i.scrollHeight +32 +"px";
+    var text = document.getElementById('text');
+    text.style.height = 'auto';
+    text.style.height = text.scrollHeight + i.style.height + text.style.height + "px";
+    var textareaMain = document.getElementById('textareaMain');
+    textareaMain.style.padding = "0 0 6px 0";
+    textareaMain.style.height = textareaMain.scrollHeight + i.style.height + text.style.height;
+  }
+  //收藏，点赞，评论
+  function footerAll(type){
+    var userdata = {};
+    var pageParamAuthorid = api.pageParam.authorid;
+    userdata = $api.getStorage('userdata');
+    resData={};
+    if(type == 'follow'){
+      resData.followuid = pageParamAuthorid;//收藏被关注人id
+      resData.fusername = data['author'];//被关注人名称
+      resData.uid = userdata['uid'];//操作用户id
+      resData.username = userdata['username'];//操作用户id名称
+    }else if(type == 'favorite'){
+      resData.followuid = pageParamAuthorid;//收藏被关注人id
+      resData.fusername =data['author'];//被关注人名称
+      resData.id = pageParamAuthorid;//文章id
+      resData.idtype = 'tid';//收藏帖子
+      resData.title = data['subject'];//收藏标题
+    }else if(type == 'like'){
+      resData.followuid = pageParamAuthorid;
+      resData.fusername = data['author'];
+      resData.id = pageParamAuthorid;
+    }
+    api.ajax({
+        url: 'http://www.juzzn.com/action.php?action='+type,
+        method: 'post',
+        data: {
+            values: resData
+        }
+    },function(ret, err){
+        if (ret.status==1) {
+            alert('收藏，点赞，评论');
+        } else {
+            Toast(ret.msg,2000);
+        }
+    });
+  }
+  //主题评论提交
+  function criticism(){
+        var userdata = {};
+        var pageParamTid = api.pageParam.tid;
+        userdata = $api.getStorage('userdata');
+        var textarea = $api.val($api.byId('textarea'));
+        criticismData={};
+        criticismData.fid = data['fid'];
+        criticismData.tid = pageParamTid;//文章id
+        criticismData.authorid = userdata['uid'];//操作用户id
+        criticismData.author = userdata['username'];//操作用户id名称
+        criticismData.message = textarea;//评论内容
+        criticismData.pid = replyPid?replyPid:0;
+        alert(criticismData.pid)
+        if(criticismData.pid==0){
+          criticismData.bbcodeoff = -1;
+        }else {
+          criticismData.bbcodeoff = 0;
+        }
+        if(textarea==''){
+          Toast('请输入你要评论的内容',2000)
+        }else {
+          api.ajax({
+            url: 'http://www.juzzn.com/comment.php',
+            method: 'post',
+            data: {
+                  values:criticismData
+            }
+            },function(ret, err){
+            if (ret.status == 1) {
+              alert('abc');
+              CommentDetailsData();
+            }else {
+              alert(ret.msg);
+            }
+        });
+      }
+    }
+  //自定义弹框
+  function Toast(msg,duration){
+      duration=isNaN(duration)?3000:duration;
+      var m = document.createElement('div');
+      m.innerHTML = msg;
+      m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+      document.body.appendChild(m);
+      setTimeout(function() {
+          var d = 0.5;
+          m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+          m.style.opacity = '0';
+          setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+      }, duration);
+  }
 
 </script>
 
