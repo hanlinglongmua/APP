@@ -509,19 +509,20 @@
       right: 0;
     }
   /*上升标签开始*/
-    .toget {
-      height: 30px;
-      width: 30px;
-      position: fixed;
-      bottom: 60px;
-      right: 20px;
-      background: url("../images/articalDetails/up.png");
-      background-size: 100% 100%;
-      transition: all 1s;
-    }
-    .toget.active {
-      display: block;
-    }
+  .toget {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    background: url("../images/articalDetails/up.png");
+    background-size: 100% 100%;
+    transition: all 1s;
+    display: none;
+  }
+  .toget.active {
+    display: block;
+  }
     /*footer结束*/
   </style>
 </head>
@@ -746,8 +747,7 @@
     <!-- footer end -->
   </div>
   <!-- 上升标签开始 -->
-    <div id="topget" class="topget">
-  </div>
+    <div id="topget" class="topget"></div>
   <!-- 上升标签结束 -->
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -762,16 +762,17 @@ window.onscroll = function () { //sTop :滚动条距离顶部的距离数值 sTo
     return_top.className = "toget";
   }
 }
-return_top.onclick = function () {
-  var termId = setInterval(function () {
+return_top.onclick = function (){
+  var termId = setInterval(function (){
     sTop -= 50;
-    if (sTop <=
-      0) {
+    if (sTop <= 0){
       clearInterval(termId);
     }
     window.scrollTo(0, sTop);
-  }, 1);
-}  // 打开回复按钮
+  },1);
+}
+
+ // 打开回复按钮
   function OpcomSonSon() {
     api.openWin({
       name: 'CommunityCommentDetails',

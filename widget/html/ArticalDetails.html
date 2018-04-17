@@ -709,7 +709,7 @@
 <script type="text/javascript">
 var return_top = document.querySelector("#topget")
 var sTop;
-window.onscroll = function () { //sTop :滚动条距离顶部的距离数值 sTop
+window.onscroll = function () {   //sTop :滚动条距离顶部的距离数值 sTop
   sTop = document.body.scrollTop || document.documentElement.scrollTop;
   if (sTop > 300) {
     return_top.className = "toget active";
@@ -726,6 +726,7 @@ return_top.onclick = function (){
     window.scrollTo(0, sTop);
   },1);
 }
+
   // 打开回复按钮
   function OpcomSonSon() {
     api.openWin({
@@ -752,13 +753,18 @@ return_top.onclick = function (){
   apiready=function(){
     pageParamAid = api.pageParam.aid;
     var html = '';
+    var ArticalDetailsData = {};
+    if(userdata){
+      ArticalDetailsData.aid = pageParamAid;
+      ArticalDetailsData.uid = userdata.uid
+    }else {
+      ArticalDetailsData.aid = pageParamAid;
+    }
     api.ajax({
         url: 'http://www.juzzn.com/articleDetail.php',
         method: 'post',
         data: {
-            values: {
-                aid: pageParamAid,uid:userdata.uid
-            }
+            values:ArticalDetailsData
         }
     },function(ret, err){
         data = ret.data;
