@@ -207,7 +207,7 @@
       <div class="main current">
         <!-- 有图片的文章 -->
         <div class="article">
-            <div class="image"><img src="../images/MyReport/report1.png" alt=""></div>
+            <div class="image"><img src="../images/myReport/report1.png" alt=""></div>
             <div class="text">
               <div class="title t">真·海景房，早上鲨鱼来叫醒你</div>
               <div class="foot t">
@@ -218,7 +218,7 @@
         </div>
 
         <div class="article">
-            <div class="image"><img src="../images/MyReport/report2.png" alt=""></div>
+            <div class="image"><img src="../images/myReport/report2.png" alt=""></div>
             <div class="text">
               <div class="title t">工作时，我们总少不了需要一些小工具的协助</div>
               <div class="foot t">
@@ -229,7 +229,7 @@
         </div>
 
         <div class="article">
-            <div class="image"><img src="../images/MyReport/report3.png" alt=""></div>
+            <div class="image"><img src="../images/myReport/report3.png" alt=""></div>
             <div class="text">
               <div class="title t">科技时代，连美甲都是智能</div>
               <div class="foot t">
@@ -254,7 +254,7 @@
         <!-- 有视频的文章 -->
         <div class="video">
             <div class="image">
-                <img src="../images/myreport/report4.png" alt="">
+                <img src="../images/myReport/report4.png" alt="">
                 <img class="playimg" src="../images/myReport/play.png" alt="">
             </div>
             <div class="text">
@@ -269,10 +269,10 @@
       </div>
       <!-- main （文章）内容页面 end -->
 
-      <!-- ma (视频)内容页面 -->
+      <!-- main (视频)内容页面 -->
       <div class="main">
         <div class="article">
-            <div class="image"><img src="../images/MyReport/report1.png" alt=""></div>
+            <div class="image"><img src="../images/myReport/report1.png" alt=""></div>
             <div class="text">
               <div class="title t">真·海景房，早上鲨鱼来叫醒你</div>
               <div class="foot t">
@@ -283,7 +283,7 @@
         </div>
 
         <div class="article">
-            <div class="image"><img src="../images/MyReport/report2.png" alt=""></div>
+            <div class="image"><img src="../images/myReport/report2.png" alt=""></div>
             <div class="text">
               <div class="title t">工作时，我们总少不了需要一些小工具的协助</div>
               <div class="foot t">
@@ -294,7 +294,7 @@
         </div>
 
         <div class="article">
-            <div class="image"><img src="../images/MyReport/report3.png" alt=""></div>
+            <div class="image"><img src="../images/myReport/report3.png" alt=""></div>
             <div class="text">
               <div class="title t">科技时代，连美甲都是智能</div>
               <div class="foot t">
@@ -319,7 +319,7 @@
         <!-- 有视频的文章 -->
         <div class="video">
             <div class="image">
-                <img src="../images/myreport/report4.png" alt="">
+                <img src="../images/myReport/report4.png" alt="">
                 <img class="playimg" src="../images/myReport/play.png" alt="">
             </div>
             <div class="text">
@@ -377,8 +377,138 @@
           maxboxs[this.index].className = 'main current'
       }
   }
-
 }
+//ajax
+/*function VueUser{
+function (ret,err){
+  if (ret.status =='1') {
+    var data = ret.data;
+    // main文章内容页面begin
+html+='<div class="main current">'
+   // 有图片的文章begin
+   html+='<div class="article">';
+       html+='<div class="image">'
+        html+='<img src= "'+ ret.data['pic']+'" onerror="this.src=\'../images/MyReport/report1.png\' alt="">'
+       html+='</div>';
+      html+='<div class="text">'
+        html+='<div class="title t">真.海景房,早上鲨鱼来叫醒你'+ret.data['title']+'</div>'
+        html+='<div class="foot t">'
+          html+='<div class="from">最新资讯&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+          html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+        html+='</div>';
+     html+='</div>';
+   html+='</div>';
+
+html+='<div class="article">'
+    html+='<div class="image">'
+     html+='<img src= "'+ ret.data['pic']+'" onerror="this.src=\'../images/MyReport/report2.png\' alt="">'
+    html+='</div>';
+    html+='<div class="text">'
+      html+='<div class="title t">工作时，我们总少不了需要一些小工具的协助'+ret.data['title']+'</div>'
+      html+='<div class="foot t">'
+        html+='<div class="from">科技&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+        html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+      html+='</div>'
+    html+='</div>'
+html+='</div>'
+
+ html+='<div class="article">'
+    html+='<div class="image">'
+      html+='<img src="'+ ret.data['pic']+'" onerror="this.src=\'../images/MyReport/report1.png\' alt="">'
+    html+='</div>'
+        html+='<div class="text">'
+          html+='<div class="title t">科技时代，连美甲都是智能'+ret.data['title']+'</div>'
+          html+='<div class="foot t">'
+            html+='<div class="from">真撒拉&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+            html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+          html+='</div>'
+         html+='</div>'
+   html+='</div>'
+  //  有图片的文章end
+
+  // 没有图片的文章begin
+html+='<div class="article">'
+  html+='<div class="text">'
+   html+='<div class="title t">人工智能时代来临人工智能时代来临人工智能时代来临人工智能时代来临'+ret.data['title']+'</div>'
+   html+='<div class="foot t">'
+      html+='<div class="from">按时发动机&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+      html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+   html+='</div>'
+  html+='</div>'
+html+='</div>'
+// 没有图片的文章end
+
+// 有视频的文章begin
+ html+='<div class="video">'
+   html+='<div class="image">'
+    html+='<img src="'+ ret.data['pic']+'" onerror="this.src=\'../images/myReport/report4.png\' alt="">'
+   html+='</div>'
+    html+='<img class="paying" src="'+ ret.data['pic']+'" onerror="this.src=\'../images/myReport/play.png\' alt="" >'+'</div>'
+   html+='<div class="text">'
+     html+='<div class="title t">真.海景房,早上鲨鱼来叫醒你'+ret.data['title']+'</div>'
+     html+='<div class="foot t">'
+        html+='<div class="from">东方红&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+        html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+     html+='</div>'
+    html+='</div>'
+  html+='</div>'
+  // 有视频的文章end
+html+='</div>'
+  // main文章内容页面end
+
+  // main视频内容页面
+ html+='<div class="main">'
+   html+='<div class="article">'
+   html+='<div class="image">'
+    html+='<img src="'+ ret.data['pic']+'" onerror="this.src=\'../images/myReport/report1.png\' alt="">'
+   html+='</div>'
+   html+='<div class="text">'
+     html+='<div class="titlt t">真·海景房，早上鲨鱼来叫醒你'+ret.data['subject']+'</div>'
+     html+='<div class="foot t">'
+       html+='<div class="from">鬼地方&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+       html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+     html+='</div>'
+    html+='</div>'
+  html+='</div>'
+
+html+='<div class="article">'
+  html+='<div class="image">'
+   html+='<img src="'+ ret.data['pic']+'" onerror="this.src=\'../images/myReport/report2.png\' alt="">'
+  html+='</div>'
+ html+='<div class="text">'
+  html+='<div class="title t">工作时，我们总少不了需要一些小工具的协助'+ret.data['subject']'</div>'
+  html+='<div class="foot t">'
+    html+='<div class="from">哥仨个&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+    html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+  html+='</div>'
+ html+='</div>'
+html+='</div>'
+
+html+='<div class="article">'
+   html+='<div class="text" style="padding-left:0;">'
+     html+='<div class="title t">人工智能时代来临'+ret.data['subject']+'</div>'
+     html+='<div class="foot t">'
+       html+='<div class="from">发生地&nbsp;&nbsp;&nbsp;2018/04/07'+ret.data['fromurl']+'</div>'
+       html+='<div class="read">2018阅读'+ret.data['views']+'</div>'
+     html+='</div>'
+   html+='</div>'
+html+='</div>'
+// 没有图片的的文章end
+
+// 有视频的文章begin
+  html+='<div class="video">'
+     html+='<div class="image">'
+       html+='<img src="'+ ret.data['pic']+'" onerror="this.src=\'../images/myreport/report4.png\' alt="">'
+       html+='<img class="playing" src="'+ ret.data['pic']+'" onerror="this.src=\'../images/myreport/report4.png\' alt="">'
+     html+='</div>'
+
+
+
+
+
+  }
+}
+}*/
 function closeWinDs(){
   api.closeWin({
       name: 'MyCollection'
