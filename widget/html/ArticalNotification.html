@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
   />
-  <title>我的粉丝</title>
+  <title>文章通知</title>
   <link rel="stylesheet" type="text/css" href="../css/api.css" />
   <style>
     * {
@@ -13,13 +13,9 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      background-color: #f2f2f2;
-    }
-    html,body{
-      height: 100%;
-      min-width: 320px;
     }
 
     a {
@@ -78,7 +74,6 @@
       color: #fff;
       line-height: 44px;
       text-align: center;
-      white-space: nowrap;
     }
 
     .mood .top .left>i {
@@ -92,39 +87,19 @@
       border-right: none;
       transform: rotate(45deg);
     }
-    .search-input{
-        width: 93%;
-        height: 28px;
-        margin-top: 55px;
-        margin-left: 10px;
-        text-align: center;
-        background-color: #fff;
-        font-size: 15px;
-        color: #939494;
+
+
+    .contentitem {
+      display: flex;
+      justify-content: space-between;
+      padding: 50px 10px 10px 10px;
+      position: relative;
     }
-    .search-advertise{
-        left: 50%;
-        margin-left: -230px;
-        top: 13px;
-        width: 18px;
-        height: 16px;
-        background:url("../images/myattention/search.png") no-repeat;
-        background-size: 17px;
-    }
-    .flex1{
-        -webkit-box-flex:1;
-        position: relative;
-    }
-    .view{
-      padding-top: 50px;
-    }
-    .content,.share,.contentitem{
+    .content,.share{
       display: flex;
       justify-content: space-between;
       padding: 10px 10px 0px 10px;
       position: relative;
-      background-color: #fff;
-      margin-bottom: 10px;
      }
     .usercomment {
       display: flex;
@@ -137,48 +112,52 @@
     }
 
     .usercomment i {
-      color: #3d3d3d;
-      font-size: 12px;
-      padding: 5px 0;
-      display: flex;
+      color: #808080;
+      font-size: 14px;
     }
 
     .commentcontent span {
-      color: #111;
+      color: #002663;
       font-size: 14px;
     }
 
     .commentcontent p {
       margin-bottom: 6px;
-      color: #4e5d67;
-      font-size: 12px;
+      color: #393939;
+      font-size: 14px;
     }
+   .commentcontent .allright{
+  height: 15px;
+}
     .commentcontent a {
       display: inline-block;
     }
-    .commentcontent .tech{
-      border: 1px solid #4e5d67;
-      display:inline-block;
-      justify-content: center;
-    }
-    .arttitle,.art{
+     .not{
+      border: 1px solid #ffffff;
+      background-color:#f2f2f2;
+      border-radius: 5px;
+}
+      .not p{
+       border-bottom: 1px solid #dcdcdc;
+       padding: 2px;
+       margin-left: 7px;
+       font-size: 13px;
+       color: #111;
+}
+     .not span{
+       margin-left: 7px;
+       padding: 2px;
+       font-size: 12px;
+       color: #848484;
+}
+    .arttitle {
       width: 20%;
     }
-   .art p,.arttitle p{
-     color: #afafaf;
-     font-size: 12px;
-     border: 1px solid #afafaf;
-     width: 60px;
-     padding: 4px;
-     border-radius: 5px;
-     display: flex;
-     justify-content: center;
-}
-   .art p{
-  color: #8493b0;
-  border: 1px solid #8493b0;
 
-}
+    .arttitle p {
+      color: #808080;
+      font-size: 11px;
+    }
     .contentitem::before{
       content: "";
       width: 100%;
@@ -189,6 +168,7 @@
       transform: scale(1);
       background-color:#eee;
     }
+
     /*头部结束*/
   </style>
 </head>
@@ -201,69 +181,61 @@
         <div class="sect left">
           <i></i>
         </div>
-        <div class="sect fo">我的粉丝</div>
+        <div class="sect fo">文章通知</div>
       </div>
     </div>
-      <!-- 头部结束 -->
-    <div class="searchbox">
-      <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
-           <ul>
-               <li class="flex1">
-                     <input type="text" class="search-input" placeholder="搜索"/>
-                     <span class="search-advertise" id="search-advertise"></span>
-               </li>
-             </ul>
-
-      </div>
-    </div>
-  <div class="view">
+    <!-- 头部结束 -->
     <div class="contentitem">
       <div class="usercomment">
         <img src="../images/myattention/science1.png" alt="">
         <div class="commentcontent">
           <p>
-            <span>最最新资讯</span>
+            <span>大艺术家</span>&nbsp; 评论了
+            <span>你</span>
           </p>
-          <p class="tech">科技大侠</p>
-          <i>暂无签名</i>
-        </div>
-      </div>
-      <div class="art">
-        <p>+&nbsp;关注</p>
-      </div>
-    </div>
-
-    <div class="content">
-      <div class="usercomment">
-        <img src="../images/myattention/science2.png" alt="">
-        <div class="commentcontent">
-          <p>
-            <span>适用一切</span>
-          </p>
-            <p class="tech">科技大侠</p>
-          <i>虫洞连接黑洞</i>
+          <p>对的</p>
+          <i>2018-03-19</i>
         </div>
       </div>
       <div class="arttitle">
-        <p>互相关注</p>
+        <p>句子迷，一个美句佳句的分享社区</p>
+      </div>
+    </div>
+    <div class="content">
+      <div class="usercomment">
+        <img src="../images/myattention/science1.png" alt="">
+        <div class="commentcontent">
+          <p>
+            <span>大艺术家</span>&nbsp; 评论了
+            <span>你</span>
+          </p>
+          <div class="not">
+            <p>我不太清楚</p>
+            <span>我的评论你知道要怎么处理吗？</span>
+          </div>
+          <i>2018-03-19</i>
+        </div>
+      </div>
+      <div class="arttitle">
+        <p>句子迷，一个美句佳句的分享社区</p>
       </div>
     </div>
     <div class="share">
       <div class="usercomment">
-        <img src="../images/myattention/science3.png" alt="">
+        <img src="../images/myattention/science1.png" alt="">
         <div class="commentcontent">
           <p>
-            <span>Hello_ami</span>
+            <span>大艺术家</span>&nbsp; 评论了
+            <span>你</span>
           </p>
-            <p class="tech">科技大侠</p>
-          <i>科学是和未知的领域打交道</i>
+          <p class="allright"></p>
+          <i>2018-03-19</i>
         </div>
       </div>
       <div class="arttitle">
-        <p>互相关注</p>
+        <p>句子迷，一个美句佳句的分享社区</p>
       </div>
     </div>
-  </div>
   </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>

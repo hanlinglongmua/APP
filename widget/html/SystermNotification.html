@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
   />
-  <title>文章通知</title>
+  <title>系统通知</title>
   <link rel="stylesheet" type="text/css" href="../css/api.css" />
   <style>
     * {
@@ -86,12 +86,10 @@
       border-top: none;
       border-right: none;
       transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
     }
 
 
     .contentitem {
-      display: flex;
       justify-content: space-between;
       padding: 50px 10px 10px 10px;
       position: relative;
@@ -121,11 +119,14 @@
       color: #002663;
       font-size: 14px;
     }
-
+    .commentcontent{
+  padding-top: 5px;
+}
     .commentcontent p {
       margin-bottom: 6px;
       color: #393939;
       font-size: 14px;
+
     }
    .commentcontent .allright{
   height: 15px;
@@ -133,31 +134,7 @@
     .commentcontent a {
       display: inline-block;
     }
-     .not{
-      border: 1px solid #ffffff;
-      background-color:#f2f2f2;
-}
-      .not p{
-       border-bottom: 1px solid #dcdcdc;
-       padding: 2px;
-       margin-left: 7px;
-       font-size: 13px;
-       color: #111;
-}
-     .not span{
-       margin-left: 7px;
-       padding: 2px;
-       font-size: 12px;
-       color: #848484;
-}
-    .arttitle {
-      width: 20%;
-    }
 
-    .arttitle p {
-      color: #808080;
-      font-size: 11px;
-    }
     .contentitem::before{
       content: "";
       width: 100%;
@@ -181,61 +158,34 @@
         <div class="sect left">
           <i></i>
         </div>
-        <div class="sect fo">文章通知</div>
+        <div class="sect fo">系统通知</div>
       </div>
     </div>
     <!-- 头部结束 -->
     <div class="contentitem">
       <div class="usercomment">
         <img src="../images/myattention/science1.png" alt="">
-        <div class="commentcontent">
+        <div class="commentcontent" >
           <p>
-            <span>大艺术家</span>&nbsp; 评论了
-            <span>你</span>
+            <span>系统</span>
           </p>
-          <p>对的</p>
+          <p>你的用户组将升级为&nbsp;科技大侠&nbsp;看看我能做什么></p>
           <i>2018-03-19</i>
         </div>
       </div>
-      <div class="arttitle">
-        <p>句子迷，一个美句佳句的分享社区</p>
-      </div>
-    </div>
-    <div class="content">
       <div class="usercomment">
         <img src="../images/myattention/science1.png" alt="">
         <div class="commentcontent">
           <p>
-            <span>大艺术家</span>&nbsp; 评论了
-            <span>你</span>
+            <span>系统</span>
           </p>
-          <div class="not">
-            <p>我不太清楚</p>
-            <span>我的评论你知道要怎么处理吗？</span>
-          </div>
+          <p>你的用户组将升级为&nbsp;科技大侠&nbsp;看看我能做什么></p>
           <i>2018-03-19</i>
         </div>
       </div>
-      <div class="arttitle">
-        <p>句子迷，一个美句佳句的分享社区</p>
-      </div>
+
     </div>
-    <div class="share">
-      <div class="usercomment">
-        <img src="../images/myattention/science1.png" alt="">
-        <div class="commentcontent">
-          <p>
-            <span>大艺术家</span>&nbsp; 评论了
-            <span>你</span>
-          </p>
-          <p class="allright"></p>
-          <i>2018-03-19</i>
-        </div>
-      </div>
-      <div class="arttitle">
-        <p>句子迷，一个美句佳句的分享社区</p>
-      </div>
-    </div>
+
   </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
