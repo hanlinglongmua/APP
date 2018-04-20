@@ -545,12 +545,13 @@ apiready = function(){
             //判断文章和社区
             if(data.sentData[i]['idtype']=='aid'){
               opendetails = 'toartical('+data.sentData[i]['id']+')';
-            }else {
+            }else if(data.sentData[i]['idtype']=='tid'){
               opendetails = 'tocommunity('+data.sentData[i]['id']+')';
             }
-            if(data.sentData[i]['pic']!=''){
               htmlmain+='<div class="article" onclick="'+opendetails+'">';
+              if(data.sentData[i]['pic']!=''){
                 htmlmain+='<div class="image"><img src="http://www.juzzn.com/data/attachment/'+data['sentData'][i]['pic']+'" alt=""></div>';
+              }
                 htmlmain+='<div class="text">';
                   htmlmain+='<div class="title t">'+data['sentData'][i]['title']+'</div>';
                   htmlmain+='<div class="foot t">';
@@ -559,7 +560,6 @@ apiready = function(){
                   htmlmain+='</div>'
                 htmlmain+='</div>';
               htmlmain+='</div>';
-            }
           }
 
           htmldata+='<div class="listbiao">';
@@ -604,11 +604,10 @@ function follow(){
       }
   },function(ret, err){
       if (ret.status == 1) {
-          alert('关注成功');
-          var follow = document.getElementById('follow');
+          Toast('关注成功');
           $api.text($api.byId('follow'), '已关注');
       } else {
-          alert(ret.msg);
+          Toast(ret.msg);
       }
   });
 
@@ -633,6 +632,21 @@ function tocommunity(tid){
             tid: tid
         }
     });
+}
+
+//自定义弹框
+function Toast(msg,duration){
+    duration=isNaN(duration)?3000:duration;
+    var m = document.createElement('div');
+    m.innerHTML = msg;
+    m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+    document.body.appendChild(m);
+    setTimeout(function() {
+        var d = 0.5;
+        m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+        m.style.opacity = '0';
+        setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+    }, duration);
 }
   </script>
   </html>

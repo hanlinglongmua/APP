@@ -7,52 +7,67 @@
     <title>Document</title>
   <link rel="stylesheet" type="text/css" href="../css/api.css"/>
   <style>
+      @font-face {
+        font-family: 'iconfont';
+        src: url('../icon/iconfont.eot');
+        src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('../icon/iconfont.woff') format('woff'),
+        url('../icon/iconfont.ttf') format('truetype'),
+        url('../icon/iconfont.svg#iconfont') format('svg');
+      }
+      .iconfont{
+        font-family: "iconfont" !important;
+        font-style: normal;
+        font-size: 28px;
+        color: #fff;
+        position: absolute;
+        right: 8px;
+        top: 2px;
+      }
+
       * {
        margin: 0;
        padding: 0;
        box-sizing: border-box;
       }
-	html{
-
-	}
-     body {
+      body,html{
        font-family: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
        background-color: #f1f1f1;
        overflow-x: hidden;
-     }
-       a {
+      }
+      a {
         text-decoration: none;
         color: #000;
        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         display: block;
       }
 
-        input {
+      input {
         border: none;
       }
 
-         ul,li,ol {
+      ul,li,ol {
         list-style: none;
-     }
+      }
 
-        h1, h2,h3,h4,h5 {
-         font-weight: 400;
-        }
-        body,html{
-           width: 100%;height: 100%; margin: 0; padding: 0;
-           /* overflow: hidden; */
-        }
-         body{
-           background:#f1f1f1;
-        }
-         ul li{
-           list-style-type:none;
-        }
-         .myindex{
-           position:relative;
-           background: #fff;
-           overflow-x:hidden
-         }
+      h1, h2,h3,h4,h5 {
+       font-weight: 400;
+      }
+      body,html{
+         width: 100%;height: 100%; margin: 0; padding: 0;
+         /* overflow: hidden; */
+      }
+      body{
+         background:#f1f1f1;
+      }
+      ul li{
+         list-style-type:none;
+      }
+      .myindex{
+         position:relative;
+         background: #fff;
+         overflow-x:hidden
+      }
          /*my-header*/
          .my-header{
            width: 100%;
@@ -60,16 +75,6 @@
            background:url('../images/my/headerMy.png') no-repeat;
            background-size:100%;
 
-         }
-         .my-header .tip{
-           position: absolute;
-           width: 40px;
-           height: 50px;
-           right:-6px;
-           top:-7px;
-           background:url(../images/my/headerRing.png) no-repeat;
-           -webkit-background-size: 100% 100%;
-           background-size: 100% 100%;
          }
          .my-header .set {
           background:url(../images/my/headerset.png) no-repeat;
@@ -88,6 +93,7 @@
           .nick_img img{
            width: 60px;
            height: 60px;
+           border-radius: 50%;
          }
           .nickname{
            font-size:13px;
@@ -182,10 +188,10 @@
          display: inline-block;
          border-right: 1px solid #666;
          border-bottom: 1px solid #666;
-         width: 13px;
-         height: 13px;
+         width: 10px;
+         height: 10px;
          transform: rotate(-45deg);
-         -webkit- transform: rotate(-45deg);
+         -webkit-transform: rotate(-45deg);
      }
 
         .notmean{
@@ -206,7 +212,7 @@
 <body>
   <div class="myindex" id="myindex">
       <div class="my-header">
-          <div class="tip"></div>
+          <i class="iconfont">&#xe667;</i>
           <div class="set" onclick="Openset()"></div>
       </div>
       <div class="nick">
@@ -217,9 +223,9 @@
             <span class="thisopp" onclick="openLogin()">点击登录</span>
       </div>
       <div class="footer">
-            <div class="participate">参与&nbsp;<span>299</span><i></i></div>
-            <div class="concern">关注&nbsp;<span>299</span><i></i></div>
-            <div class="fans">粉丝&nbsp;<span>299</span></div>
+            <div class="participate">参与&nbsp;299<i></i></div>
+            <div class="concern">关注&nbsp;299<i></i></div>
+            <div class="fans">粉丝&nbsp;299</div>
       </div>
   </div>
         <div class="item_content">
@@ -294,10 +300,10 @@ apiready=function(){
   });
 
 }
-//ajax
+
+var userdata = {};
+userdata = $api.getStorage('userdata');
 function VueUser(){
-  var userdata = {};
-  userdata = $api.getStorage('userdata');
   var html = '';
   if(userdata){
     api.ajax({
@@ -305,27 +311,31 @@ function VueUser(){
         method: 'post',
         data:{
           values:{
-              'uid':userdata['uid']
+              uid:userdata['uid']
           }
         }
     },function(ret, err){
-        if (ret.status =='1') {
+        if (ret.status ==1) {
           var data = ret.data;
             html+='<div class="my-header">';
-                  html+='<div class="tip"></div>';
+                  html+='<i class="iconfont" onclick="openInform()">&#xe667;</i>';
                   html+='<div class="set" onclick="Openset()"></div>';
             html+='</div>';
             html+='<div class="nick">';
                   html+='<div class="nick_img">';
-                        html+='<img src="'+ret.data['avatar']+'" onerror="this.src=\'../images/about/Logo.png\'">';
+                        html+='<img src="'+ret.data['avatar']+'" onerror="this.src=\'../images/about/Logo.png\'" onclick="openMyProfile()">';
                   html+='</div>';
                   html+='<div class="nickname">'+userdata['username']+'</div>';
-                  // html+='<span class="thisopp" onclick="openLogin()">点击登录</span>'
+                  if(userdata){
+                    html+='';
+                  }else{
+                    html+='<span class="thisopp" onclick="openLogin()">点击登录</span>';
+                  }
             html+='</div>';
             html+='<div class="footer">';
-                  html+='<div class="participate">参与&nbsp;<span>'+ret.data['joinNum']+'</span><i></i></div>';
-                  html+='<div class="concern">关注&nbsp;<span>'+ret.data['followNum']+'</span><i></i></div>';
-                  html+='<div class="fans">粉丝&nbsp;<span>'+ret.data['fansNum']+'</span></div>';
+                  html+='<div class="participate">参与&nbsp;'+ret.data['joinNum']+'<i></i></div>';
+                  html+='<div class="concern">关注&nbsp;'+ret.data['followNum']+'<i></i></div>';
+                  html+='<div class="fans">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
             html+='</div>';
 
             $api.html($api.byId('myindex'), html);
@@ -336,6 +346,7 @@ function VueUser(){
     });
   }
 }
+
 function OpenmyAbount(){
    api.openWin({
        name: 'about',
@@ -378,7 +389,10 @@ function OpenmyAbount(){
  function OpenSuggestionFeedback(){
    api.openWin({
        name: 'SuggestionFeedback',
-       url: 'SuggestionFeedback.html'
+       url: 'SuggestionFeedback.html',
+       pageParam: {
+           uid: userdata['uid']
+       }
    });
  }
  function OpenBindingCellPhone(){
@@ -399,6 +413,27 @@ function OpenmyAbount(){
        name: 'Login',
        url: 'Login.html'
    });
+ }
+
+ function openInform(){
+   api.openWin({
+       name: 'Inform',
+       url: 'Inform.html',
+       pageParam: {
+           name: 'test'
+       }
+   });
+ }
+
+ function openMyProfile(){
+   api.openWin({
+       name: 'MyProfile',
+       url: 'MyProfile.html',
+       pageParam: {
+           name: 'test'
+       }
+   });
+
  }
 </script>
 </html>

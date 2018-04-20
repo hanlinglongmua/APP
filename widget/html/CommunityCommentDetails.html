@@ -3,9 +3,26 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>动态详情</title>
+      <title>评论详情</title>
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <style>
+          @font-face {
+            font-family: 'iconfont';
+            src: url('../icon/iconfont.eot');
+            src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('../icon/iconfont.woff') format('woff'),
+            url('../icon/iconfont.ttf') format('truetype'),
+            url('../icon/iconfont.svg#iconfont') format('svg');
+          }
+          .iconfont{
+            font-family: "iconfont" !important;
+            font-style: normal;
+            font-size: 16px;
+            color: #000;
+            position: absolute;
+            right: 38px;
+            top: 0;
+          }
           body，html{
             width: 100%;
             height: 100%;
@@ -37,9 +54,9 @@
           .section .left>i{
             position: absolute;
             left: 15px;
-            top:14px;
-            width: 12px;
-            height: 12px;
+            top:16px;
+            width: 10px;
+            height: 10px;
             border: 1px solid #fff;
             border-top: none;
             border-right: none;
@@ -66,7 +83,7 @@
           }
           .header .head .right{
             height: 44px;
-            margin-left: 14px;
+            margin-left: 10px;
           }
           .header .head .right .up{
             height: 18px;
@@ -78,8 +95,8 @@
             position: absolute;
             right: 15px;
             top:14px;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border: 1px solid #808080;
             border-top: none;
             border-right: none;
@@ -93,7 +110,7 @@
             color: #808080;
           }
           .header .text{
-            line-height: 26px;
+            line-height: 24px;
             margin:0 8px 0 56px;
             font-size: 16px;
             color: #111;
@@ -132,14 +149,13 @@
             background-color: #fff;
             border-bottom: 1px solid #e5e5e5;
             display: flex;
-            align-items: center;
           }
           .main .left{
             width: 54px;
           }
           .main .left img{
             width: 40px;
-            margin: 0 6px 0 8px;
+            margin: 6px 6px 0 8px;
             border-radius: 50%;
           }
           .main .mid{
@@ -156,8 +172,8 @@
           .main .mid .text .top>i{
             position: absolute;
             right: 15px;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border: 1px solid #808080;
             border-top: none;
             border-right: none;
@@ -167,7 +183,8 @@
           .main .mid .text .mi{
             color: #242424;
             font-size: 14px;
-            padding-right: 30px;
+            line-height: 21px;
+            padding-right: 10px;
           }
           .main .mid .text .mi a{
             color: #002663;
@@ -195,20 +212,7 @@
           .main .answer .answ{
             position: absolute;
             top: 0;
-            right: 56px;
-            font-size: 10px;
-            color: #4e4e4e;
-          }
-          .main .answer img{
-            position: absolute;
-            top: 4px;
-            right: 38px;
-            width: 14px;
-          }
-          .main .answer .likenum{
-            position: absolute;
-            right: 12px;
-            top: 0;
+            right: 10px;
             font-size: 10px;
             color: #4e4e4e;
           }
@@ -253,7 +257,7 @@
     <div class="comment_answer">
       <!-- section 顶部 -->
         <div class="section">
-          <div class="sect left"><i onclick="closecomSonSon()"></i></div>
+          <div class="sect left"><i onclick="api.closeWin()"></i></div>
           <div class="sect fo">动态详情</div>
         </div>
       <!-- section end -->
@@ -261,7 +265,7 @@
       <div style="overflow: hidden; width:100%;height:92%;padding-bottom:50px;">
 
       <!-- header -->
-      <div class="header">
+      <div class="header" id="header">
         <div class="head">
           <div class="left"><img src="../images/community_comment_details/commDetails1.png"></div>
           <div class="right">
@@ -278,117 +282,23 @@
       <div class="mue">
         <div class="left">全部回复：</div>
       </div>
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails2.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">iusjjd、<i></i></div>
-            <div class="mi">回复<a href="">@afbgn</a>：水电费付付付</div>
-            <div class="answer">
-              <div class="time">1小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
+      <div id="main">
+        <div class="main">
+          <div class="left"><img src="../images/community_comment_details/commDetails2.png"></div>
+          <div class="mid">
+            <div class="text">
+              <div class="top">iusjjd、<i></i></div>
+              <div class="mi">回复<a href="#">@afbgn</a>：水电费付付付</div>
+              <div class="answer">
+                <div class="time">1小时前</div>
+                <div class="answ">回复</div>
+                <i class="iconfont">&#xe617;</i>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails5.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">连接块<i></i></div>
-            <div class="mi">回复<a href="">@水电工</a>：暗杀发哈阿士大夫</div>
-            <div class="answer">
-              <div class="time">2小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails7.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">安师傅<i></i></div>
-            <div class="mi">回复<a href="">@士大夫</a>：阿萨德噶哈根按时发达时代傻大个撒地方阿士大夫</div>
-            <div class="answer">
-              <div class="time">1小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails4.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">iusjjd、<i></i></div>
-            <div class="mi">回复<a href="">@afbgn</a>：水电费付付付</div>
-            <div class="answer">
-              <div class="time">1小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails8.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">iusjjd、<i></i></div>
-            <div class="mi">回复<a href="">@afbgn</a>：水电费付付付</div>
-            <div class="answer">
-              <div class="time">1小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails9.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">iusjjd、<i></i></div>
-            <div class="mi">回复<a href="">@afbgn</a>：水电费付付付</div>
-            <div class="answer">
-              <div class="time">1小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="main">
-        <div class="left"><img src="../images/community_comment_details/commDetails9.png"></div>
-        <div class="mid">
-          <div class="text">
-            <div class="top">iusjjd、<i></i></div>
-            <div class="mi">回复<a href="">@afbgn</a>：水电费付付付</div>
-            <div class="answer">
-              <div class="time">1小时前</div>
-              <div class="answ">回复·</div>
-              <img src="../images/community_comment_details/like.png">
-              <div class="likenum">1234</div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- main end -->
 
       </div>
@@ -405,11 +315,85 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
-  //关闭这个窗口
-  function closecomSonSon(){
-      api.closeWin({
-          name: 'CommunityCommentDetails'
+    apiready = function(){
+      var html = '';
+      var htmls = '';
+      var data = {};
+      var pageParampid = api.pageParam.pid;
+      var pageParamtid =api.pageParam.tid;
+      api.ajax({
+          url: 'http://www.juzzn.com/discDetail.php',
+          method: 'post',
+          data: {
+              values: {
+                tid:pageParamtid
+              }
+          }
+      },function(ret, err){
+          if (ret.status==1) {
+              for(var i=0;i<ret.data.reply.length;i++){
+                if(ret.data.reply[i]['pid'] == pageParampid){
+                  data = ret.data.reply[i];
+                  html+='<div class="head">';
+                    html+='<div class="left" onclick="openFriendDetailsData('+data['m_uid']+')"><img src="'+data['m_avatar']+'"></div>';//楼主头像
+                    html+='<div class="right"><div class="up">'+data['m_name']+'</div><div class="down">'+data['m_dateline']+'</div><i></i></div>';//楼主名字和发表时间
+                  html+='</div>';
+                  html+='<div class="text">'+data['m_message']+'</div>';//楼主回复的内容
+                  html+='<div class="href"><a href="#" onclick="openCommunityDetails('+data['tid']+','+data['authorid']+')">查看原文章</a></div>';
+                  for(var j=0;j<data['comments'].length;j++){
+                    var datas = data['comments'][j];
+                    htmls+='<div class="main">';
+                      htmls+='<div class="left" onclick="openFriendDetailsData('+datas['m_uid']+')"><img src="'+datas['m_avatar']+'" alt=""></div>';//回复楼主的人的头像
+                      htmls+='<div class="mid">';
+                        htmls+='<div class="text">';
+                          htmls+='<div class="top">'+datas['m_name']+'<i></i></div>';//回复楼主的人的名字
+                          htmls+='<div class="mi">回复<a href="#">'+data['m_name']+'</a>：'+datas['msg']+'</div>';//楼主的名字和回复楼主的内容
+                          htmls+='<div class="answer"><div class="time">'+datas['m_dateline']+'</div><div class="answ">回复</div><i class="iconfont">&#xe617;</i></div>';//回复楼主的时间
+                        htmls+='</div>';
+                      htmls+='</div>';
+                    htmls+='</div>';
+                  }
+                }
+              }
+          } else {
+              Toast( JSON.stringify( err ) );
+          }
+          $api.html($api.byId('header'), html);
+          $api.html($api.byId('main'), htmls);
       });
-  }
+
+    }
+    //自定义弹框
+    function Toast(msg,duration){
+        duration=isNaN(duration)?3000:duration;
+        var m = document.createElement('div');
+        m.innerHTML = msg;
+        m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+        document.body.appendChild(m);
+        setTimeout(function() {
+            var d = 0.5;
+            m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+            m.style.opacity = '0';
+            setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+        }, duration);
+    }
+
+    function openFriendDetailsData(authorid){
+      api.openWin({
+          name: 'FriendDetailsData',
+          url: 'FriendDetailsData.html',
+          pageParam: {
+              uid: authorid
+          }
+      });
+    }
+
+    function openCommunityDetails(tid,authorid){
+        api.openWin({
+        name: 'CommunityDetails',
+        url: 'CommunityDetails.html',
+        pageParam: {tid:tid,authorid:authorid}
+      });
+    }
   </script>
   </html>
