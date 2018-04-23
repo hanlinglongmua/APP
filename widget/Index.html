@@ -8,9 +8,29 @@
     <title>Hello APP</title>
     <link rel="stylesheet" type="text/css" href="css/api.css"/>
     <style type="text/css">
-        html,
-        body {
+        @font-face {
+          font-family: 'iconfont';
+          src: url('../icon/iconfont.eot');
+          src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+          url('../icon/iconfont.woff') format('woff'),
+          url('../icon/iconfont.ttf') format('truetype'),
+          url('../icon/iconfont.svg#iconfont') format('svg');
+        }
+        html,body {
             height: 100%;
+        }
+        ul,li{
+          list-style: none;
+        }
+        i{
+          font-style: normal;
+        }
+        a{
+          text-decoration: none;
+        }
+        *{
+          margin: 0;
+          padding: 0;
         }
         .wrap {
             display: -webkit-box;
@@ -149,6 +169,53 @@
         .serchedit.current{
           display: block;
         }
+        /*编辑选择*/
+        .navmenu {
+          background-color:#fff;
+          border-radius: 5px;
+          z-index: 100;
+          position: fixed;
+          top:10%;
+          right: 10%;
+          box-shadow: 0 0 10px 3px #cccccc;
+          display: none;
+        }
+
+        .navmenu::after {
+          position: absolute;
+          top: -10px;
+          right: 8px;
+          content: "";
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid #ffffff;
+        }
+
+        .navmenu span {
+          color: #eee;
+          font-size: 18px;
+        }
+
+        .navmenu i {
+          color: #000000;
+          font-size: 14px;
+        }
+
+        .navmenu a {
+          padding: 10px 20px;
+          border-bottom: 1px solid #cccccc;
+          text-align: left;
+          display: block;
+        }
+        .iconfont{
+          font-family:"iconfont" !important;
+          font-size:22px;
+          font-style:normal;
+          color: black;
+        }
+        /*编辑选择 end*/
     </style>
 </head>
 
@@ -167,6 +234,34 @@
         <img onclick="openFindChoice()" class="edit" src="images/same_content/edit.png" alt="">
       </div>
     </header>
+
+    <!-- 编辑选择 -->
+    <div class="navmenu" id="navmenu">
+      <ul>
+        <li>
+          <a href="javascript:;">
+            <span></span>&nbsp;
+          <i class="iconfont">&#xe608;</i>
+            <i>发文字</i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <span></span>&nbsp;
+            <i class="iconfont">&#xe60b;</i>
+            <i>发图文</i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <span></span>&nbsp;
+              <i class="iconfont">&#xe690;</i>
+            <i>发视频</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- 编辑选择 end -->
 
 
     <section class="flex-1">
@@ -195,130 +290,129 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
 
-apiready = function() {
-    header = $api.dom('header'); // 获取 header 标签元素
-    footer = $api.dom('footer'); // 获取 footer 标签元素
-    // 1.修复开启沉浸式效果带来的顶部Header与手机状态栏重合的问题，最新api.js方法已支持适配iPhoneX；
-    // 2.默认已开启了沉浸式效果 config.xml中 <preference name="statusBarAppearance" value="true"/>
-    // 3.沉浸式效果适配支持iOS7+，Android4.4+以上版本
-    headerH = $api.fixStatusBar(header);
-    // 最新api.js为了适配iPhoneX增加的方法，修复底部Footer部分与iPhoneX的底部虚拟横条键重叠的问题；
-    footerH = $api.fixTabBar(footer);
-    menus = $api.domAll(header, ".menu");
-    api.openFrameGroup ({
-      name: 'toggleIndex',
-      background: '#fff',
-      scrollEnabled: true,
-      rect: {
-        marginTop: 44, // main页面距离win顶部的高度
-        marginBottom: footerH, // main页面距离win底部的高度
-        w: 'auto' // main页面的宽度 自适应屏幕宽度
-      },
-      index: 0,
-      frames: [{
-          name: 'Discovery',
-          url: 'html/Discovery.html',
-          bgColor: '#fff'
-      },{
-          name: 'ThisWeekHot',
-          url: 'html/Community.html',
-          bgColor: '#000'
-      }
-    ]
-  }, function(ret, err){
-      SetClass(ret.index);
-      var serchedit = document.getElementById('serchedit');
-      var onserchedit = document.getElementById('serchedit current');
-      if(ret.index==0){
-        serchedit.style.display = 'none';
-        onserchedit.style.display = 'block';
-      }else if(ret.index==1){
-        serchedit.style.display = 'block';
-        onserchedit.style.display = 'none';
-      }
-  });
-};
-//定义全局元素
-  var menus,header,footer,headerH,footerH,navH;
-//定义首页发现
-//点击切换社区栏目
-function fnSetNavMenuIndex(index_){
-  SetClass(index_);
-  api.setFrameGroupIndex({
-      name: 'toggleIndex',
-      index: index_,
-      scroll: false
-  });
-}
-//循环查出判断Class
-function SetClass(index_){
-    for(var i=0;i<menus.length;i++){
-      if(index_==i){
-        $api.addCls(menus[i],"hover");
-      }else {
-        $api.removeCls(menus[i],"hover");
+    apiready = function() {
+        header = $api.dom('header'); // 获取 header 标签元素
+        footer = $api.dom('footer'); // 获取 footer 标签元素
+        // 1.修复开启沉浸式效果带来的顶部Header与手机状态栏重合的问题，最新api.js方法已支持适配iPhoneX；
+        // 2.默认已开启了沉浸式效果 config.xml中 <preference name="statusBarAppearance" value="true"/>
+        // 3.沉浸式效果适配支持iOS7+，Android4.4+以上版本
+        headerH = $api.fixStatusBar(header);
+        // 最新api.js为了适配iPhoneX增加的方法，修复底部Footer部分与iPhoneX的底部虚拟横条键重叠的问题；
+        footerH = $api.fixTabBar(footer);
+        menus = $api.domAll(header, ".menu");
+        api.openFrameGroup ({
+          name: 'toggleIndex',
+          background: '#fff',
+          scrollEnabled: true,
+          rect: {
+            marginTop: 44, // main页面距离win顶部的高度
+            marginBottom: footerH, // main页面距离win底部的高度
+            w: 'auto' // main页面的宽度 自适应屏幕宽度
+          },
+          index: 0,
+          frames: [{
+              name: 'Discovery',
+              url: 'html/Discovery.html',
+              bgColor: '#fff'
+          },{
+              name: 'ThisWeekHot',
+              url: 'html/Community.html',
+              bgColor: '#000'
+          }
+        ]
+      }, function(ret, err){
+          SetClass(ret.index);
+          var serchedit = document.getElementById('serchedit');
+          var onserchedit = document.getElementById('serchedit current');
+          if(ret.index==0){
+            serchedit.style.display = 'none';
+            onserchedit.style.display = 'block';
+          }else if(ret.index==1){
+            serchedit.style.display = 'block';
+            onserchedit.style.display = 'none';
+          }
+      });
+    };
+    //定义全局元素
+      var menus,header,footer,headerH,footerH,navH;
+    //定义首页发现
+    //点击切换社区栏目
+    function fnSetNavMenuIndex(index_){
+      SetClass(index_);
+      api.setFrameGroupIndex({
+          name: 'toggleIndex',
+          index: index_,
+          scroll: false
+      });
+    }
+    //循环查出判断Class
+    function SetClass(index_){
+        for(var i=0;i<menus.length;i++){
+          if(index_==i){
+            $api.addCls(menus[i],"hover");
+          }else {
+            $api.removeCls(menus[i],"hover");
+          }
+        }
+    }
+
+    function clickRandomSwiBtn1(){
+      api.closeFrame({
+          name: 'zhineng'
+      });
+      api.closeFrame({
+          name: 'My'
+      });
+
+
+    }
+
+    //打开zhineng页面
+    function clickRandomSwiBtn2(){
+      api.openFrame({
+          name: 'zhineng',
+          url: 'html/zhineng.html',
+          rect: {
+            marginTop: 0,
+            marginBottom: footerH,
+            w: 'auto',
+            h: 'auto'
+          },
+          bounces: false
+      });
+    }
+    //打开My页面
+    function clickRandomSwiBtn3(){
+      api.openFrame({
+          name: 'My',
+          url: 'html/My.html',
+          rect: {
+            marginTop: 0,
+            marginBottom: footerH,
+            w: 'auto',
+            h: 'auto'
+          },
+          bounces: false
+      });
+    }
+    //打开search页面
+    function openSearch(){
+      api.openWin({
+          name: 'search',
+          url: 'html/Search.html'
+      });
+
+    }
+
+    function openFindChoice(){
+      var nvamenu = document.getElementById('navmenu');
+      alert(nvamenu.style.display)
+      if(nvamenu.style.display == 'none'){
+        nvamenu.style.display = 'block';
+      }else if(nvamenu.style.display == 'block'){
+        nvamenu.style.display = 'none';
       }
     }
-}
-
-function clickRandomSwiBtn1(){
-  api.closeFrame({
-      name: 'zhineng'
-  });
-  api.closeFrame({
-      name: 'My'
-  });
-
-
-}
-
-//打开zhineng页面
-function clickRandomSwiBtn2(){
-  api.openFrame({
-      name: 'zhineng',
-      url: 'html/zhineng.html',
-      rect: {
-        marginTop: 0,
-        marginBottom: footerH,
-        w: 'auto',
-        h: 'auto'
-      },
-      bounces: false
-  });
-}
-//打开My页面
-function clickRandomSwiBtn3(){
-  api.openFrame({
-      name: 'My',
-      url: 'html/My.html',
-      rect: {
-        marginTop: 0,
-        marginBottom: footerH,
-        w: 'auto',
-        h: 'auto'
-      },
-      bounces: false
-  });
-}
-//打开search页面
-function openSearch(){
-  api.openWin({
-      name: 'search',
-      url: 'html/Search.html'
-  });
-
-}
-
-function openFindChoice(){
-  api.openWin({
-      name: 'FindChoice',
-      url: 'html/FindChoice.html',
-      pageParam: {
-          name: 'test'
-      }
-  });
-
-}
 </script>
 
 </html>

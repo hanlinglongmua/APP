@@ -85,19 +85,42 @@
               <div class="top">
                 <div class="sect left"><i onclick="api.closeWin()"></i></div>
                 <div class="sect fo">真实姓名</div>
-                <div class="sect right"><div class="t">保存</div></div>
+                <div class="sect right"><div class="t" onclick="save()">保存</div></div>
               </div>
             </div>
           </header>
 
           <section>
-            <input type="text" placeholder="请输入...">
+            <input type="text" id="text" placeholder="请输入...">
           </section>
       </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
-      apiready = function(){
+      function save(){
+          var userdata = {};
+          userdata = $api.getStorage('userdata');
+          var text = $api.val($api.byId('text'));
+          var realname = text;
+          api.ajax({
+              url: 'http://www.juzzn.com/information.php?type=realname',
+              method: 'post',
+              data: {
+                  values: {
+                      uid:userdata['uid'],realname:realname
+                  }
+              }
+          },function(ret, err){
+              if (ret.status == 1) {
+                  alert('姓名修改成功')
+                  api.sendEvent({
+                      name: 'mydata'
+                  });
+                  api.closeWin();
+              } else {
+                  alert( JSON.stringify( err ) );
+              }
+          });
 
       };
   </script>

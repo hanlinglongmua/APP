@@ -541,6 +541,7 @@
               });
           }
       }
+
       //自定义弹框
       function Toast(msg,duration){
           duration=isNaN(duration)?3000:duration;
@@ -555,6 +556,7 @@
               setTimeout(function() { document.body.removeChild(m) }, d * 1000);
           }, duration);
       }
+
       //打开窗口
       function OpenArticalDetails(aid){
         api.openWin({
@@ -565,12 +567,13 @@
             }
         });
       }
+
       function CommunityDetails(tid,authorid){
         api.openWin({
-        name: 'CommunityDetails',
-        url: 'CommunityDetails.html',
-        pageParam: {tid:tid,authorid:authorid}
-      });
+          name: 'CommunityDetails',
+          url: 'CommunityDetails.html',
+          pageParam: {tid:tid,authorid:authorid}
+        });
       }
   </script>
   </html>

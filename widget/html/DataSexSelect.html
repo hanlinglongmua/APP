@@ -43,15 +43,44 @@
   </head>
   <body>
       <div class="sexselect">
-          <div class="sex se">男</div>
-          <div class="sex se">女</div>
-          <div class="sex mi">保密</div>
+          <div class="sex se" id="select" onclick="select(1)">男</div>
+          <div class="sex se" id="selec" onclick="select(2)">女</div>
+          <div class="sex mi" id="sele" onclick="select(3)">保密</div>
           <div class="sex" onclick="api.closeFrame()">取消</div>
       </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
-      apiready = function(){
-      };
+      function select(index){
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        var sexdata = {};
+        if(index == 1){
+          sexdata = 1;
+        }else if(index == 2){
+          sexdata = 2;
+        }else if(index == 3){
+          sexdata = 0;
+        }
+        api.ajax({
+            url: 'http://www.juzzn.com/information.php?type=sex',
+            method: 'post',
+            data: {
+                values: {
+                    uid:userdata['uid'],sex:sexdata
+                }
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+                alert( '性别设置成功');
+                api.sendEvent({
+                    name: 'mydata'
+                });
+                api.closeFrame()
+            } else {
+                alert( ret.msg );
+            }
+        });
+      }
   </script>
   </html>

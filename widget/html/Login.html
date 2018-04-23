@@ -237,9 +237,7 @@
              <button type="button" name=""  id="btns" onclick="sub()">登录</button>
           </div>
            <div class="center-text" id="check">
-              <span class="checkboxBox">
-                   马上注册
-             </span>
+              <span class="checkboxBox" onclick="openRegister()">马上注册</span>
               <a href="">忘记密码?</a>
            </div>
         </form>
@@ -287,19 +285,16 @@
             }
         }
         }, function(ret, err) {
-
-        if (ret.errornum=='E00000') {
-            $api.setStorage('userdata',ret.data);//获取用户数据
-            function funcGoto(){
-              alert('123')
-            }
-            api.sendEvent({
-                name: 'RefreshMy'//登录成功刷新会员中心页面
-            });
-            api.closeWin();
-        } else {
-          Toast(ret.errormsg,2000)
-        }
+          if (ret.errornum=='E00000') {
+              $api.setStorage('userdata',ret.data);//获取用户数据
+              Toast('登录成功')
+              api.sendEvent({
+                  name: 'RefreshMy'//登录成功刷新会员中心页面
+              });
+              api.closeWin();
+          } else {
+            Toast(ret.errormsg,2000)
+          }
       });
     }
     }
@@ -316,6 +311,17 @@
             m.style.opacity = '0';
             setTimeout(function() { document.body.removeChild(m) }, d * 1000);
         }, duration);
+    }
+
+    function openRegister(){
+      api.openWin({
+          name: 'Register',
+          url: 'Register.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+      api.closeWin();
     }
 </script>
 </html>

@@ -87,20 +87,43 @@
               <div class="top">
                 <div class="sect left"><i onclick="api.closeWin()"></i></div>
                 <div class="sect fo">兴趣爱好</div>
-                <div class="sect right"><div class="t">保存</div></div>
+                <div class="sect right"><div class="t" onclick="save()">保存</div></div>
               </div>
             </div>
           </header>
 
           <section>
-            <textarea type="text" placeholder="请输入..."></textarea>
+            <textarea type="text" id="text" placeholder="请输入..."></textarea>
           </section>
       </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
-      apiready = function(){
+  function save(){
+      var userdata = {};
+      userdata = $api.getStorage('userdata');
+      var text = $api.val($api.byId('text'));
+      var interest = text;
+      api.ajax({
+          url: 'http://www.juzzn.com/information.php?type=interest',
+          method: 'post',
+          data: {
+              values: {
+                  uid: userdata['uid'],interest:interest
+              }
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              alert('爱好修改成功');
+              api.sendEvent({
+                  name: 'mydata'
+              });
+              api.closeWin();
+          } else {
+              alert( ret.msg);
+          }
+      });
 
-      };
+  };
   </script>
   </html>

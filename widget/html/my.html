@@ -292,18 +292,25 @@
 <script type="text/javascript">
 apiready=function(){
   VueUser();
-  //监听刷新
   api.addEventListener({
       name: 'RefreshMy'
   }, function(ret, err){
       VueUser();
+      Toast('成功登录账号')
   });
-
+  api.addEventListener({
+      name: 'ENDMy'
+  }, function(ret, err){
+      VueUser();
+      Toast('成功退出当前账号')
+  });
 }
 
-var userdata = {};
-userdata = $api.getStorage('userdata');
+// var userdata = {};
+// userdata = $api.getStorage('userdata');
 function VueUser(){
+  var userdata = {};
+  userdata = $api.getStorage('userdata');
   var html = '';
   if(userdata){
     api.ajax({
@@ -343,8 +350,27 @@ function VueUser(){
             alert( JSON.stringify( err ) );
         }
         $api.html($api.byId('myindex'), html);
-    });
-  }
+      });
+    }else {
+      html+='<div class="my-header">';
+            html+='<i class="iconfont" onclick="openInform()">&#xe667;</i>';
+            html+='<div class="set" onclick="Openset()"></div>';
+      html+='</div>';
+      html+='<div class="nick">';
+            html+='<div class="nick_img">';
+                  html+='<img src="" onerror="this.src=\'../images/about/Logo.png\'" onclick="openMyProfile()">';
+            html+='</div>';
+            html+='<div class="nickname"></div>';
+              html+='<span class="thisopp" onclick="openLogin()">点击登录</span>';
+      html+='</div>';
+      html+='<div class="footer">';
+            html+='<div class="participate">参与&nbsp;<i></i></div>';
+            html+='<div class="concern">关注&nbsp;<i></i></div>';
+            html+='<div class="fans">粉丝&nbsp;</div>';
+      html+='</div>';
+
+      $api.html($api.byId('myindex'), html);
+    }
 }
 
 function OpenmyAbount(){
@@ -357,13 +383,19 @@ function OpenmyAbount(){
    });
  }
  function OpenmyCollection(){
-   api.openWin({
-       name: 'MyCollection',
-       url: 'MyCollection.html',
-       pageParam: {
-           name: 'test'
-       }
-   });
+     var userdata = {};
+     userdata = $api.getStorage('userdata');
+     if(userdata){
+         api.openWin({
+             name: 'MyCollection',
+             url: 'MyCollection.html',
+             pageParam: {
+                 name: 'test'
+             }
+         });
+     }else {
+         Toast('请登录之后再进行操作')
+     }
  }
  function Openset(){
    api.openWin({
@@ -387,13 +419,19 @@ function OpenmyAbount(){
    });
  }
  function OpenSuggestionFeedback(){
-   api.openWin({
-       name: 'SuggestionFeedback',
-       url: 'SuggestionFeedback.html',
-       pageParam: {
-           uid: userdata['uid']
-       }
-   });
+     var userdata = {};
+     userdata = $api.getStorage('userdata');
+     if(userdata){
+         api.openWin({
+             name: 'SuggestionFeedback',
+             url: 'SuggestionFeedback.html',
+             pageParam: {
+                 uid: userdata['uid']
+             }
+         });
+     }else{
+         Toast('请登录之后再进行操作')
+     }
  }
  function OpenBindingCellPhone(){
    api.openWin({
@@ -402,11 +440,19 @@ function OpenmyAbount(){
    });
  }
  function OpenMyReport(){
-   api.openWin({
-       name: 'MyReport',
-       url: 'MyReport.html'
-   });
-
+     var userdata = {};
+     userdata = $api.getStorage('userdata');
+     if(userdata){
+         api.openWin({
+             name: 'MyReport',
+             url: 'MyReport.html',
+             pageParam: {
+                 name: 'test'
+             }
+         });
+     }else {
+         Toast('请登录之后再进行操作')
+     }
  }
  function openLogin(){
    api.openWin({
@@ -434,6 +480,21 @@ function OpenmyAbount(){
        }
    });
 
+ }
+
+ //自定义弹框
+ function Toast(msg,duration){
+     duration=isNaN(duration)?3000:duration;
+     var m = document.createElement('div');
+     m.innerHTML = msg;
+     m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+     document.body.appendChild(m);
+     setTimeout(function() {
+         var d = 0.5;
+         m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+         m.style.opacity = '0';
+         setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+     }, duration);
  }
 </script>
 </html>
