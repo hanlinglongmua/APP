@@ -1,90 +1,97 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>页面走丢</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <style>
-      html,
-      body {
-          height: 100%;
-      }
+<html>
 
-      /* 顶部样式*/
-      .section{
-        position: fixed;
-        width: 100%;
-        height: 44px;
-        background: url('../images/same_content/Header.jpg');
-      }
-      .section .sect{
-        float: left;
-        width: 33.33%;
-        height: 100%;
-      }
-      .section .fo{
-        font-size: 18px;
-        color: #ffffff;
-        line-height: 44px;
-        text-align: center;
-      }
-      .section .left>i{
-        position: absolute;
-        left: 15px;
-        top:14px;
-        width: 12px;
-        height: 12px;
-        border: 1px solid #fff;
-        border-top: none;
-        border-right: none;
-        transform:rotate(45deg);
-      }
-      /*end*/
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>页面走丢</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        /* 顶部样式*/
 
-      flex-1 {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-          position: relative;
-      }
-      .wifi{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .wifi img{
-        margin-top: 80px;
-      }
+        .section {
+            position: fixed;
+            width: 100%;
+            height: 44px;
+            background: url('../images/same_content/Header.jpg');
+        }
 
-      .flex-1 p{
-        text-align: center;
-        margin-top: 15px;
-        font-size: 11px;
-        color: #6b6b6b;
-      }
+        .section .sect {
+            float: left;
+            width: 33.33%;
+            height: 100%;
+        }
 
-      </style>
-  </head>
-  <body>
-      <div class="babycry">
+        .section .fo {
+            font-size: 18px;
+            color: #ffffff;
+            line-height: 44px;
+            text-align: center;
+        }
+
+        .section .left>i {
+            position: absolute;
+            left: 15px;
+            top: 14px;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #fff;
+            border-top: none;
+            border-right: none;
+            transform: rotate(45deg);
+        }
+        /*end*/
+
+        flex-1 {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            position: relative;
+        }
+
+        .wifi {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wifi img {
+            margin-top: 80px;
+        }
+
+        .flex-1 p {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #6b6b6b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="babycry">
         <!-- 顶部 -->
-          <div class="section">
+        <div class="section">
             <div class="sect left"><i></i></div>
             <div class="sect fo">我的参与</div>
-          </div>
+        </div>
         <!--  end -->
-      </div>
-      <section class="flex-1">
+    </div>
+    <section class="flex-1">
         <div class="wifi">
-          <img src="../images/same_content/wifi.png" alt="">
+            <img src="../images/same_content/wifi.png" alt="">
         </div>
         <p>目前还没有任何参与</p>
-      </section>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
+    </section>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
 
-      };
-  </script>
-  </html>
+    };
+</script>
+
+</html>

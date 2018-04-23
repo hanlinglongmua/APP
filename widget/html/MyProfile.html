@@ -186,14 +186,14 @@
   <div class="myindex">
     <div class="header">
       <div class="top">
-        <div class="sect left"><i></i></div>
+        <div class="sect left"><i onclick="api.closeWin()"></i></div>
         <div class="sect fo">编辑</div>
       </div>
     </div>
   </div>
         <div class="item_content">
             <div class="phone">
-                <a class="nicksculpture" href="javascript:;"  >
+                <a class="nicksculpture" href="javascript:;" onclick="openChangeHeaderImg()">
                     <div>
                         <span class="title">头像<span class="sculpture"><img src="../images/my/headerSculpture.png"></span></span>
                     </div>
@@ -201,7 +201,7 @@
                 </a>
               </div>
               <div class="addname">
-                <a href="javascript:;" >
+                <a href="javascript:;" onclick="openDataSign()">
                     <div>
                         <span class="title">签名<span class="notmean">添加</span></span>
                     </div>
@@ -209,13 +209,13 @@
                 </a>
             </div>
             <div class="mine">
-                <a href="javascript:;" >
+                <a href="javascript:;" onclick="openDataTrueName()">
                     <div>
                         <span class="title">真实姓名<span class="realname">保密</span></span>
                     </div>
                     <span class="arrow"></span>
                 </a>
-                <a href="javascript:;">
+                <a href="javascript:;" onclick="openDataSexSelect()">
                     <div>
                         <span class="title">性别<span class="sex">男</span></span>
                     </div>
@@ -223,13 +223,13 @@
                 </a>
             </div>
             <div class="msg">
-                <a href="javascript:;">
+                <a href="javascript:;" onclick="openDataPhone()">
                     <div>
                         <span class="title">手机<span class="tel">13345678945</span></span>
                     </div>
                     <span class="arrow"></span>
                 </a>
-                <a href="javascript:;" >
+                <a href="javascript:;" onclick="openDataQq()">
                     <div>
                         <span class="title">QQ<span class="qqformobile">1334567</span></span>
                     </div>
@@ -237,7 +237,7 @@
                 </a>
             </div>
             <div class="hobby">
-              <a href="javascript:;">
+              <a href="javascript:;" onclick="openHobbies()">
                   <div>
                       <span class="title">兴趣爱好<span class="add">添加</span></span>
                   </div>
@@ -249,6 +249,99 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+    function openChangeHeaderImg(){
+      api.openFrame({
+          name: 'ChangeHeaderImg',
+          url: 'ChangeHeaderImg.html',
+          rect: {
+              x: 0,
+              y: 420,
+              w: 'auto',
+              h: 'auto'
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+          bgColor: 'rgba(0,0,0,0)',
+          vScrollBarEnabled: false,
+          hScrollBarEnabled: false
+      });
+    }
 
+    function openDataSign(){
+      api.openWin({
+          name: 'DataSign',
+          url: 'DataSign.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+
+    function openDataTrueName(){
+      api.openWin({
+          name: 'DataTrueName',
+          url: 'DataTrueName.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+
+    function openDataSexSelect(){
+      api.openFrame({
+          name: 'DataSexSelect',
+          url: 'DataSexSelect.html',
+          rect: {
+              x: 0,
+              y: 420,
+              w: 'auto',
+              h: 'auto'
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+          bgColor: 'rgba(0,0,0,0)',
+          vScrollBarEnabled: false,
+          hScrollBarEnabled: false
+      });
+    }
+
+    function openDataPhone(){
+      api.openWin({
+          name: 'DataPhone',
+          url: 'DataPhone.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+
+    function openDataQq(){
+      api.openWin({
+          name: 'DataQq',
+          url: 'DataQq.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+
+    function openHobbies(){
+      api.openWin({
+          name: 'Hobbies',
+          url: 'Hobbies.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
 </script>
 </html>

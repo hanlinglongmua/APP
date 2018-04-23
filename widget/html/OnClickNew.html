@@ -1,231 +1,266 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>首页页面走丢</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <style>
-  
-      html,
-      body {
-          height: 100%;
-      }
-      .wrap {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-flex-flow: column;
-      }
-      flex-1 {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-          position: relative;
-      }
-      .header {
-          height: 44px;
-          width: 100%;
-          line-height: 44px;
-          font-size: 20px;
-          text-align: center;
-          position: relative;
-      }
-      .header.myself,header.main{
-          background: #666;
-          line-height: 44px;
-          color: #fff;
-      }
-      .index .discov{
-        display: inline-block;
-        width: 50%;
-        height: 100%;
-        position: absolute;
-        top:0;
-        right: 50%;
-        left: 50%;
-        margin-left: -25%;
-      }
-      .index .discov>i{
-        border-left:1px solid #e5e5e5;
-        border-right:1px solid #e5e5e5;
-      }
-      .index .discov>a{
-        color: #808080;
-        width: 38%;
-      }
-      .index .discov>a.hover{
-        color:#0d0d0d;
-        height: 36px;
-      }
-      .index .serchedit{
-        width: 56px;
-        position: absolute;
-        right:24px;
-        top:2px;
-      }
-      .index .edit{
-        width: 56px;
-        position: absolute;
-        right:14px;
-        top:2px;
-      }
-      .index .edit{
-        margin-left: 10px;
-        width: 16px;
-      }
-      header img{
-        width: 18px;
-      }
-      .edit img{
-        width: 18px;
-        height: 18px;
-      }
-      /*脚步*/
-      .wifi,.new{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .wifi img{
-        margin-top: 80px;
-      }
-      .new {
-      width: 70px;
-      height: 22px;
-      border: 1px solid;
-      font-size: 11px;
-      color: #6b6b6b;
-      border-radius: 3px;
-      position: absolute;
-      margin: 25px 150px;
+<html>
 
-      }
-      .flex-1 p{
-        text-align: center;
-        margin-top: 15px;
-        font-size: 11px;
-        color: #6b6b6b;
-      }
-      footer {
-          height: 50px;
-          width: 100%;
-          background-color: #81a9c3;
-          color: white;
-          text-align: center;
-      }
-      footer ul{
-        width: 100%;
-        height: 100%;
-      }
-      footer ul li{
-        width: 33.333%;
-        height: 100%;
-        float: left;
-        background: #e5e5e5;
-      }
-      footer ul li span{
-        height: 20px;
-        font-size: 10px;
-        display: inline;
-      }
-      footer ul li div{
-        height: 14px;
-        font-size: 10px;
-        color: #999;
-
-      }
-      footer ul li div.footerBg{
-        width: 100%;
-        height: 36px;
-      }
-      footer ul li div.footerBg div{
-          width: 26px;
-          height: 26px;
-          position: relative;
-          margin: 0 auto;
-          top:6px;
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>首页页面走丢</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
         }
-      footer ul li div.footerBg.big{
-        width: 50px;
-        height: 44px;
-        position: relative;
-        margin: 0 auto;
-        border-radius: 50%;
-        background: url('../images/index/main.png') no-repeat center center;
-        background-color: #000;
-        -webkit-background-size: 180% 180%;
-        background-size: 180% 180%;
-        padding-bottom: 6px;
-      }
-      .flex-1 {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-      }
-      .header{
-        display: none;
-      }
-      .header.current{
-        display: block;
-      }
-      .serchedit{
-        display:none;
-      }
-      .serchedit.current{
-        display: block;
-      }
-      </style>
-  </head>
-  <body class="wrap">
-      <header class="header index current" id="header">
+
+        .wrap {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+        }
+
+        flex-1 {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            position: relative;
+        }
+
+        .header {
+            height: 44px;
+            width: 100%;
+            line-height: 44px;
+            font-size: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header.myself,
+        header.main {
+            background: #666;
+            line-height: 44px;
+            color: #fff;
+        }
+
+        .index .discov {
+            display: inline-block;
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 50%;
+            left: 50%;
+            margin-left: -25%;
+        }
+
+        .index .discov>i {
+            border-left: 1px solid #e5e5e5;
+            border-right: 1px solid #e5e5e5;
+        }
+
+        .index .discov>a {
+            color: #808080;
+            width: 38%;
+        }
+
+        .index .discov>a.hover {
+            color: #0d0d0d;
+            height: 36px;
+        }
+
+        .index .serchedit {
+            width: 56px;
+            position: absolute;
+            right: 24px;
+            top: 2px;
+        }
+
+        .index .edit {
+            width: 56px;
+            position: absolute;
+            right: 14px;
+            top: 2px;
+        }
+
+        .index .edit {
+            margin-left: 10px;
+            width: 16px;
+        }
+
+        header img {
+            width: 18px;
+        }
+
+        .edit img {
+            width: 18px;
+            height: 18px;
+        }
+        /*脚步*/
+
+        .wifi,
+        .new {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wifi img {
+            margin-top: 80px;
+        }
+
+        .new {
+            width: 70px;
+            height: 22px;
+            border: 1px solid;
+            font-size: 11px;
+            color: #6b6b6b;
+            border-radius: 3px;
+            margin: 10px auto;
+        }
+
+        .new a {
+            color: #111;
+        }
+
+        .flex-1 p {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #6b6b6b;
+        }
+
+        footer {
+            height: 50px;
+            width: 100%;
+            background-color: #81a9c3;
+            color: white;
+            text-align: center;
+        }
+
+        footer ul {
+            width: 100%;
+            height: 100%;
+        }
+
+        footer ul li {
+            width: 33.333%;
+            height: 100%;
+            float: left;
+            background: #e5e5e5;
+        }
+
+        footer ul li span {
+            height: 20px;
+            font-size: 10px;
+            display: inline;
+        }
+
+        footer ul li div {
+            height: 14px;
+            font-size: 10px;
+            color: #999;
+        }
+
+        footer ul li div.footerBg {
+            width: 100%;
+            height: 36px;
+        }
+
+        footer ul li div.footerBg div {
+            width: 26px;
+            height: 26px;
+            position: relative;
+            margin: 0 auto;
+            top: 6px;
+        }
+
+        footer ul li div.footerBg.big {
+            width: 50px;
+            height: 44px;
+            position: relative;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: url('../images/index/main.png') no-repeat center center;
+            background-color: #000;
+            -webkit-background-size: 180% 180%;
+            background-size: 180% 180%;
+            padding-bottom: 6px;
+        }
+
+        .flex-1 {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+        }
+
+        .header {
+            display: none;
+        }
+
+        .header.current {
+            display: block;
+        }
+
+        .serchedit {
+            display: none;
+        }
+
+        .serchedit.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="wrap">
+    <header class="header index current" id="header">
         <div class="discov">
-          <a style="margin-right:-5px;" class="menu " >发现</a>
-          <i></i>
-          <a class="menu hover" >社区</a>
+            <a style="margin-right:-5px;" class="menu ">发现</a>
+            <i></i>
+            <a class="menu hover">社区</a>
         </div>
         <div class="serchedit current" id="serchedit current">
-          <img src="../images/same_content/search.png" alt="">
+            <img src="../images/same_content/search.png" alt="">
         </div>
         <div class="serchedit" id="serchedit">
-          <img src="../images/same_content/search.png" alt="">
+            <img src="../images/same_content/search.png" alt="">
         </div>
         <div class="edit">
-          <img src="../images/same_content/edit.png" alt="">
+            <img src="../images/same_content/edit.png" alt="">
         </div>
-      </header>
-      <section class="flex-1">
+    </header>
+    <section class="flex-1">
         <div class="wifi">
-          <img src="../images/same_content/wifi.png" alt="">
+            <img src="../images/same_content/wifi.png" alt="">
         </div>
         <p>请刷新网络试试</p>
         <div class="new">
-        点击刷新
+            <a href="#">点击刷新</a>
         </div>
-      </section>
-      <footer id="footer">
-          <ul>
-            <li >
+    </section>
+    <footer id="footer">
+        <ul>
+            <li>
                 <div class="footerBg one current">
                     <div class="first"><img src="../images/index/index.png" alt="" style="width:150%; height:180%; margin-top:-6px; margin-left:-7px;"></div>
                 </div>
                 <div class="firstbook">首页</div>
             </li>
-            <li >
+            <li>
                 <div class="footerBg big two current">
 
                 </div>
             </li>
-            <li >
+            <li>
                 <div class="footerBg three current">
-                  <div class="second"><img src="../images/index/mine.png" alt="" style="width:150%; height:180%; margin-top:-6px;margin-left:-7px;"></div>
+                    <div class="second"><img src="../images/index/mine.png" alt="" style="width:150%; height:180%; margin-top:-6px;margin-left:-7px;"></div>
                 </div>
                 <div class="mybook">我的</div>
             </li>
-          </ul>
-      </footer>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript">
-      apiready = function(){
+        </ul>
+    </footer>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
 
-      };
-  </script>
-  </html>
+    };
+</script>
+
+</html>

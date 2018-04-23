@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+ <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
@@ -143,6 +143,7 @@
       display:-webkit-box;
       -webkit-line-clamp:3;
       -webkit-box-orient:vertical;
+      word-break: break-all;
     }
     .artical .list{
       padding: 8px 0 0 0;
@@ -221,7 +222,7 @@
                     <div class="headername h">
                         <div class="hname">风一样的男子</div>
                         <div class="htime">30分钟前</div>
-                        <div class="himg"><img src="../images/same_content/attention.png" alt=""></div>
+                        <div class="himg" id="follows"><img src="../images/same_content/attention.png" alt=""></div>
                     </div>
                 </div>
                 <div class="text" onclick="openCommunityDetails()">
@@ -335,7 +336,7 @@
         }
         var nums = 0;
         apiready = function(){
-          CommunityDate(0)
+          CommunityDate(column,0)
             //下拉刷新
             api.setRefreshHeaderInfo({
                 loadingImg: 'widget://image/refresh.png',
@@ -358,69 +359,88 @@
             }
           }, function(ret, err){
               nums++;
-              CommunityDate(nums);
+              CommunityDate(column,nums);
               num = nums;
-              alert(num)
           })
         }
-    //ajax
+        //ajax
         var html = '';
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        var data = {};
         function CommunityDate(column,num){
+          var community = {};
+          if(userdata){
+            community.column = column;
+            community.num = num;
+            community.uid = userdata.uid;
+          }else {
+            community.column = column;
+            community.num = num;
+          }
           api.ajax({
               url:'http://www.juzzn.com/discuss.php',
               method:'POST',
               cache:false,
               data:{
-                values:{
-                  column:column,num:num
-                }
+                values:community
               }
           },function(ret, err){
               if (ret.status == 1) {
-                var data = ret.data;
+                data = ret.data;
                 for(var i = 0;i<data.length;i++){
                     html += '<div class="artical">';
                         html+='<div class="head">';
                           html+='<div class="headerimg h">';
-                            html+='<img src="'+data[i]['avatar']+'alt="">';
+                            html+='<img src="'+data[i]['avatar']+'alt="" onclick="openFriendDetailsData('+data[i]['authorid']+')">';//发布人头像
                           html+='</div>';
                           html+='<div class="headername h">';
-                            html+='<div class="hname">'+data[i]['author']+'</div>';
-                            html+='<div class="htime">'+data[i]['dateline']+'</div>';
-                            html+='<div class="himg">';
-                              html+='<img src="../images/same_content/attention.png" alt="">';
+                            html+='<div class="hname" onclick="openFriendDetailsData('+data[i]['authorid']+')">'+data[i]['author']+'</div>';//发布人
+                            html+='<div class="htime">'+data[i]['dateline']+'</div>';//发布时间
+                            html+='<div class="himg" id="follows'+data[i]['tid']+'">';//关注
+                              if(data[i]['haveFollow']){
+                                html+='<img src="../images/same_content/attentioned.png" alt="" onclick="follow('+data[i]['authorid']+',\''+data[i]['author']+'\','+data[i]['tid']+')">';
+                              }else {
+                                html+='<img src="../images/same_content/attention.png" alt="" onclick="follow('+data[i]['authorid']+',\''+data[i]['author']+'\','+data[i]['tid']+')">';
+                              }
                             html+='</div>';
                           html+='</div>';
                         html+='</div>';
                         html+='<div class="text" onclick="openCommunityDetails('+data[i]['tid']+','+data[i]['authorid']+')">';
-                            html+='<div class="title">'+data[i]['subject']+'</div>';
-                            html+='<div class="textmain">'+data[i]['message']+'</div>';
+                            html+='<div class="title">'+data[i]['subject']+'</div>';//题目
+                            html+='<div class="textmain">'+data[i]['message']+'</div>';//内容
                         html+='</div>';
                         if(data[i]['images'].length){
                           html+='<div class="picture">';
-                            for(var j = 0;j<3;j++){
+                            for(var j = 0;j<3;j++){//图片
                             html+='<div><img src="'+data[i]['images'][j]+'" alt="" onclick="openimg(this)" onerror="this.src=\'../images/about/Logo.png\'"></div>'
                             }
                           html+='</div>';
                         }
                         html+='<div class="list">';
-                          html+='<div class="ltls like"><i class="iconfont">&#xe617;</i><div class="d">'+data[i]['views']+'</div></div>';
-                          html+='<div class="ltls talk"><i class="iconfont talkicon">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';
-                          html+='<div class="ltls look"><i class="iconfont">&#xe600;</i><div class="d"></div></div>';
+                          if(data[i]['haveLike']){
+                            // alert(data[i]['haveLike']);
+                            html+='<div class="ltls like"><i class="iconfont" onclick="like('+data[i]['tid']+','+data[i]['recNum']+')" id="likeimg'+data[i]['tid']+'">&#xe635;</i><div class="d" id="likenum'+data[i]['tid']+'">'+data[i]['recNum']+'</div></div>';//帖子喜欢数
+                          }else {
+                            // alert(data[i]['haveLike']);
+                            html+='<div class="ltls like"><i class="iconfont" onclick="like('+data[i]['tid']+','+data[i]['recNum']+')" id="likeimg'+data[i]['tid']+'">&#xe617;</i><div class="d" id="likenum'+data[i]['tid']+'">'+data[i]['recNum']+'</div></div>';//帖子喜欢数
+                          }
+                          html+='<div class="ltls talk"><i class="iconfont talkicon">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';//帖子评论数
+                          html+='<div class="ltls look"><i class="iconfont"  onclick="openShareOther()">&#xe600;</i><div class="d"></div></div>';//分享
                         html+='</div>';
                     html += '</div>';
                   }
-                }else if (ret.status == 2) {
+                }  else if (ret.status == 2) {
                   html = '';
                   html ='<div style="text-align:center;line-height:50px;">没有数据</div>';
                 // msg'错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode);
                }else {
-                 api.alert(err.msg);
+                 api.alert(ret.msg);
                }
                  $api.html($api.byId('maxbox'),html);
             });
         }
-    //打开一个新窗口
+    
         function openCommunityDetails(tid,authorid){
             api.openWin({
             name: 'CommunityDetails',
@@ -440,10 +460,120 @@
             bgColor: '#000'
         }, function(ret, err) {
             if(ret.eventType=='click'){
-
                 photoBrowser.close();
             }
           });
   		}
+      //打开分享界面
+      function openShareOther(){
+        api.openFrame({
+            name: 'ShareOther',
+            url: 'ShareOther.html',
+            rect: {
+                x: 0,
+                y: 0,
+                marginTop:415,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                name: 'test'
+            },
+            animation:{
+              type:"push",
+              subType:"from_bottom",
+              duration:300
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false
+        });
+      }
+      //点击关注
+      function follow(a,b,c){
+        var followdatas = {};
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        if(userdata){
+          followdatas.uid=userdata.uid;
+          followdatas.username=userdata.username;
+          followdatas.followuid=a;
+          followdatas.fusername=b
+        }else{
+          Toast('请登录再进行操作')
+        }
+        api.ajax({
+            url: 'http://www.juzzn.com/action.php?action=follow',
+            method: 'post',
+            data: {
+                values: followdatas
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+                $api.html($api.byId('follows'+c),'<img src="../images/same_content/attentioned.png" alt="">');
+            } else {
+                Toast(ret.msg);
+            }
+        });
+      }
+      //点赞
+      function like(tid,likenum){
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        var likeDatas = {};
+        if(userdata){
+          likeDatas.uid=userdata.uid;
+          likeDatas.username=userdata.username;
+          likeDatas.tid=tid
+        }else{
+          Toast('请登录再进行操作')
+        }
+        api.ajax({
+            url: 'http://www.juzzn.com/action.php?action=like',
+            method: 'post',
+            data: {
+                values: likeDatas
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+                Toast('点赞成功');
+                var likenums = likenum+1;
+                $api.text($api.byId('likenum'+tid), likenums);
+                $api.html($api.byId('likeimg'+tid), "&#xe635;");
+            } else {
+                Toast(ret.msg);
+            }
+        });
+      }
+      function openFriendDetailsData(authorid){
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        if(userdata){
+          api.openWin({
+              name: 'FriendDetailsData',
+              url: 'FriendDetailsData.html',
+              pageParam: {
+                  uid: authorid
+              }
+          });
+        }else {
+          Toast('请登录再进行操作')
+        }
+      }
+      //自定义弹框
+      function Toast(msg,duration){
+          duration=isNaN(duration)?3000:duration;
+          var m = document.createElement('div');
+          m.innerHTML = msg;
+          m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+          document.body.appendChild(m);
+          setTimeout(function() {
+              var d = 0.5;
+              m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+              m.style.opacity = '0';
+              setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+          }, duration);
+      }
 </script>
 </html>

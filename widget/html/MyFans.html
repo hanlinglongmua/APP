@@ -2,275 +2,296 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
-  />
-  <title>我的粉丝</title>
-  <link rel="stylesheet" type="text/css" href="../css/api.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      background-color: #f2f2f2;
-    }
-    html,body{
-      height: 100%;
-      min-width: 320px;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>我的粉丝</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    a {
-      text-decoration: none;
-      color: #000;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      display: block;
-    }
+        body {
+            font-family: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: #f2f2f2;
+        }
 
-    input {
-      border: none;
-    }
+        html,
+        body {
+            height: 100%;
+            min-width: 320px;
+        }
 
-    ul,
-    li,
-    ol {
-      list-style: none;
-    }
+        a {
+            text-decoration: none;
+            color: #000;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            display: block;
+        }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-      font-weight: 400;
-    }
+        input {
+            border: none;
+        }
 
-    i {
-      font-style: normal;
-    }
+        ul,
+        li,
+        ol {
+            list-style: none;
+        }
 
-    /*头部开始*/
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-weight: 400;
+        }
 
-    .mood {
-      width: 100%;
-      height: 44px;
-      position: fixed;
-      z-index: 999;
-      /*设置元素的堆叠顺序*/
-    }
+        i {
+            font-style: normal;
+        }
+        /*头部开始*/
 
-    .mood .top {
-      width: 100%;
-      height: 44px;
-      background: url('../images/same_content/Header.jpg');
-    }
+        .mood {
+            width: 100%;
+            height: 44px;
+            position: fixed;
+            z-index: 999;
+            /*设置元素的堆叠顺序*/
+        }
 
-    .mood .top .sect {
-      float: left;
-      width: 33.33%;
-      height: 100%;
-    }
+        .mood .top {
+            width: 100%;
+            height: 44px;
+            background: url('../images/same_content/Header.jpg');
+        }
 
-    .mood .top .fo {
-      font-size: 16px;
-      color: #fff;
-      line-height: 44px;
-      text-align: center;
-      white-space: nowrap;
-    }
+        .mood .top .sect {
+            float: left;
+            width: 33.33%;
+            height: 100%;
+        }
 
-    .mood .top .left>i {
-      position: absolute;
-      left: 15px;
-      top: 14px;
-      width: 12px;
-      height: 12px;
-      border: 1px solid #fff;
-      border-top: none;
-      border-right: none;
-      transform: rotate(45deg);
-    }
-    .search-input{
-        width: 93%;
-        height: 28px;
-        margin-top: 55px;
-        margin-left: 10px;
-        text-align: center;
-        background-color: #fff;
-        font-size: 15px;
-        color: #939494;
-    }
-    .search-advertise{
-        left: 50%;
-        margin-left: -230px;
-        top: 13px;
-        width: 18px;
-        height: 16px;
-        background:url("../images/myattention/search.png") no-repeat;
-        background-size: 17px;
-    }
-    .flex1{
-        -webkit-box-flex:1;
-        position: relative;
-    }
-    .view{
-      padding-top: 50px;
-    }
-    .content,.share,.contentitem{
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 10px 0px 10px;
-      position: relative;
-      background-color: #fff;
-      margin-bottom: 10px;
-     }
-    .usercomment {
-      display: flex;
-    }
+        .mood .top .fo {
+            font-size: 16px;
+            color: #fff;
+            line-height: 44px;
+            text-align: center;
+            white-space: nowrap;
+        }
 
-    .usercomment img {
-      width: 40px;
-      height: 40px;
-      margin-right: 5px;
-    }
+        .mood .top .left>i {
+            position: absolute;
+            left: 15px;
+            top: 14px;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #fff;
+            border-top: none;
+            border-right: none;
+            transform: rotate(45deg);
+        }
 
-    .usercomment i {
-      color: #3d3d3d;
-      font-size: 12px;
-      padding: 5px 0;
-      display: flex;
-    }
+        .search-input {
+            width: 93%;
+            height: 28px;
+            margin-top: 55px;
+            margin-left: 10px;
+            text-align: center;
+            background-color: #fff;
+            font-size: 15px;
+            color: #939494;
+        }
 
-    .commentcontent span {
-      color: #111;
-      font-size: 14px;
-    }
+        .search-advertise {
+            left: 50%;
+            margin-left: -230px;
+            top: 13px;
+            width: 18px;
+            height: 16px;
+            background: url("../images/myattention/search.png") no-repeat;
+            background-size: 17px;
+        }
 
-    .commentcontent p {
-      margin-bottom: 6px;
-      color: #4e5d67;
-      font-size: 12px;
-    }
-    .commentcontent a {
-      display: inline-block;
-    }
-    .commentcontent .tech{
-      border: 1px solid #4e5d67;
-      display:inline-block;
-      justify-content: center;
-    }
-    .arttitle,.art{
-      width: 20%;
-    }
-   .art p,.arttitle p{
-     color: #afafaf;
-     font-size: 12px;
-     border: 1px solid #afafaf;
-     width: 60px;
-     padding: 4px;
-     border-radius: 5px;
-     display: flex;
-     justify-content: center;
-}
-   .art p{
-  color: #8493b0;
-  border: 1px solid #8493b0;
+        .flex1 {
+            -webkit-box-flex: 1;
+            position: relative;
+        }
 
-}
-    .contentitem::before{
-      content: "";
-      width: 100%;
-      height: 1px;
-      position: absolute;;
-      bottom: -1px;
-      left: 0;
-      transform: scale(1);
-      background-color:#eee;
-    }
-    /*头部结束*/
-  </style>
+        .view {
+            padding-top: 50px;
+        }
+
+        .content,
+        .share,
+        .contentitem {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 10px 0px 10px;
+            position: relative;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .usercomment {
+            display: flex;
+        }
+
+        .usercomment p {
+            color: #4e5d67;
+            font-size: 12px;
+            padding: 5px 0;
+            padding-top: 10px;
+            width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usercomment img {
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+        }
+
+        .commentcontent i {
+            color: #111;
+            font-size: 14px;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+
+        .commentcontent a {
+            display: inline-block;
+        }
+
+        .commentcontent .tech {
+            border: 1px solid #4e5d67;
+            display: inline;
+            justify-content: center;
+            color: #4e5d67;
+            font-size: 12px;
+          /*  padding: 5px 0;*/
+        }
+
+        .arttitle,
+        .art {
+            width: 20%;
+        }
+
+        .art span,
+        .arttitle span {
+            color: #afafaf;
+            font-size: 12px;
+            border: 1px solid #afafaf;
+            width: 60px;
+            padding: 4px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .art span {
+            color: #8493b0;
+            border: 1px solid #8493b0;
+        }
+
+        .contentitem::before {
+            content: "";
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            ;
+            bottom: -1px;
+            left: 0;
+            transform: scale(1);
+            background-color: #eee;
+        }
+        /*头部结束*/
+    </style>
 </head>
 
 <body>
-  <div class="artical">
-    <!-- 头部开始 -->
-    <div class="mood">
-      <div class="top">
-        <div class="sect left">
-          <i></i>
+    <div class="artical">
+        <!-- 头部开始 -->
+        <div class="mood">
+            <div class="top">
+                <div class="sect left">
+                    <i></i>
+                </div>
+                <div class="sect fo">我的粉丝</div>
+            </div>
         </div>
-        <div class="sect fo">我的粉丝</div>
-      </div>
-    </div>
-      <!-- 头部结束 -->
-    <div class="searchbox">
-      <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
-           <ul>
-               <li class="flex1">
-                     <input type="text" class="search-input" placeholder="搜索"/>
-                     <span class="search-advertise" id="search-advertise"></span>
-               </li>
-             </ul>
+        <!-- 头部结束 -->
+        <div class="searchbox">
+            <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
+                <ul>
+                    <li class="flex1">
+                        <input type="text" class="search-input" placeholder="搜索" />
+                        <span class="search-advertise" id="search-advertise"></span>
+                    </li>
+                </ul>
 
-      </div>
-    </div>
-  <div class="view">
-    <div class="contentitem">
-      <div class="usercomment">
-        <img src="../images/myattention/science1.png" alt="">
-        <div class="commentcontent">
-          <p>
-            <span>最最新资讯</span>
-          </p>
-          <p class="tech">科技大侠</p>
-          <i>暂无签名</i>
+            </div>
         </div>
-      </div>
-      <div class="art">
-        <p>+&nbsp;关注</p>
-      </div>
-    </div>
+        <div class="view">
+            <div class="contentitem">
+                <div class="usercomment">
+                    <img src="../images/myattention/science1.png" alt="">
+                    <div class="commentcontent">
 
-    <div class="content">
-      <div class="usercomment">
-        <img src="../images/myattention/science2.png" alt="">
-        <div class="commentcontent">
-          <p>
-            <span>适用一切</span>
-          </p>
-            <p class="tech">科技大侠</p>
-          <i>虫洞连接黑洞</i>
+                        <i>最最新资讯</i><br>
+
+                        <span class="tech">科技大侠</span><br>
+                        <p>暂无签名</p>
+                    </div>
+                </div>
+                <div class="art">
+                    <span>+&nbsp;关注</span>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="usercomment">
+                    <img src="../images/myattention/science2.png" alt="">
+                    <div class="commentcontent">
+
+                        <i>适用一切</i><br>
+
+                        <span class="tech">科技大侠</span><br>
+                        <p>虫洞连接黑洞,虫洞连接黑洞,虫洞连接黑洞,</p>
+                    </div>
+                </div>
+                <div class="arttitle">
+                    <span>互相关注</span>
+                </div>
+            </div>
+            <div class="share">
+                <div class="usercomment">
+                    <img src="../images/myattention/science3.png" alt="">
+                    <div class="commentcontent">
+
+                        <i>Hello_ami</i><br>
+
+                        <span class="tech">科技大侠</span>
+                        <p>科学是和未知的领域打交道</p>
+                    </div>
+                </div>
+                <div class="arttitle">
+                    <span>互相关注</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="arttitle">
-        <p>互相关注</p>
-      </div>
     </div>
-    <div class="share">
-      <div class="usercomment">
-        <img src="../images/myattention/science3.png" alt="">
-        <div class="commentcontent">
-          <p>
-            <span>Hello_ami</span>
-          </p>
-            <p class="tech">科技大侠</p>
-          <i>科学是和未知的领域打交道</i>
-        </div>
-      </div>
-      <div class="arttitle">
-        <p>互相关注</p>
-      </div>
-    </div>
-  </div>
-  </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-  apiready = function () {
+    apiready = function() {
 
-  };
+    };
 </script>
 
 </html>
