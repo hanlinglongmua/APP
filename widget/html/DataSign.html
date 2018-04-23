@@ -81,25 +81,50 @@
       </style>
   </head>
   <body>
+    <form action="" id='myForm' method="post" >
       <div class="datasign">
           <header>
             <div class="header">
               <div class="top">
                 <div class="sect left"><i onclick="api.closeWin()"></i></div>
                 <div class="sect fo">签名</div>
-                <div class="sect right"><div class="t">保存</div></div>
+                <div class="sect right"><div class="t" onclick="save()">保存</div></div>
               </div>
             </div>
           </header>
 
           <section>
-            <textarea type="text" placeholder="请输入..."></textarea>
+            <textarea type="text" id="text" placeholder="请输入..."></textarea>
           </section>
       </div>
+    </form>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
-      apiready = function(){
+      function save(){
+          var userdata = {};
+          userdata = $api.getStorage('userdata');
+          var text = $api.val($api.byId('text'));
+          var sign = text;
+          api.ajax({
+              url: 'http://www.juzzn.com/information.php?type=sign',
+              method: 'post',
+              data: {
+                  values: {
+                      uid: userdata['uid'],sign:sign
+                  }
+              }
+          },function(ret, err){
+              if (ret.status == 1) {
+                  alert('签名修改成功');
+                  api.sendEvent({
+                      name: 'mydata'
+                  });
+                  api.closeWin();
+              } else {
+                  alert( ret.msg);
+              }
+          });
 
       };
   </script>

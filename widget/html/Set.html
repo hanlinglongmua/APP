@@ -198,10 +198,15 @@
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
       function loginout(){
+        Toast('成功退出当前账号',3000)
         var userdata = {}
         userdata=$api.getStorage('userdata');
         $api.clearStorage ('userdata');
-        Toast('成功退出当前账号')
+        api.sendEvent({
+            name: 'ENDMy'//登录成功刷新会员中心页面
+        });
+        api.closeWin();
+
       }
 
       //自定义弹框
