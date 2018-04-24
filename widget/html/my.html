@@ -24,7 +24,6 @@
         right: 8px;
         top: 2px;
       }
-
       * {
        margin: 0;
        padding: 0;
@@ -41,15 +40,12 @@
        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         display: block;
       }
-
       input {
         border: none;
       }
-
       ul,li,ol {
         list-style: none;
       }
-
       h1, h2,h3,h4,h5 {
        font-weight: 400;
       }
@@ -74,7 +70,6 @@
            height:9rem;
            background:url('../images/my/headerMy.png') no-repeat;
            background-size:100%;
-
          }
          .my-header .set {
           background:url(../images/my/headerset.png) no-repeat;
@@ -89,7 +84,6 @@
           height: 30px;
           width: 10%;
         }
-
           .nick_img img{
            width: 60px;
            height: 60px;
@@ -129,7 +123,6 @@
           .footer{
            line-height: 40px;
          }
-
           .participate{
            position: absolute;
            float: left;
@@ -150,7 +143,6 @@
           color: #3c3c3c;
           padding-top: -10px;
        }
-
          .fans{
           float: right;
           width: 40.3%;
@@ -161,7 +153,6 @@
           color: #3c3c3c;
           padding-top: -10px;
       }
-
          .item_content .phone,.item_content .mine{
           margin-bottom: 10px;
      }
@@ -193,7 +184,6 @@
          transform: rotate(-45deg);
          -webkit-transform: rotate(-45deg);
      }
-
         .notmean{
          display: inline-block;
          font-size: 12px;
@@ -305,7 +295,6 @@ apiready=function(){
       Toast('成功退出当前账号')
   });
 }
-
 // var userdata = {};
 // userdata = $api.getStorage('userdata');
 function VueUser(){
@@ -344,7 +333,6 @@ function VueUser(){
                   html+='<div class="concern">关注&nbsp;'+ret.data['followNum']+'<i></i></div>';
                   html+='<div class="fans">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
             html+='</div>';
-
             $api.html($api.byId('myindex'), html);
         } else {
             alert( JSON.stringify( err ) );
@@ -368,11 +356,9 @@ function VueUser(){
             html+='<div class="concern">关注&nbsp;<i></i></div>';
             html+='<div class="fans">粉丝&nbsp;</div>';
       html+='</div>';
-
       $api.html($api.byId('myindex'), html);
     }
 }
-
 function OpenmyAbount(){
    api.openWin({
        name: 'about',
@@ -460,7 +446,6 @@ function OpenmyAbount(){
        url: 'Login.html'
    });
  }
-
  function openInform(){
    api.openWin({
        name: 'Inform',
@@ -470,7 +455,6 @@ function OpenmyAbount(){
        }
    });
  }
-
  function openMyProfile(){
    api.openWin({
        name: 'MyProfile',
@@ -479,9 +463,7 @@ function OpenmyAbount(){
            name: 'test'
        }
    });
-
  }
-
  //自定义弹框
  function Toast(msg,duration){
      duration=isNaN(duration)?3000:duration;
