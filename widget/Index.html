@@ -180,6 +180,7 @@
           box-shadow: 0 0 10px 3px #cccccc;
           display: none;
         }
+
         .navmenu::after {
           position: absolute;
           top: -10px;
@@ -191,14 +192,17 @@
           border-right: 10px solid transparent;
           border-bottom: 10px solid #ffffff;
         }
+
         .navmenu span {
           color: #eee;
           font-size: 18px;
         }
+
         .navmenu i {
           color: #000000;
           font-size: 14px;
         }
+
         .navmenu a {
           padding: 10px 20px;
           border-bottom: 1px solid #cccccc;
@@ -285,6 +289,7 @@
 </body>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+
     apiready = function() {
         header = $api.dom('header'); // 获取 header 标签元素
         footer = $api.dom('footer'); // 获取 footer 标签元素
@@ -350,6 +355,7 @@
           }
         }
     }
+
     function clickRandomSwiBtn1(){
       api.closeFrame({
           name: 'zhineng'
@@ -357,7 +363,10 @@
       api.closeFrame({
           name: 'My'
       });
+
+
     }
+
     //打开zhineng页面
     function clickRandomSwiBtn2(){
       api.openFrame({
@@ -392,7 +401,9 @@
           name: 'search',
           url: 'html/Search.html'
       });
+
     }
+
     function openFindChoice(){
       var nvamenu = document.getElementById('navmenu');
       alert(nvamenu.style.display)
