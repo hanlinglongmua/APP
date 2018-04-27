@@ -37,10 +37,6 @@
             -webkit-box-orient: vertical;
             -webkit-flex-flow: column;
         }
-        flex-1 {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-        }
         .header {
             height: 44px;
             width: 100%;
@@ -48,6 +44,7 @@
             font-size: 20px;
             text-align: center;
             position: relative;
+            z-index: 9;
         }
         .header.myself,header.main{
             background: #666;
@@ -96,6 +93,7 @@
           background-color: #81a9c3;
           color: white;
           text-align: center;
+          position: relative;
         }
         footer ul{
           width: 100%;
@@ -156,12 +154,7 @@
         .flex-1 {
             -webkit-box-flex: 1;
             -webkit-flex: 1;
-        }
-        .header{
-          display: none;
-        }
-        .header.current{
-          display: block;
+            position: relative;
         }
         .serchedit{
           display: none;
@@ -169,53 +162,6 @@
         .serchedit.current{
           display: block;
         }
-        /*编辑选择*/
-        .navmenu {
-          background-color:#fff;
-          border-radius: 5px;
-          z-index: 100;
-          position: fixed;
-          top:10%;
-          right: 10%;
-          box-shadow: 0 0 10px 3px #cccccc;
-          display: none;
-        }
-
-        .navmenu::after {
-          position: absolute;
-          top: -10px;
-          right: 8px;
-          content: "";
-          width: 0;
-          height: 0;
-          border-left: 10px solid transparent;
-          border-right: 10px solid transparent;
-          border-bottom: 10px solid #ffffff;
-        }
-
-        .navmenu span {
-          color: #eee;
-          font-size: 18px;
-        }
-
-        .navmenu i {
-          color: #000000;
-          font-size: 14px;
-        }
-
-        .navmenu a {
-          padding: 10px 20px;
-          border-bottom: 1px solid #cccccc;
-          text-align: left;
-          display: block;
-        }
-        .iconfont{
-          font-family:"iconfont" !important;
-          font-size:22px;
-          font-style:normal;
-          color: black;
-        }
-        /*编辑选择 end*/
     </style>
 </head>
 
@@ -235,33 +181,6 @@
       </div>
     </header>
 
-    <!-- 编辑选择 -->
-    <div class="navmenu" id="navmenu">
-      <ul>
-        <li>
-          <a href="javascript:;">
-            <span></span>&nbsp;
-          <i class="iconfont">&#xe608;</i>
-            <i>发文字</i>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <span></span>&nbsp;
-            <i class="iconfont">&#xe60b;</i>
-            <i>发图文</i>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <span></span>&nbsp;
-              <i class="iconfont">&#xe690;</i>
-            <i>发视频</i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!-- 编辑选择 end -->
 
 
     <section class="flex-1">
@@ -327,14 +246,18 @@
           if(ret.index==0){
             serchedit.style.display = 'none';
             onserchedit.style.display = 'block';
+            api.closeFrame({
+                name: 'FindChoice'
+            });
           }else if(ret.index==1){
             serchedit.style.display = 'block';
             onserchedit.style.display = 'none';
           }
+
       });
     };
     //定义全局元素
-      var menus,header,footer,headerH,footerH,navH;
+  var menus,header,footer,headerH,footerH,navH;
     //定义首页发现
     //点击切换社区栏目
     function fnSetNavMenuIndex(index_){
@@ -363,8 +286,6 @@
       api.closeFrame({
           name: 'My'
       });
-
-
     }
 
     //打开zhineng页面
@@ -385,7 +306,7 @@
     function clickRandomSwiBtn3(){
       api.openFrame({
           name: 'My',
-          url: 'html/My.html',
+          url: 'html/my.html',
           rect: {
             marginTop: 0,
             marginBottom: footerH,
@@ -403,15 +324,30 @@
       });
 
     }
-
+    var num = 0;
     function openFindChoice(){
-      var nvamenu = document.getElementById('navmenu');
-      alert(nvamenu.style.display)
-      if(nvamenu.style.display == 'none'){
-        nvamenu.style.display = 'block';
-      }else if(nvamenu.style.display == 'block'){
-        nvamenu.style.display = 'none';
+      if(num==0){
+          api.openFrame({
+              name: 'FindChoice',
+              url: 'html/FindChoice.html',
+              rect: {
+                  x:230,
+                  y:30,
+                  w: '120',
+                  h: '155'
+              },
+              pageParam: {
+                  name: 'test'
+              }
+          });
+          num=1;
+      }else {
+        api.closeFrame({
+            name: 'FindChoice'
+        });
+        num=0;
       }
+
     }
 </script>
 

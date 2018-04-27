@@ -346,6 +346,56 @@
     .main .list .underline{
       border-bottom: 1px solid #e1e1e1;
     }
+    .contentitem {
+      display: flex;
+      padding: 5px 1% 0px 1%;
+      position: relative;
+      background-color: #fff;
+      margin-bottom: 5px;
+      height: 80px;
+      width: 98%;
+    }
+
+    .contentitem img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    /*头部结束*/
+    .contentitem .title{
+      font-size: 14px;
+      color: #111;
+    }
+    .contentitem .cate {
+      font-size: 10px;
+      border: 1px solid #4e5d67;
+      color: #4e5d67;
+      text-align: center;
+      padding: 0px 1px 0px 1px;
+    }
+    .contentitem p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp:1;
+      -webkit-box-orient:vertical;
+      word-break: break-all;
+      width: 100%;
+      line-height: 28px;
+      font-size: 12px;
+      color: #3d3d3d;
+    }
+    .contentitem a{
+      position: absolute;
+      right: 8px;
+      font-size: 12px;
+      color: #afafaf;
+      padding: 1px 6px;
+      border: 1px solid #afafaf;
+      border-radius: 2px;
+    }
     /*section end*/
       </style>
   </head>
@@ -530,7 +580,15 @@
                             html+='</div>';
                           }
                           else if(tab == '2'){
-                            Toast('用户');
+                            html+='<div class="contentitem" onclick="openFriendDetailsData('+data[i]['uid']+')">';
+                                html+='<img src="'+data[i]['avatar']+'" alt="">';
+                                html+='<div class="commentcontent">';
+                                      html+='<div class="title">'+data[i]['username']+'</div>';
+                                      html+='<span class="cate">'+data[i]['group']+'</span>';
+                                      html+='<p>'+data[i]['sign']+'</p>';
+                                html+='</div>'
+                                html+='<a>互相关注</a>';
+                            html+='</div>';
                           }
                         }
                       html+='</div>'
@@ -541,7 +599,6 @@
               });
           }
       }
-
       //自定义弹框
       function Toast(msg,duration){
           duration=isNaN(duration)?3000:duration;
@@ -556,7 +613,6 @@
               setTimeout(function() { document.body.removeChild(m) }, d * 1000);
           }, duration);
       }
-
       //打开窗口
       function OpenArticalDetails(aid){
         api.openWin({
@@ -567,13 +623,27 @@
             }
         });
       }
-
       function CommunityDetails(tid,authorid){
         api.openWin({
-          name: 'CommunityDetails',
-          url: 'CommunityDetails.html',
-          pageParam: {tid:tid,authorid:authorid}
-        });
+        name: 'CommunityDetails',
+        url: 'CommunityDetails.html',
+        pageParam: {tid:tid,authorid:authorid}
+      });
+      }
+      function openFriendDetailsData(authorid){
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        if(userdata){
+          api.openWin({
+              name: 'FriendDetailsData',
+              url: 'FriendDetailsData.html',
+              pageParam: {
+                  uid: authorid
+              }
+          });
+        }else {
+          Toast('请登录再进行操作')
+        }
       }
   </script>
   </html>

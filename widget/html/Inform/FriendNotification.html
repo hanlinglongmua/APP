@@ -3,8 +3,8 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>通知</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <title>好友通知</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
       <style>
           body,html{
             width: 100%;height: 100%; margin: 0; padding: 0;
@@ -20,7 +20,7 @@
             position: fixed;
             width: 100%;
             height: 44px;
-            background: url('../images/same_content/Header.jpg');
+            background: url('../../images/same_content/Header.jpg');
           }
           .section .sect{
             float: left;
@@ -32,6 +32,7 @@
             color: #ffffff;
             line-height: 44px;
             text-align: center;
+            white-space: nowrap;
           }
           .section .left>i{
             position: absolute;
@@ -104,6 +105,7 @@
             font-size: 8px;
             color: #6c6c6c;
             line-height: 16px;
+
           }
           /*ul菜单 edn*/
       </style>
@@ -113,60 +115,34 @@
       <!-- section 顶部 -->
         <div class="section">
           <div class="sect left"><i onclick="api.closeWin()"></i></div>
-          <div class="sect fo">通知</div>
+          <div class="sect fo">好友通知</div>
         </div>
       <!-- section end -->
       <!-- ul菜单 -->
       <ul>
         <li>
-          <span style="background:url('../images/inform/device_sharing.png') no-repeat"></span>
+          <span style="background:url('../../images/myattention/science1.png') no-repeat"></span>
           <div class="main">
-            <div class="title">设备通知</div>
-            <div class="text">kevin已接受共享的设备</div>
+            <div class="title">大艺术家</div>
+            <div class="text">我不太清楚</div>
             <div class="time">04-11 <div class="num">1</div></div>
           </div>
         </li>
         <li>
-          <span style="background:url('../images/inform/artical_notefation.png') no-repeat"></span>
-          <div class="main" onclick="openMessageNotification()">
-            <div class="title">消息通知</div>
-            <div class="text">收到新的点赞</div>
-            <div class="time">04-11 <div class="num">1</div></div>
-          </div>
-        </li>
-        <li>
-          <span style="background:url('../images/inform/community_notice.png') no-repeat"></span>
-          <div class="main" onclick="openSystermNotification()">
-            <div class="title">系统通知</div>
-            <div class="text">无</div>
+          <span style="background:url('../../images/myattention/science1.png') no-repeat"></span>
+          <div class="main">
+            <div class="title">果果</div>
+            <div class="text">我不太清楚我不太清楚我不太清楚我不太清楚</div>
           </div>
         </li>
       </ul>
       <!-- ul菜单 end -->
     </div>
   </body>
-  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
   <script type="text/javascript">
-      function openSystermNotification(){
-        api.openWin({
-            name: 'SystermNotification',
-            url: 'Inform/SystermNotification.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
+      apiready = function(){
 
-      }
-
-      function openMessageNotification(){
-        api.openWin({
-            name: 'MessageNotification',
-            url: 'Inform/MessageNotification.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
-
-      }
+      };
   </script>
   </html>

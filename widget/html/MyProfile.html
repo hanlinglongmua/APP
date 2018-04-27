@@ -302,7 +302,7 @@
                 html+='</a>';
               html+='</div>';
           } else {
-              alert( JSON.stringify( err ) );
+              alert( ret.msg );
           }
           $api.html($api.byId('data'), html);
       });

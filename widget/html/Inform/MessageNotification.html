@@ -3,12 +3,20 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>通知</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <title>消息通知</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
       <style>
+      @font-face {
+        font-family: 'iconfont';
+        src: url('../../icon/iconfont.eot');
+        src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('../../icon/iconfont.woff') format('woff'),
+        url('../../icon/iconfont.ttf') format('truetype'),
+        url('../../icon/iconfont.svg#iconfont') format('svg');
+      }
+
           body,html{
             width: 100%;height: 100%; margin: 0; padding: 0;
-            font-size:
           }
 
           ul li{
@@ -20,7 +28,7 @@
             position: fixed;
             width: 100%;
             height: 44px;
-            background: url('../images/same_content/Header.jpg');
+            background: url('../../images/same_content/Header.jpg');
           }
           .section .sect{
             float: left;
@@ -32,6 +40,7 @@
             color: #ffffff;
             line-height: 44px;
             text-align: center;
+            white-space: nowrap;
           }
           .section .left>i{
             position: absolute;
@@ -52,9 +61,10 @@
           }
           .inform ul li{
             width: 100%;
-            height: 44px;
+            height: 54px;
             display: flex;
             align-items: center;
+
           }
 
           .inform ul li span{
@@ -63,6 +73,8 @@
             margin-left: 5px;
             background-size: 80% !important;
             background-position: center center !important;
+            font-family: "iconfont" !important;
+
           }
 
           .inform ul li .main{
@@ -70,11 +82,13 @@
             height: 44px;
             float: right;
             border-bottom: 1px solid #e1e1e1;
+            font-family: "iconfont" !important;
+            margin-left: 6px;
           }
 
           .inform ul li .time{
-            font-size: 10px;
-            color: #bebebe;
+            font-size: 9px;
+            color: #808080;
             float: right;
             margin-top: -36px;
             margin-right: 10px;
@@ -82,11 +96,11 @@
           }
           .inform ul li .time .num{
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
             text-align: center;
-            line-height: 16px;
+            line-height: 14px;
             background-color: #d84a42;
             bottom:-20px;
             right: 0;
@@ -94,16 +108,23 @@
           }
           .inform ul li .title{
             height: 50%;
-            font-size: 12px;
+            font-size: 14px;
             color: #111;
             line-height: 28px;
           }
 
           .inform ul li .text{
             height: 50%;
-            font-size: 8px;
-            color: #6c6c6c;
+            font-size: 11px;
+            color: #7c7c7c;
             line-height: 16px;
+          }
+          .iconfont{
+            font-family: "iconfont" !important;
+            font-style: normal;
+            font-size: 22px;
+            color: #000;
+            margin-left: 6px;
           }
           /*ul菜单 edn*/
       </style>
@@ -113,44 +134,45 @@
       <!-- section 顶部 -->
         <div class="section">
           <div class="sect left"><i onclick="api.closeWin()"></i></div>
-          <div class="sect fo">通知</div>
+          <div class="sect fo">消息通知</div>
         </div>
       <!-- section end -->
       <!-- ul菜单 -->
       <ul>
         <li>
-          <span style="background:url('../images/inform/device_sharing.png') no-repeat"></span>
-          <div class="main">
-            <div class="title">设备通知</div>
-            <div class="text">kevin已接受共享的设备</div>
+      <i class="iconfont">&#xe63a;</i>
+          <div class="main" onclick="openCommunityNotification()">
+            <div class="title">社区通知</div>
+            <div class="text">有一条新的评论</div>
             <div class="time">04-11 <div class="num">1</div></div>
           </div>
         </li>
         <li>
-          <span style="background:url('../images/inform/artical_notefation.png') no-repeat"></span>
-          <div class="main" onclick="openMessageNotification()">
-            <div class="title">消息通知</div>
-            <div class="text">收到新的点赞</div>
+          <i class="iconfont">&#xe63a;</i>
+          <div class="main" onclick="openArticalNotification()">
+            <div class="title">文章通知</div>
+            <div class="text">有一条新的点赞</div>
             <div class="time">04-11 <div class="num">1</div></div>
           </div>
         </li>
         <li>
-          <span style="background:url('../images/inform/community_notice.png') no-repeat"></span>
-          <div class="main" onclick="openSystermNotification()">
-            <div class="title">系统通知</div>
-            <div class="text">无</div>
+        <i class="iconfont">&#xe62f;</i>
+          <div class="main" onclick="openFriendNotification()">
+            <div class="title">好友通知</div>
+            <div class="text">有一条新回复</div>
+            <div class="time">04-11 <div class="num">1</div></div>
           </div>
         </li>
       </ul>
       <!-- ul菜单 end -->
     </div>
   </body>
-  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
   <script type="text/javascript">
-      function openSystermNotification(){
+      function openFriendNotification(){
         api.openWin({
-            name: 'SystermNotification',
-            url: 'Inform/SystermNotification.html',
+            name: 'FriendNotification',
+            url: 'FriendNotification.html',
             pageParam: {
                 name: 'test'
             }
@@ -158,10 +180,21 @@
 
       }
 
-      function openMessageNotification(){
+      function openArticalNotification(){
         api.openWin({
-            name: 'MessageNotification',
-            url: 'Inform/MessageNotification.html',
+            name: 'ArticalNotification',
+            url: 'ArticalNotification.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+      }
+
+      function openCommunityNotification(){
+        api.openWin({
+            name: 'CommunityNotification',
+            url: 'CommunityNotification.html',
             pageParam: {
                 name: 'test'
             }

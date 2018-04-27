@@ -315,18 +315,23 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+    var pageParamtid = '';
+    var pageParampid = '';
+    var userdata = {};
+    userdata = $api.getStorage('userdata');
     apiready = function(){
       var html = '';
       var htmls = '';
       var data = {};
-      var pageParampid = api.pageParam.pid;
-      var pageParamtid =api.pageParam.tid;
+      var datas;
+      pageParampid = api.pageParam.pid;
+      pageParamtid =api.pageParam.tid;
       api.ajax({
           url: 'http://www.juzzn.com/discDetail.php',
           method: 'post',
           data: {
               values: {
-                tid:pageParamtid
+                tid:pageParamtid,uid:userdata['uid']
               }
           }
       },function(ret, err){
@@ -341,14 +346,21 @@
                   html+='<div class="text">'+data['m_message']+'</div>';//楼主回复的内容
                   html+='<div class="href"><a href="#" onclick="openCommunityDetails('+data['tid']+','+data['authorid']+')">查看原文章</a></div>';
                   for(var j=0;j<data['comments'].length;j++){
-                    var datas = data['comments'][j];
+                    datas = data['comments'][j];
                     htmls+='<div class="main">';
                       htmls+='<div class="left" onclick="openFriendDetailsData('+datas['m_uid']+')"><img src="'+datas['m_avatar']+'" alt=""></div>';//回复楼主的人的头像
                       htmls+='<div class="mid">';
                         htmls+='<div class="text">';
                           htmls+='<div class="top">'+datas['m_name']+'<i></i></div>';//回复楼主的人的名字
                           htmls+='<div class="mi">回复<a href="#">'+data['m_name']+'</a>：'+datas['msg']+'</div>';//楼主的名字和回复楼主的内容
-                          htmls+='<div class="answer"><div class="time">'+datas['m_dateline']+'</div><div class="answ">回复</div><i class="iconfont">&#xe617;</i></div>';//回复楼主的时间
+                          htmls+='<div class="answer"><div class="time">'+datas['m_dateline']+'</div><div class="answ">回复</div>';//回复楼主的时间
+
+                          if(datas['floorLike'] == 1){
+                            htmls+='<i class="iconfont" id="postlike'+datas['m_pid']+'" onclick="postlike('+datas['m_pid']+')">&#xe635;</i>';
+                          }else{
+                            htmls+='<i class="iconfont" id="postlike'+datas['m_pid']+'" onclick="postlike('+datas['m_pid']+')">&#xe617;</i>';
+                          }
+                          htmls+='</div>';
                         htmls+='</div>';
                       htmls+='</div>';
                     htmls+='</div>';
@@ -363,6 +375,28 @@
       });
 
     }
+
+    //回复评论的点赞
+    function postlike(pid){
+      api.ajax({
+          url: 'http://www.juzzn.com/postLike.php',
+          method: 'post',
+          data: {
+              values: {
+                  pid:pid,uid:userdata['uid'],username:userdata['username'],tid:pageParamtid
+              }
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data = ret.data;
+              $api.html($api.byId('postlike'+pid),"&#xe635;");
+              Toast('点赞成功')
+          } else {
+              alert(ret.msg);
+          }
+      });
+    }
+
     //自定义弹框
     function Toast(msg,duration){
         duration=isNaN(duration)?3000:duration;

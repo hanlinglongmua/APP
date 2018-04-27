@@ -193,7 +193,7 @@
       <!-- top 顶部 -->
       <div class="collection">
         <div class="top">
-          <div class="sect left"><i onclick="closeWinDs()"></i></div>
+          <div class="sect left"><i onclick="api.closeWin()"></i></div>
           <div class="sect fo">我的收藏</div>
         </div>
         <div class="menu" id="menu">
@@ -204,7 +204,7 @@
       <!-- top end -->
 
       <!-- main （文章）内容页面 -->
-      <div class="main current">
+      <div class="main current" id="main">
         <!-- 有图片的文章 -->
         <div class="article">
             <div class="image"><img src="../images/MyReport/report1.png" alt=""></div>
@@ -268,76 +268,14 @@
         <!-- 有视频的文章end -->
       </div>
       <!-- main （文章）内容页面 end -->
-
-      <!-- ma (视频)内容页面 -->
-      <div class="main">
-        <div class="article">
-            <div class="image"><img src="../images/MyReport/report1.png" alt=""></div>
-            <div class="text">
-              <div class="title t">真·海景房，早上鲨鱼来叫醒你</div>
-              <div class="foot t">
-                  <div class="from">鬼地方&nbsp;&nbsp;&nbsp;2018/04/07</div>
-                  <div class="read">2018阅读</div>
-              </div>
-            </div>
-        </div>
-
-        <div class="article">
-            <div class="image"><img src="../images/MyReport/report2.png" alt=""></div>
-            <div class="text">
-              <div class="title t">工作时，我们总少不了需要一些小工具的协助</div>
-              <div class="foot t">
-                  <div class="from">哥仨个&nbsp;&nbsp;&nbsp;2018/04/07</div>
-                  <div class="read">2018阅读</div>
-              </div>
-            </div>
-        </div>
-
-        <div class="article">
-            <div class="image"><img src="../images/MyReport/report3.png" alt=""></div>
-            <div class="text">
-              <div class="title t">科技时代，连美甲都是智能</div>
-              <div class="foot t">
-                  <div class="from">了解&nbsp;&nbsp;&nbsp;2018/04/07</div>
-                  <div class="read">2018阅读</div>
-              </div>
-            </div>
-        </div>
-        <!-- 有图片的文章 end -->
-
-        <!-- 没有图片的文章 -->
-        <div class="article">
-          <div class="text" style="padding-left:0;">
-            <div class="title t">人工智能时代来临</div>
-            <div class="foot t">
-                <div class="from">发生地&nbsp;&nbsp;&nbsp;2018/04/07</div>
-                <div class="read">2018阅读</div>
-            </div>
-          </div>
-        </div>
-        <!-- 没有图片的文章 end -->
-        <!-- 有视频的文章 -->
-        <div class="video">
-            <div class="image">
-                <img src="../images/myreport/report4.png" alt="">
-                <img class="playimg" src="../images/myReport/play.png" alt="">
-            </div>
-            <div class="text">
-              <div class="title t">真·海景房，早上鲨鱼来叫醒你</div>
-              <div class="foot t">
-                  <div class="from">东方红&nbsp;&nbsp;&nbsp;2018/04/07</div>
-                  <div class="read">2018阅读</div>
-              </div>
-            </div>
-        </div>
-        <!-- 有视频的文章end -->
-      </div>
       <!-- ma (视频)内容页面 end -->
-
     </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+  apiready = function(){
+     MyCollectionData(0);
+  }
   window.onload = function(){
   //原生封装好获取class
   function getClass(tagName,className){
@@ -357,9 +295,9 @@
   }
   //切换盒子
   var btns = document.getElementById('menu').getElementsByTagName('div');
-  var maxboxs = getClass("div","main")
-  var as = getClass("div","click")
-  var line = getClass("span","underline")
+  var as = getClass("div","click");
+  var line = getClass("span","underline");
+  var index = 0;
   for(var i=0;i<btns.length;i++){
       btns[i].index =i
       btns[i].onclick = function(){
@@ -371,19 +309,78 @@
          }
           as[a].className = 'click current';//确立自己
           line[a].className = 'underline current';
-          for(var i=0;i<maxboxs.length;i++){
-            maxboxs[i].className = 'main'
-          }
-          maxboxs[this.index].className = 'main current'
+          index = this.index;
+           MyCollectionData(index);
       }
   }
+}//
 
-}
-function closeWinDs(){
-  api.closeWin({
-      name: 'MyCollection'
-  });
 
-}
+function MyCollectionData(index){
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
+        var html = '';
+        api.ajax({
+            url: 'http://www.juzzn.com/myCenter.php',
+            method: 'post',
+            data: {
+                values: {
+                    uid:userdata['uid']
+                }
+            }
+        },function(ret, err){
+          if(ret.status==1){
+            var data = ret.data.favData;
+                  if(index==0){
+                    for(var i=0;i<data.article.length;i++){
+                      html+='<div class="article" onclick="OpenDetail('+data.article[i]['aid']+')">';
+                            html+='<div class="image"><img src="'+data.article[i]['pic']+'" alt=""></div>';
+                            html+='<div class="text">';
+                                  html+='<div class="title t">'+data.article[i]['title']+'</div>';
+                                  html+='<div class="foot t">';
+                                        html+='<div class="from">'+data.article[i]['from']+'</div>';
+                                        html+='<div class="read">'+data.article[i]['viewnum']+'&nbsp;阅读</div>';
+                                  html+='</div>';
+                            html+='</div>';
+                      html+='</div>';
+                    }
+                  }else if(index==1){
+                    for(var j=0;j<data.topic.length;j++){
+                    html+='<div class="article" onclick="openCommunityDetails('+data["topic"][j]['tid']+')">';
+                          html+='<div class="text" style="padding-left:0;">';
+                                html+='<div class="title t">'+data["topic"][j]["subject"]+'</div>';
+                                html+='<div class="foot t">';
+                                      html+='<div class="from">'+data["topic"][j]["author"]+'</div>';
+                                      html+='<div class="read">'+data["topic"][j]["num"]+'&nbsp;条评论</div>';
+                                html+='</div>';
+                          html+='</div>';
+                    html+='</div>';
+                  }
+                }
+                $api.html($api.byId('main'), html);
+
+            }else {
+              alert(ret.msg)
+            }
+          });
+      }
+
+      function openCommunityDetails(tid,authorid){
+          api.openWin({
+          name: 'CommunityDetails',
+          url: 'CommunityDetails.html',
+          pageParam: {tid:tid,authorid:authorid}
+        });
+      }
+
+      function OpenDetail(aid){
+        api.openWin({
+            name: 'ArticalDetails',
+            url: 'ArticalDetails.html',
+            pageParam: {
+                aid: aid
+            }
+        });
+      }
   </script>
   </html>

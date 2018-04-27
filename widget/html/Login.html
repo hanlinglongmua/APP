@@ -238,7 +238,7 @@
           </div>
            <div class="center-text" id="check">
               <span class="checkboxBox" onclick="openRegister()">马上注册</span>
-              <a href="">忘记密码?</a>
+              <a href="" onclick="openResetPassword()">忘记密码?</a>
            </div>
         </form>
        </div>
@@ -321,7 +321,17 @@
               name: 'test'
           }
       });
-      api.closeWin();
+    }
+
+    function openResetPassword(){
+      api.openWin({
+          name: 'ResetPassword',
+          url: 'ResetPassword.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
     }
 </script>
 </html>
