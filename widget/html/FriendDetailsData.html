@@ -529,6 +529,7 @@ apiready = function(){
       }
   },function(ret, err){
       if (ret.status==1) {
+          alert(JSON.stringify(data))
           data = ret.data;
           html+='<div class="namedatails">';
             html+='<div class="headerimg"><img src="'+data['avatar']+'" alt=""></div>';//发帖人头像
@@ -572,7 +573,7 @@ apiready = function(){
             htmldata+='</div>';
           htmldata+='</div>';
 
-          htmlfoot+='<div class="footer">私信</div>';
+          htmlfoot+='<div class="footer" onclick="openChatWindow('+data['uid']+')">私信</div>';
           htmlfoot+='<span></span>';
           if(data.hasFollow){
               htmlfoot+='<div class="footer" id="follow" onclick="follow()">已关注</div>';
@@ -588,7 +589,18 @@ apiready = function(){
       $api.html($api.byId('footer'), htmlfoot);
   });
 
-}
+ }
+
+  function openChatWindow(uid){
+    api.openWin({
+        name: 'ChatWindow',
+        url: 'ChatWindow.html',
+        pageParam: {
+            uid:uid
+        }
+    });
+
+  }
 
 function follow(){
   api.ajax({

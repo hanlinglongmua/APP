@@ -626,19 +626,22 @@
       textareaMain.style.display = 'block';
       footer.style.display = 'none';
     }else{
-
+      Toast('请登录之后再进行操作')
     }
   }
+
   //点击切换底部
   function toggleFooter(){
     textareaMain.style.display = 'none';
     footer.style.display = 'flex';
   }
-apiready=function(){
-  pageParamTid = api.pageParam.tid;
-    CommentDetailsData();
-}
-function CommentDetailsData(){
+
+  apiready=function(){
+    pageParamTid = api.pageParam.tid;
+      CommentDetailsData();
+  }
+
+  function CommentDetailsData(){
     var CommentDetailsDatas = {};
     if(userdata){
       CommentDetailsDatas.tid=pageParamTid;
@@ -723,8 +726,11 @@ function CommentDetailsData(){
                                   html+='<div class="date">'+data.reply[i]['m_dateline']+'</div>';
                             html+='</div>';
                             html+='<div class="right">';
-                                  // if(data.reply[''])
-                                  html+='<i class="iconfont img">&#xe617;</i>';
+                                  if(data.reply[i]['floorLike'] == 1){
+                                    html+='<i class="iconfont img" id="postlike'+data.reply[i]['pid']+'" onclick="postlike('+data.reply[i]['pid']+')">&#xe635;</i>';
+                                  }else{
+                                    html+='<i class="iconfont img" id="postlike'+data.reply[i]['pid']+'" onclick="postlike('+data.reply[i]['pid']+')">&#xe617;</i>';
+                                  }
                                   html+='<div class="talk" onclick="inputFouse('+data.reply[i]['pid']+')">回复</div>';
                                   // html+='<div class="share">'+data.[i]['recNum']+'</div>';
                             html+='</div>';
@@ -862,6 +868,31 @@ function CommentDetailsData(){
         }
     });
   }
+
+  function  postlike(pid) {
+    if(userdata){
+      api.ajax({
+          url: 'http://www.juzzn.com/postLike.php',
+          method: 'post',
+          data: {
+              values: {
+                  pid:pid,uid:userdata['uid'],username:userdata['username'],tid:pageParamTid
+              }
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data = ret.data;
+              $api.html($api.byId('postlike'+pid),"&#xe635;");
+              Toast('点赞成功')
+          } else {
+              alert(ret.msg);
+          }
+      });
+    }else{
+      Toast('请登录之后再进行操作')
+    }
+  }
+
   //主题评论提交
   function criticism(){
         var userdata = {};
@@ -880,7 +911,6 @@ function CommentDetailsData(){
         }else {
           criticismData.bbcodeoff = 0;
         }
-        alert(JSON.stringify(criticismData));
         if(textarea==''){
           Toast('请输入你要评论的内容',2000)
         }else {

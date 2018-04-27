@@ -610,6 +610,8 @@
       }
 
       function openFriendDetailsData(uid){
+        var userdata = {};
+        userdata = $api.getStorage('userdata');
         if(userdata){
           api.openWin({
               name: 'FriendDetailsData',

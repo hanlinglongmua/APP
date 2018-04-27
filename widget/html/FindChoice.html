@@ -34,16 +34,15 @@
     .navmenu {
       background-color:#fff;
       border-radius: 5px;
-      z-index: 100;
       position: fixed;
-      top:10%;
-      right: 10%;
-      box-shadow: 0 0 10px 3px #cccccc;
+      top:6%;
+      right: 3%;
+      box-shadow: 0 0 3px 3px #cccccc;
     }
 
     .navmenu::after {
       position: absolute;
-      top: -10px;
+      top: -8px;
       right: 8px;
       content: "";
       width: 0;
@@ -52,9 +51,6 @@
       border-right: 10px solid transparent;
       border-bottom: 10px solid #ffffff;
     }
-
-    .navmenu li {}
-
     .navmenu span {
       color: #eee;
       font-size: 18px;
@@ -84,7 +80,7 @@
   <div class="navmenu">
     <ul>
       <li>
-        <a href="javascript:;">
+        <a href="javascript:;" onclick="openReleaselmage()">
           <span></span>&nbsp;
         <i class="iconfont">&#xe608;</i>
           <i>发文字</i>
@@ -112,6 +108,15 @@
   apiready = function () {
 
   };
+  function openReleaselmage(){
+    api.openWin({
+        name: 'ReleaseImageText',
+        url: 'ReleaseImageText.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
 </script>
 
 </html>

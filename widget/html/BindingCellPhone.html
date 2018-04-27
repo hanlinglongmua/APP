@@ -150,40 +150,109 @@
 
 <body>
     <header>
-        <i onclick="CloseBindingCellPhone()"></i>
+        <i onclick="api.closeWin()"></i>
         <span>绑定手机</span>
     </header>
-    <div class="main">
-        <ul>
-            <li>
-                <div class="bg">
-                    <div class="name">手机号</div>
-                    <div class="input">
-                        <input type="text" placeholder="请输入手机号">
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="bg one">
-                    <div class="name two">验证码</div>
-                    <div class="input one">
-                        <input type="text" placeholder="请输入验证码">
-                    </div>
-                    <div class="name yzm">
-                        获取验证码
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <bottom class="bottom">开始</bottom>
-    </div>
+    <form action="" id='myForm' method="post" >
+      <div class="main">
+          <ul>
+              <li>
+                  <div class="bg">
+                      <div class="name">手机号</div>
+                      <div class="input">
+                          <input type="text" id="phonenum" placeholder="请输入手机号">
+                      </div>
+                  </div>
+              </li>
+              <li>
+                  <div class="bg one">
+                      <div class="name two">验证码</div>
+                      <div class="input one">
+                          <input type="text" id="code" placeholder="请输入验证码">
+                      </div>
+                      <div class="name yzm" onclick="sendCode()">获取验证码</div>
+                  </div>
+              </li>
+          </ul>
+          <bottom class="bottom" onclick="binding()">开始</bottom>
+      </div>
+    </form>
 </body>
+<script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    function CloseBindingCellPhone(){
-      api.closeWin({
-          name: 'BindingCellPhone'
+    apiready = function(){
+
+    }
+
+    var userdata = {};
+    userdata = $api.getStorage('userdata');
+    var phone = '';
+    var code = '';
+    function sendCode(){
+      var phonenum = $api.val($api.byId('phonenum'));
+      if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenum))){
+         alert("请输入正确的手机号码");
+         document.getElementById('phonenum').focus();
+         return false;
+      }
+      phone = phonenum;
+      api.ajax({
+          url: 'http://www.juzzn.com/sendSms.php',
+          method: 'post',
+          data: {
+              values: {
+                  phone:phone
+              }
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data =ret.data;
+              Toast( '发送成功' );
+          } else {
+              Toast( ret.msg );
+          }
       });
 
+    }
+
+    function binding(){
+      var phonenum = $api.val($api.byId('phonenum'));
+      var codenum = $api.val($api.byId('code'));
+      phone = phonenum;
+      code = codenum;
+      api.ajax({
+          url: 'http://www.juzzn.com/binding.php',
+          method: 'post',
+          data: {
+              values: {
+                  phone: phone,code:code,uid:userdata['uid']
+              }
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data =ret.data;
+              Toast( '绑定成功' );
+              api.closeWin();
+          } else {
+              Toast( ret.msg );
+          }
+      });
+
+    }
+
+    //自定义弹框
+    function Toast(msg,duration){
+        duration=isNaN(duration)?3000:duration;
+        var m = document.createElement('div');
+        m.innerHTML = msg;
+        m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
+        document.body.appendChild(m);
+        setTimeout(function() {
+            var d = 0.5;
+            m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
+            m.style.opacity = '0';
+            setTimeout(function() { document.body.removeChild(m) }, d * 1000);
+        }, duration);
     }
 </script>
 

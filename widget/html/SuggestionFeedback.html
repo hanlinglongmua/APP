@@ -160,6 +160,11 @@
       function subsug(){
         var suggestion = $api.val($api.byId('suggestion'));
         var link = $api.val($api.byId('link'));
+        if(!(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(link) || /^[1-9]\d{4,12}$/.test(link))){
+           alert("请输入正确的邮箱或QQ");
+           document.getElementById('link').focus();
+           return false;
+        }
         var advice = suggestion;
         var connection = link;
         if(suggestion == '' || link == ''){

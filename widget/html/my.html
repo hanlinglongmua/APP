@@ -129,42 +129,28 @@
           .footer{
            line-height: 40px;
          }
-
-          .participate{
-           position: absolute;
-           float: left;
-           width: 50.3%;
-           height: 50px;
-           text-align: center;
-           font-size: 15px;
-           color: #3c3c3c;
-           padding-top: -10px;
-         }
-         .concern{
-          margin-left: auto;
-          margin-right: auto;
-          width: 108%;
-          height: 50px;
-          text-align: center;
-          font-size: 15px;
-          color: #3c3c3c;
-          padding-top: -10px;
-       }
-
-         .fans{
-          float: right;
-          width: 40.3%;
-          height: 50px;
-          margin-top: -50px;
-          text-align: center;
-          font-size: 15px;
-          color: #3c3c3c;
-          padding-top: -10px;
-      }
-
+          .footer div{
+            width: 33.3%;
+            height: 38px;
+            text-align: center;
+            font-size: 15px;
+            color: #3c3c3c;
+            float: left;
+            position: relative;
+          }
+          .footer i{
+            position: absolute;
+            right: 0;
+            top: 12px;
+            border-right: 1px solid #000;
+            height: 15px;
+          }
          .item_content .phone,.item_content .mine{
           margin-bottom: 10px;
-     }
+         }
+         .item_content{
+           margin-top: 10px;
+         }
          .item_content a {
           display:flex;
           justify-content: space-between;
@@ -200,13 +186,8 @@
          color: #7b7b7b;
          position: absolute;
          right: 28px;
-         top:250px;
-   }
-       .footer>div>i{
-         border-left:1px solid #cfcfcf;
-         border-right:1px solid #cfcfcf;
-         margin-left: 25px;
-    }
+         line-height: 21px;
+        }
   </style>
 </head>
 <body>
@@ -220,12 +201,12 @@
               <img src="../images/my/headerSculpture.png" >
             </div>
             <div class="nickname">昵称</div>
-            <span class="thisopp" onclick="openLogin()">点击登录</span>
+            <span class="thisopp" onclick="openLogin()">点击头像马上登录</span>
       </div>
       <div class="footer">
-            <div class="participate">参与&nbsp;299<i></i></div>
-            <div class="concern">关注&nbsp;299<i></i></div>
-            <div class="fans">粉丝&nbsp;299</div>
+            <div>参与&nbsp;299<i></i></div>
+            <div>关注&nbsp;299<i></i></div>
+            <div>粉丝&nbsp;299</div>
       </div>
   </div>
         <div class="item_content">
@@ -240,7 +221,7 @@
                 <a href="javascript:;" onclick="OpenBindingCellPhone()">
                     <div>
                         <img src="../images/same_content/bodytel.png" alt="">
-                        <span class="title">手机<span class="notmean">未定义</span></span>
+                        <span class="title" id="bindingphonenum">手机<span class="notmean">未绑定</span></span>
                     </div>
                     <span class="arrow"></span>
                 </a>
@@ -312,6 +293,7 @@ function VueUser(){
   var userdata = {};
   userdata = $api.getStorage('userdata');
   var html = '';
+  var bindingphonenum = '';
   if(userdata){
     api.ajax({
         url: 'http://www.juzzn.com/myCenter.php',
@@ -340,12 +322,18 @@ function VueUser(){
                   }
             html+='</div>';
             html+='<div class="footer">';
-                  html+='<div class="participate">参与&nbsp;'+ret.data['joinNum']+'<i></i></div>';
-                  html+='<div class="concern">关注&nbsp;'+ret.data['followNum']+'<i></i></div>';
-                  html+='<div class="fans">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
+                  html+='<div class="participate" onclick="openMyParticipate('+ret.data['uid']+')">参与&nbsp;'+ret.data['joinNum']+'<i></i></div>';
+                  html+='<div onclick="openMyAttention('+ret.data['uid']+')">关注&nbsp;'+ret.data['followNum']+'<i></i></div>';
+                  html+='<div onclick="openMyFans('+ret.data['uid']+')">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
             html+='</div>';
+            if(data['mobile'] != ''){
+              bindingphonenum+='手机<span class="notmean">'+data['mobile']+'</span>';
+            }else{
+              bindingphonenum+='手机<span class="notmean">未绑定</span>';
+            }
 
             $api.html($api.byId('myindex'), html);
+            $api.html($api.byId('bindingphonenum'), bindingphonenum);
         } else {
             alert( JSON.stringify( err ) );
         }
@@ -358,17 +346,18 @@ function VueUser(){
       html+='</div>';
       html+='<div class="nick">';
             html+='<div class="nick_img">';
-                  html+='<img src="" onerror="this.src=\'../images/about/Logo.png\'" onclick="openMyProfile()">';
+                  html+='<img src="" onerror="this.src=\'../images/about/Logo.png\'" onclick="openLogin()">';
             html+='</div>';
             html+='<div class="nickname"></div>';
-              html+='<span class="thisopp" onclick="openLogin()">点击登录</span>';
+              html+='<span class="thisopp" onclick="openLogin()">点击头像马上登录</span>';
       html+='</div>';
       html+='<div class="footer">';
             html+='<div class="participate">参与&nbsp;<i></i></div>';
             html+='<div class="concern">关注&nbsp;<i></i></div>';
             html+='<div class="fans">粉丝&nbsp;</div>';
       html+='</div>';
-
+      bindingphonenum+='手机<span class="notmean">未绑定</span>';
+      $api.html($api.byId('bindingphonenum'), bindingphonenum);
       $api.html($api.byId('myindex'), html);
     }
 }
@@ -434,10 +423,19 @@ function OpenmyAbount(){
      }
  }
  function OpenBindingCellPhone(){
-   api.openWin({
-       name: 'BindingCellPhone',
-       url: 'BindingCellPhone.html'
-   });
+   var userdata = {};
+   userdata = $api.getStorage('userdata');
+   if(userdata){
+       api.openWin({
+           name: 'BindingCellPhone',
+           url: 'BindingCellPhone.html',
+           pageParam: {
+               name: 'test'
+           }
+       });
+   }else {
+       Toast('请登录之后再进行操作')
+   }
  }
  function OpenMyReport(){
      var userdata = {};
@@ -472,14 +470,62 @@ function OpenmyAbount(){
  }
 
  function openMyProfile(){
+   var userdata = {};
+   userdata = $api.getStorage('userdata');
+   if(userdata){
+     api.openWin({
+         name: 'MyProfile',
+         url: 'MyProfile.html',
+         pageParam: {
+             name: 'test'
+         }
+     });
+   }else {
+     Toast('请登录之后再进行操作')
+   }
+ }
+
+ function openMyParticipate(uid){
    api.openWin({
-       name: 'MyProfile',
-       url: 'MyProfile.html',
+       name: 'MyParticipate',
+       url: 'MyParticipate.html',
        pageParam: {
-           name: 'test'
+           uid: uid
        }
    });
 
+ }
+
+ function openMyFans(uid){
+   var userdata = {};
+   userdata = $api.getStorage('userdata');
+   if(userdata){
+     api.openWin({
+         name: 'MyFans',
+         url: 'MyFans.html',
+         pageParam: {
+             uid: userdata['uid']
+         }
+     });
+   }else {
+     Toast('请登录之后再进行操作')
+   }
+ }
+
+ function openMyAttention(uid){
+   var userdata = {};
+   userdata = $api.getStorage('userdata');
+   if(userdata){
+     api.openWin({
+         name: 'MyAttention',
+         url: 'MyAttention.html',
+         pageParam: {
+             uid: userdata['uid']
+         }
+     });
+   }else {
+     Toast('请登录之后再进行操作')
+   }
  }
 
  //自定义弹框
