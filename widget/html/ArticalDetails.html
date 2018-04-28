@@ -57,7 +57,7 @@
             margin-left: 10px;
             color: #111;
             font-size: 18px;
-            padding: 14px 0 14px 0;
+            padding: 40px 0 14px 0;
             position: relative;
             font-weight: bold;
         }
@@ -198,9 +198,8 @@
         }
 
         .artbook p {
-          padding: 10px 10px 10px 10px;
-          word-wrap: break-word;
-
+            padding: 10px 10px 10px 10px;
+            word-wrap: break-word;
         }
         /*最最新咨讯结束*/
         /*header end*/
@@ -882,7 +881,7 @@
             }, 1);
         }
         // 打开回复按钮
-   function OpcomSonSon() {
+    function OpcomSonSon() {
         api.openWin({
             name: 'CommunityCommentDetails',
             url: 'CommunityCommentDetails.html'
@@ -918,71 +917,71 @@
         }, function(ret, err) {
             data = ret.data;
             if (ret.status == 1) {
-                html += '<div class="header">';
-                html += '<div class="title"  onclick="toggleFooter();">';
-                html += '<div class="titl">' + data['title'] + '</div>'; //文章标题
-                html += '</div>';
-                html += '<div class="nametime"  onclick="toggleFooter();">';
-                html += '<div class="name" onclick="openFriendDetailsData(' + data['uid'] + ')">' + data['username'] + '<div></div></div>'; //文章作者
-                html += '<div class="time">' + data['dateline'] + '<div></div></div>'; //文章发布时间
-                html += '<div class="readnum">浏览次数：' + data['viewnum'] + '</div>'; //查看次数
-                html += '<div class="reasonfor">来源：' + data['from'] + '</div>'; //来源
-                html += '</div>';
-                html += '<div class="photoprojector"  onclick="toggleFooter();">' + data['content'] + '</div>'; //内容
-                html += '<div class="uptop">';
-                html += '<div class="left"  onclick="toggleFooter();"><img src="' + data['avatar'] + '" alt="" onclick="openFriendDetailsData(' + data['uid'] + ')"></div>'; //发布人头像
-                html += '<div class="mid">';
-                html += '<div class="name">' + data['username'] + '</div>'; //发布人名称
-                html += '<div class="sign">' + data['sign'] + '</div>'; //签名
+    html += '<div class="header">';
+      html += '<div class="title"  onclick="toggleFooter();">';
+          html += '<div class="titl">' + data['title'] + '</div>'; //文章标题
+      html += '</div>';
+        html += '<div class="nametime"  onclick="toggleFooter();">';
+            html += '<div class="name" onclick="openFriendDetailsData(' + data['uid'] + ')">' + data['username'] + '<div></div></div>'; //文章作者
+            html += '<div class="time">' + data['dateline'] + '<div></div></div>'; //文章发布时间
+            html += '<div class="readnum">浏览次数：' + data['viewnum'] + '</div>'; //查看次数
+            html += '<div class="reasonfor">来源：' + data['from'] + '</div>'; //来源
+        html += '</div>';
+            html += '<div class="photoprojector"  onclick="toggleFooter();">' + data['content'] + '</div>'; //内容
+          html += '<div class="uptop">';
+            html += '<div class="left"  onclick="toggleFooter();"><img src="' + data['avatar'] + '" alt="" onclick="openFriendDetailsData(' + data['uid'] + ')"></div>'; //发布人头像
+          html += '<div class="mid">';
+            html += '<div class="name">' + data['username'] + '</div>'; //发布人名称
+            html += '<div class="sign">' + data['sign'] + '</div>'; //签名
                 if (data['haveFollow']) {
                     html += '<div class="right" id="follow"><img src="../images/same_content/attentioned.png" onclick="follow()" alt=""></div>'; //已关注
                 } else {
                     html += '<div class="right" id="follow"><img src="../images/same_content/attention.png" onclick="follow()" alt=""></div>'; //未关注
                 }
-                html += '</div>';
-                html += '</div>';
-                html += '</div>';
+                  html += '</div>';
+          html += '</div>';
+    html += '</div>';
 
-                html += '<div class="news">';
+          html += '<div class="news">';
                 html += '<h3>相关推荐</h3>';
                 html += '<ul>';
                 for (var i = 0; i < 5; i++) {
                     html += '<li onclick="OpenDetail(' + data['relates'][i]['aid'] + ')">';
-                    html += '<a href="javascript:;">';
-                    html += '<div class="empire"><img src="http://www.juzzn.com/data/attachment/' + data['relates'][i]['pic'] + '" alt=""></div>'; //相关推荐图片
-                    html += '<div><p>' + data['relates'][i]['title'] + '</p><span>' + data['relates'][i]['dateline'] + '</span></div>'; //相关推荐
-                    html += '</a>';
+                       html += '<a href="javascript:;">';
+                         html += '<div class="empire"><img src="http://www.juzzn.com/data/attachment/' + data['relates'][i]['pic'] + '" alt=""></div>'; //相关推荐图片
+                         html += '<div><p>' + data['relates'][i]['title'] + '</p><span>' + data['relates'][i]['dateline'] + '</span></div>'; //相关推荐
+                       html += '</a>';
                     html += '</li>';
                 }
                 html += '</ul>';
-                html += '</div>';
+          html += '</div>';
                 if (data.comments.length) {
-                    html += '<div class="main">';
-                    html += '<div class="mue"><div class="left">评论</div></div>';
+            html += '<div class="main">';
+              html += '<div class="mue"><div class="left">评论</div></div>';
                     for (i = 0; i < data.comments.length; i++) {
-                        html += '<div class="replay">';
-                        html += '<div class="text" onclick="toggleFooter();">';
-                        html += '<div class="left"><img src="' + data.comments[i]['avatar'] + '" alt="" onclick="openFriendDetailsData(' + data.comments[i]['uid'] + ')"></div>'; //评论头像
+            html += '<div class="replay">';
+                    html += '<div class="text" onclick="toggleFooter();">';
+                      html += '<div class="left"><img src="' + data.comments[i]['avatar'] + '" alt="" onclick="openFriendDetailsData(' + data.comments[i]['uid'] + ')"></div>'; //评论头像
                         html += '<div class="right">';
-                        html += '<div class="top" onclick="openFriendDetailsData(' + data.comments[i]['uid'] + ')">' + data.comments[i]['username'] + '</div>'; //评论人
-                        html += '<i></i>';
-                        html += '<div class="mid">';
-                        html += '<div class="art">' + data.comments[i]['message'] + '</div>'; //评论内容
+                          html += '<div class="top" onclick="openFriendDetailsData(' + data.comments[i]['uid'] + ')">' + data.comments[i]['username'] + '</div>'; //评论人
+                          html += '<i></i>';
+                            html += '<div class="mid">';
+                              html += '<div class="art">' + data.comments[i]['message'] + '</div>'; //评论内容
                         html += '</div>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '<div class="foot">';
-                        html += '<div class="left">';
+                    html += '</div>';
+                  html += '</div>';
+              html += '<div class="foot">';
+                html += '<div class="left">';
                         html += '<div class="date">' + data.comments[i]['dateline'] + '</div>'; //评论时间
-                        html += '</div>';
-                        html += '<div class="right">';
+                html += '</div>';
+                    html += '<div class="right">';
                         if (data.comments[i]['haveLike'] == 1) {
                             html += '<div><i class="iconfont img" id="postlike' + data.comments[i]['cid'] + '" onclick="postlike(' + data.comments[i]['cid'] + ',\'cid\')">&#xe635;</i></div>';
                         } else {
                             html += '<div><i class="iconfont img" id="postlike' + data.comments[i]['cid'] + '" onclick="postlike(' + data.comments[i]['cid'] + ',\'cid\')">&#xe617;</i></div>';
                         }
                         html += '<div class="talk" onclick="inputFouse(' + data.comments[i]['cid'] + ')">回复</div>';
-                        html += '</div>';
+                  html += '</div>';
                         html += '</div>';
                         html += '</div>';
                     }
