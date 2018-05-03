@@ -643,7 +643,6 @@
       }
       //返回热门搜索和搜索历史
       function cancelbtn(){
-        alert(111)
         var history = document.getElementById('history');
         var historys = '';
         historys = $api.getStorage('historys');
@@ -655,15 +654,16 @@
                 url: 'http://www.juzzn.com/hotwords.php',
                 method: 'post',
             },function(ret, err){
+              var htmlhot = '';
               if (ret.status == 1) {
                 var hotData = ret.data;
-                html += '<ul class="ul">';
+                htmlhot += '<ul class="ul">';
                     for(var j=0;j<hotData.length;j++){
-                      html += '<li onclick="find(\''+hotData[j]['words']+'\')">'+hotData[j]['words']+'</li>';
+                      htmlhot += '<li onclick="find(\''+hotData[j]['words']+'\')">'+hotData[j]['words']+'</li>';
                     }
-                html += '</ul>';
+                htmlhot += '</ul>';
               }
-              // $api.html($api.byId('hot'), html);
+              $api.html($api.byId('hot'), htmlhot);
             });
           html+='</div>';
           html+='<div class="history">';//搜索历史
@@ -679,13 +679,14 @@
                         }
                     }
                 },function(ret, err){
+                  var seatchhtml = '';
                   if (ret.status == 1) {
                     var data=ret.data;
                     for(var i=0;i<data.length;i++){
-                      html+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                      seatchhtml+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
                     }
                   }
-                  // $api.html($api.byId('history'),html);
+                  $api.html($api.byId('history'),seatchhtml);
                 });
               html+='</ul>';
             html+='</div>';
@@ -722,6 +723,7 @@
         },function(ret, err){
             if (ret.status == 1) {
               var data=ret.data;
+              alert(JSON.stringify(data))
               for(var i=0;i<data.length;i++){
                 htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
               }
