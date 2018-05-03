@@ -529,7 +529,6 @@ apiready = function(){
       }
   },function(ret, err){
       if (ret.status==1) {
-          alert(JSON.stringify(data))
           data = ret.data;
           html+='<div class="namedatails">';
             html+='<div class="headerimg"><img src="'+data['avatar']+'" alt=""></div>';//发帖人头像
@@ -573,12 +572,12 @@ apiready = function(){
             htmldata+='</div>';
           htmldata+='</div>';
 
-          htmlfoot+='<div class="footer" onclick="openChatWindow('+data['uid']+')">私信</div>';
+          htmlfoot+='<div class="footer" onclick="openChatWindow('+uid+')">私信</div>';
           htmlfoot+='<span></span>';
-          if(data.hasFollow){
-              htmlfoot+='<div class="footer" id="follow" onclick="follow()">已关注</div>';
+          if(data.hasFollow == 1){
+              htmlfoot+='<div class="footer" id="follwid" onclick="followed()">已关注</div>';
           }else {
-              htmlfoot+='<div class="footer" id="follow" onclick="follow()">加关注</div>';
+              htmlfoot+='<div class="footer" id="follwid" onclick="follows()">加关注</div>';
           }
       } else {
           alert(err.msg)
@@ -602,7 +601,7 @@ apiready = function(){
 
   }
 
-function follow(){
+function follows(){
   api.ajax({
       url: 'http://www.juzzn.com/action.php?action=follow',
       method: 'post',
@@ -616,14 +615,45 @@ function follow(){
       }
   },function(ret, err){
       if (ret.status == 1) {
-          Toast('关注成功');
-          $api.text($api.byId('follow'), '已关注');
+          Toast('关注成功',1000);
+          $api.text($api.byId('follwid'), '已关注');
+          document.getElementById('follwid').removeAttribute('onclick');
+          document.getElementById('follwid').setAttribute('onclick','followed()')
       } else {
-          Toast(ret.msg);
+          // Toast(ret.msg);
       }
   });
 
 }
+
+  //已关注
+  function followed(){
+    var userdata = {};
+    userdata = $api.getStorage('userdata');
+    var followData ={};
+    if(userdata){
+      followData.uid = userdata.uid;
+      followData.followuid=uid;
+    }else{
+      Toast('请登录后再操作')
+    }
+    api.ajax({
+        url: 'http://www.juzzn.com/actionCancel.php?action=follow',
+        method: 'post',
+        data: {
+            values: followData
+        }
+    },function(ret, err){
+        if (ret.status == 1) {
+            Toast('取消关注成功',1000)
+            $api.html($api.byId('follwid'), '加关注');
+            document.getElementById('follwid').removeAttribute('onclick');
+            document.getElementById('follwid').setAttribute('onclick','follows()')
+        } else {
+            // Toast(ret.msg);
+        }
+    });
+  }
 
 //id类型
 function toartical(aid){

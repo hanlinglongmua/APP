@@ -415,7 +415,7 @@
               <ul>
                   <li class="flex1">
                         <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput" onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
-                        <div class="calloff" onclick="SearchTole()">搜索</div>
+                        <div class="calloff" id="searchbtn" onclick="SearchTole()">搜索</div>
                         <span class="search-advertise" id="searchAdvertise"></span>
                   </li>
                 </ul>
@@ -423,7 +423,7 @@
              <div id="searchBody">
               <div>
                     <div class="middles">热门搜索</div>
-                        <div class="bigbox">
+                        <div class="bigbox" id="hot">
                             <ul class="ul">
                                 <li>黑科技</li>
                                 <li>无线耳机</li>
@@ -437,11 +437,10 @@
                       </div>
                       <div class="history">
                             <span>搜索历史</span>
-                          <div class="delete">
-                        清空  <img src="../images/search/remove.png">  </div>
+                          <div class="delete" onclick="clearAll()">清空<img src="../images/search/remove.png"></div>
                       </div>
                       <div class="bigbox">
-                          <ul class="ul">
+                          <ul class="ul" id="history">
                             <li>小辣椒手机</li>
                             <li>屏幕指纹录入解锁</li>
                             <li>夏普mini发布</li>
@@ -506,7 +505,9 @@
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
       apiready = function(){
-      };
+        hot();
+        searchHistory();
+      }//
       var searchInput = $api.byId('searchInput');
       var searchAdvertise = $api.byId('searchAdvertise');
       function SearchTxetFocus(){
@@ -537,10 +538,38 @@
       function SearchTole(){
         SearchData(column);
       }
+      //热门搜索
+      var hotHtml = '';
+      function hot(){
+        api.ajax({
+            url: 'http://www.juzzn.com/hotwords.php',
+            method: 'post',
+        }, function(ret, err) {
+            hotHtml = '';
+            if (ret.status == 1) {
+              var hotData = ret.data;
+              hotHtml += '<ul class="ul">';
+                  for(var j=0;j<hotData.length;j++){
+                    hotHtml += '<li onclick="find(\''+hotData[j]['words']+'\')">'+hotData[j]['words']+'</li>';
+                  }
+              hotHtml += '</ul>';
+            }
+            $api.html($api.byId('hot'), hotHtml);
+        });
+      }
+      var words = '';
+      function find(word){
+        words = word;
+        SearchData(column);
+      }
       //ajax
       function SearchData(tab){
           var html = '';
           var searchInputVal = $api.val($api.byId('searchInput'));
+          if(!searchInputVal){
+            searchInputVal = words;
+            $api.val($api.byId('searchInput'),words);
+          }
           if(searchInputVal==''){
               Toast('请输入你要查找的内容')
           }else {
@@ -587,17 +616,121 @@
                                       html+='<span class="cate">'+data[i]['group']+'</span>';
                                       html+='<p>'+data[i]['sign']+'</p>';
                                 html+='</div>'
-                                html+='<a>互相关注</a>';
+                                // if(data[i]['haveFollow']){
+                                //   html+='<a>已互相关注</a>';
+                                // }{
+                                //   html+='<a>加关注</a>';
+                                // }
                             html+='</div>';
                           }
                         }
                       html+='</div>'
+
+                      //添加搜索记录
+                      var aa = $api.getStorage('historys');
+                      var cc = searchInputVal+','+aa;
+                      $api.setStorage('historys', cc);
+
                     }else {
                       Toast(ret.msg);
                     }
                 $api.html($api.byId('searchBody'), html);
+                $api.html($api.byId('searchbtn'), '取消');
+                document.getElementById('searchbtn').removeAttribute('onclick');
+                document.getElementById('searchbtn').setAttribute('onclick','cancelbtn()')
               });
           }
+      }
+      //返回热门搜索和搜索历史
+      function cancelbtn(){
+        alert(111)
+        var history = document.getElementById('history');
+        var historys = '';
+        historys = $api.getStorage('historys');
+        var html = '';
+        html+='<div>';
+          html+='<div class="middles">热门搜索</div>';
+          html+='<div class="bigbox" id="hot">';//热门搜索
+            api.ajax({
+                url: 'http://www.juzzn.com/hotwords.php',
+                method: 'post',
+            },function(ret, err){
+              if (ret.status == 1) {
+                var hotData = ret.data;
+                html += '<ul class="ul">';
+                    for(var j=0;j<hotData.length;j++){
+                      html += '<li onclick="find(\''+hotData[j]['words']+'\')">'+hotData[j]['words']+'</li>';
+                    }
+                html += '</ul>';
+              }
+              // $api.html($api.byId('hot'), html);
+            });
+          html+='</div>';
+          html+='<div class="history">';//搜索历史
+            html+='<span>搜索历史</span><div class="delete" onclick="clearAll()">清空<img src="../images/search/remove.png"></div>';
+            html+='<div class="bigbox">';
+              html+='<ul class="ul" id="history">';
+                api.ajax({
+                    url: 'http://www.juzzn.com/doData.php',
+                    method: 'post',
+                    data: {
+                        values: {
+                            data: historys
+                        }
+                    }
+                },function(ret, err){
+                  if (ret.status == 1) {
+                    var data=ret.data;
+                    for(var i=0;i<data.length;i++){
+                      html+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                    }
+                  }
+                  // $api.html($api.byId('history'),html);
+                });
+              html+='</ul>';
+            html+='</div>';
+          html+='</div>';
+        html+='</div>';
+        $api.html($api.byId('searchBody'), html);
+        $api.html($api.byId('searchbtn'), '搜索');
+        document.getElementById('searchbtn').removeAttribute('onclick');
+        document.getElementById('searchbtn').setAttribute('onclick','SearchTole()')
+      }
+
+      //清空搜索历史
+      function clearAll(){
+        var history = document.getElementById('history');
+        while(history.hasChildNodes()){
+          history.removeChild(history.firstChild);
+        }
+        $api.setStorage('historys', '');
+      }
+      //搜索历史
+      function  searchHistory() {
+        var history = document.getElementById('history');
+        var historys = '';
+        historys = $api.getStorage('historys');
+        var htmls = '';
+        api.ajax({
+            url: 'http://www.juzzn.com/doData.php',
+            method: 'post',
+            data: {
+                values: {
+                    data: historys
+                }
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+              var data=ret.data;
+              for(var i=0;i<data.length;i++){
+                htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+              }
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+            $api.html($api.byId('history'),htmls);
+        });
+
       }
       //自定义弹框
       function Toast(msg,duration){

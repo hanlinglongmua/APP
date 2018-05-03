@@ -17,7 +17,6 @@
     a {
       text-decoration: none;
       color: #1e1e1e;
-      /* 去除触点高亮 */
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
     }
 
@@ -79,8 +78,8 @@
       position: absolute;
       left: 15px;
       top:14px;
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       border: 1px solid #fff;
       border-top: none;
       border-right: none;
@@ -141,6 +140,7 @@
       border-top: none;
       border-right: none;
       transform:rotate(-135deg);
+      -webkit-transform:rotate(-135deg);
     }
     .lower .score_i{
       position: absolute;
@@ -152,6 +152,7 @@
       border-top: none;
       border-right: none;
       transform:rotate(-135deg);
+      -webkit-transform:rotate(-135deg);
     }
     footer{
       color: #8d8d8d;
@@ -171,7 +172,7 @@
   <div class="community">
     <div class="section">
       <div class="sect left">
-        <i onclick="closeAbout()"></i>
+        <i onclick="api.closeWin()"></i>
       </div>
       <div class="sect fo">关于</div>
     </div>
@@ -209,12 +210,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    function closeAbout(){
-        api.closeWin({
-            name: 'about'
-        });
 
-    }
 </script>
 
 </html>

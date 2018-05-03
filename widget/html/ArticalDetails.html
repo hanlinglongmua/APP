@@ -765,16 +765,16 @@
     </div>
     <!-- footer end -->
     <!-- 增大后的评论 -->
-    <div class="textareaMain" id="textareaMain">
-        <div class="text" id="text">
-            <div class="attention">
-                <input type="checkbox">
-                <div class="atttext">同时关注这篇文章作者</div>
-            </div>
-            <div class="send" onclick="criticism()">发送</div>
-        </div>
-        <textarea name="textarea" id="textarea" cols="40" rows="1" autofocus placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
-    </div>
+      <div class="textareaMain" id="textareaMain">
+          <div class="text" id="text">
+              <div class="attention">
+                  <input type="checkbox">
+                  <div class="atttext">同时关注这篇文章作者</div>
+              </div>
+              <div class="send" onclick="criticism()">发送</div>
+          </div>
+          <textarea name="textarea" id="textarea" cols="40" rows="1"  placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
+      </div>
     <!-- 增大后的评论 -->
 
     </div>
@@ -815,11 +815,11 @@ return_top.onclick = function (){
   var userdata = {};
   userdata = $api.getStorage('userdata');
   var data = {};
-  //页面加载完加载
+
   apiready=function(){
     ArticalDetailsData();
-  }//
-  //ajax内容、
+  }
+
   function ArticalDetailsData(){
     var userdata = {};
     userdata = $api.getStorage('userdata');
@@ -841,24 +841,24 @@ return_top.onclick = function (){
         },function(ret, err){
             data = ret.data;
             if (ret.status==1) {
-                    html+='<div class="header">';
-                      html+='<div class="title"  onclick="toggleFooter();">';
+                    html+='<div class="header" id="headerbox" onclick="toggleFooter();">';
+                      html+='<div class="title">';
                         html+='<div class="titl">'+data['title']+'</div>';//文章标题
                       html+='</div>';
-                      html+='<div class="nametime"  onclick="toggleFooter();">';
+                      html+='<div class="nametime">';
                         html+='<div class="name" onclick="openFriendDetailsData('+data['uid']+')">'+data['username']+'<div></div></div>';//文章作者
                         html+='<div class="time">'+data['dateline']+'<div></div></div>';//文章发布时间
                         html+='<div class="readnum">浏览次数：'+data['viewnum']+'</div>';//查看次数
                         html+='<div class="reasonfor">来源：'+data['from']+'</div>';//来源
                       html+='</div>';
-                      html+='<div class="photoprojector"  onclick="toggleFooter();">'+data['content']+'</div>';//内容
+                      html+='<div class="photoprojector"">'+data['content']+'</div>';//内容
                       html+='<div class="uptop">';
-                        html+='<div class="left"  onclick="toggleFooter();"><img src="'+data['avatar']+'" alt="" onclick="openFriendDetailsData('+data['uid']+')"></div>';//发布人头像
+                        html+='<div class="left"><img src="'+data['avatar']+'" alt="" onclick="openFriendDetailsData('+data['uid']+')"></div>';//发布人头像
                         html+='<div class="mid">';
                           html+='<div class="name">'+data['username']+'</div>';//发布人名称
                           html+='<div class="sign">'+data['sign']+'</div>';//签名
                           if(data['haveFollow']){
-                            html+='<div class="right" id="follow"><img src="../images/same_content/attentioned.png" onclick="follow()" alt=""></div>';//已关注
+                            html+='<div class="right" id="follow"><img src="../images/same_content/attentioned.png" onclick="followed()" alt=""></div>';//已关注
                           }else {
                             html+='<div class="right" id="follow"><img src="../images/same_content/attention.png" onclick="follow()" alt=""></div>';//未关注
                           }
@@ -866,7 +866,7 @@ return_top.onclick = function (){
                       html+='</div>';
                     html+='</div>';
 
-                    html+='<div class="news">';
+                    html+='<div class="news" id="newsbox" onclick="toggleFooter();">';
                       html+='<h3>相关推荐</h3>';
                       html+='<ul>';
                       for(var i=0;i<5;i++){
@@ -887,7 +887,7 @@ return_top.onclick = function (){
                               html+='<div class="text" onclick="toggleFooter();">';
                                 html+='<div class="left"><img src="'+data.comments[i]['avatar']+'" alt="" onclick="openFriendDetailsData('+data.comments[i]['uid']+')"></div>';//评论头像
                                 html+='<div class="right">';
-                                  html+='<div class="top" onclick="openFriendDetailsData('+data.comments[i]['uid']+')">'+data.comments[i]['username']+'</div>';//评论人
+                                  html+='<div class="top">'+data.comments[i]['username']+'</div>';//评论人
                                   html+='<i></i>';
                                   html+='<div class="mid">';
                                     html+='<div class="art">'+data.comments[i]['message']+'</div>';//评论内容
@@ -900,9 +900,9 @@ return_top.onclick = function (){
                                 html+='</div>';
                                 html+='<div class="right">';
                                   if(data.comments[i]['haveLike'] == 1){
-                                    html+='<div><i class="iconfont img" id="postlike'+data.comments[i]['cid']+'" onclick="postlike('+data.comments[i]['cid']+',\'cid\')">&#xe635;</i></div>';
+                                    html+='<div onclick="toggleFooter();"><i class="iconfont img" id="postlike'+data.comments[i]['cid']+'" onclick="postlike('+data.comments[i]['cid']+',\'cid\')">&#xe635;</i></div>';
                                   }else {
-                                    html+='<div><i class="iconfont img" id="postlike'+data.comments[i]['cid']+'" onclick="postlike('+data.comments[i]['cid']+',\'cid\')">&#xe617;</i></div>';
+                                    html+='<div onclick="toggleFooter();"><i class="iconfont img" id="postlike'+data.comments[i]['cid']+'" onclick="postlike('+data.comments[i]['cid']+',\'cid\')">&#xe617;</i></div>';
                                   }
                                   html+='<div class="talk" onclick="inputFouse('+data.comments[i]['cid']+')">回复</div>';
                                 html+='</div>';
@@ -911,13 +911,13 @@ return_top.onclick = function (){
                           }
                         html+='</div>';
                       }else{
-                        html+='<div class="main" style="text-align:center;padding-bottom:44px;">';
+                        html+='<div class="main" style="text-align:center;padding-bottom:44px;" onclick="toggleFooter();">';
                           html+='<div class="mue"><div class="left">暂无评论</div></div>';
                         html+='</div>';
                       }
 
                     html+='<div id="footer" class="footer">';
-                      html+='<div class="ii" onclick="api.closeWin();"><i></i></div>';
+                      html+='<div class="ii"><i></i></div>';
                       html+='<div class="list">';
                         html+='<div class="li"><input type="text" name="" id="talk" placeholder="写评论..." onclick="inputFouse(\'\');"></div>';
                         html+='<div class="li">';
@@ -929,7 +929,7 @@ return_top.onclick = function (){
                             html+='<a href="javascript:;" onclick="likeData('+pageParamAid+',\'aid\')" id="likeicom"><i class="iconfont iconlike">&#xe617;</i><div class="likenum">'+data['likeNum']+'</div></a>';
                           }
                           if(data['haveFav'] == 1){
-                            html+='<a href="javascript:;" onclick="footerAll()" id="favicom"><i class="iconfont iconcollection">&#xe672;</i></a>';
+                            html+='<a href="javascript:;" onclick="collectioned()" id="favicom"><i class="iconfont iconcollection">&#xe672;</i></a>';
                           }else {
                             html+='<a href="javascript:;" onclick="footerAll()" id="favicom"><i class="iconfont iconcollection">&#xe6a7;</i></a>';
                           }
@@ -941,7 +941,7 @@ return_top.onclick = function (){
                     html+='<div class="textareaMain" id="textareaMain">';
                       html+='<div class="text" id="text">';
                             html+='<div class="attention">';
-                                html+='<input type="checkbox">';
+                                html+='<input id="attenchb" type="checkbox">';
                                 html+='<div class="atttext">同时关注这篇文章作者</div>';
                             html+='</div>';
                             html+='<div class="send" onclick="criticism()" id="send">发送</div>';
@@ -955,6 +955,7 @@ return_top.onclick = function (){
         });
   }
 
+  //关注
   function follow(){
     var userdata = {};
     userdata = $api.getStorage('userdata');
@@ -977,9 +978,38 @@ return_top.onclick = function (){
         }
     },function(ret, err){
         if (ret.status == 1) {
-            Toast('关注')
+            Toast('关注成功',1000)
             var follow = document.getElementById('follow');
-            $api.html($api.byId('follow'), '<img src="../images/same_content/attentioned.png" onclick="follow()" alt="">');
+            $api.html($api.byId('follow'), '<img src="../images/same_content/attentioned.png" onclick="followed()" alt="">');
+        } else {
+            // Toast(ret.msg);
+        }
+    });
+  }
+
+  //已关注
+  function followed(){
+    var userdata = {};
+    userdata = $api.getStorage('userdata');
+    var html = '';
+    followData ={};
+    if(userdata){
+      followData.uid = userdata.uid;
+      followData.followuid=data.uid;
+    }else{
+      Toast('请登录后再操作')
+    }
+    api.ajax({
+        url: 'http://www.juzzn.com/actionCancel.php?action=follow',
+        method: 'post',
+        data: {
+            values: followData
+        }
+    },function(ret, err){
+        if (ret.status == 1) {
+            Toast('取消关注成功',1000)
+            var follow = document.getElementById('follow');
+            $api.html($api.byId('follow'), '<img src="../images/same_content/attention.png" onclick="follow()" alt="">');
         } else {
             Toast(ret.msg);
         }
@@ -1098,31 +1128,59 @@ return_top.onclick = function (){
         }
     },function(ret, err){
         if (ret.status==1) {
-          favdata+='<a href="javascript:;" onclick="footerAll()" id="favicom"><i class="iconfont iconcollection">&#xe672;</i></a>';
+          favdata+='<a href="javascript:;" onclick="collectioned()" id="favicom"><i class="iconfont iconcollection">&#xe672;</i></a>';
           $api.html($api.byId('favicom'),favdata)
-          Toast('收藏成功')
+          Toast('收藏成功',1000)
         } else {
-            Toast(ret.msg);
+            // Toast(ret.msg);
+        }
+    });
+  }
+
+  //已收藏
+  function collectioned(){
+    var userdata = {};
+    userdata = $api.getStorage('userdata');
+    var favdata = '';
+    resData={};
+    if(userdata){
+      resData.uid = userdata['uid'];//关注人id
+      resData.id = data['aid'];//文章id
+      resData.type = 'aid';//收藏帖子
+    }else {
+      Toast('请登录后再操作')
+    }
+
+    api.ajax({
+        url: 'http://www.juzzn.com/actionCancel.php?action=fav',
+        method: 'post',
+        data: {
+            values: resData
+        }
+    },function(ret, err){
+        if (ret.status==1) {
+          favdata+='<a href="javascript:;" onclick="footerAll()" id="favicom"><i class="iconfont iconcollection">&#xe6a7;</i></a>';
+          $api.html($api.byId('favicom'),favdata)
+          Toast('取消收藏成功',1000)
+        } else {
+            // Toast(ret.msg);
         }
     });
   }
   var cidtype='';
   //评论盒子显示和消失
-  var textareaMain;
-  var footer;
   var replyPid = 0;
   function inputFouse(cid){
     cidtype = cid;
     var userdata = {};
     userdata = $api.getStorage('userdata');
+    var footer = document.getElementById('footer');
+    var textareaMain = document.getElementById('textareaMain');
     if(userdata){
-      footer = document.getElementById('footer');
-      textareaMain = document.getElementById('textareaMain');
       textareaMain.style.display = 'block';
       footer.style.display = 'none';
       textareaMain.getElementsByTagName("textarea")[0].focus();
     }else {
-      footer = document.getElementById('footer');
       Toast('请登录后再操作')
       footer.getElementsByTagName("input")[0].blur();
     }
@@ -1130,6 +1188,7 @@ return_top.onclick = function (){
 
   //主题评论提交
   function criticism(){
+        var attenchb = document.getElementById('attenchb').checked;
         var userdata = {};
         var pageParamAid = api.pageParam.aid;
         userdata = $api.getStorage('userdata');
@@ -1142,23 +1201,24 @@ return_top.onclick = function (){
         criticismData.uid = userdata['uid'];//操作用户id
         criticismData.username = userdata['username'];//操作用户id名称
         criticismData.message = textarea;//评论内容
+        criticismData.follow = attenchb;
         if(textarea==''){
           Toast('请输入你要评论的内容',2000);
           textareaMain.getElementsByTagName("textarea")[0].focus();
         }else {
           api.ajax({
-            url: 'http://www.juzzn.com/articleComment.php',
-            method: 'post',
-            data: {
-                  values:criticismData
-            }
+                url: 'http://www.juzzn.com/articleComment.php',
+                method: 'post',
+                data: {
+                      values:criticismData
+                }
             },function(ret, err){
-            if (ret.status == 1) {
-              ArticalDetailsData();
-              Toast('评论成功',2000)
-            }else {
-              Toast(ret.msg);
-            }
+                if (ret.status == 1) {
+                  ArticalDetailsData();
+                  Toast('评论成功',2000)
+                }else {
+                  Toast(ret.msg);
+                }
         });
       }
     }
@@ -1179,8 +1239,10 @@ return_top.onclick = function (){
 
   //点击切换底部
   function toggleFooter(){
+    if(textareaMain){
       textareaMain.style.display = 'none';
       footer.style.display = 'flex';
+    }
   }
 
   //点赞
@@ -1236,6 +1298,7 @@ return_top.onclick = function (){
         }
       });
   }
+
 </script>
 
 </html>
