@@ -87,11 +87,13 @@
       border-right: none;
       transform: rotate(45deg);
     }
-
+    .main{
+      padding-top: 44px;
+    }
 
     .contentitem {
       justify-content: space-between;
-      padding: 50px 10px 10px 10px;
+      padding: 10px 10px 10px 10px;
       position: relative;
       border-bottom: 1px solid #e1e1e1;
     }
@@ -109,6 +111,7 @@
       width: 40px;
       height: 40px;
       margin-right: 5px;
+      border-radius: 50%;
     }
 
     .usercomment i {
@@ -153,17 +156,20 @@
       </div>
     </div>
     <!-- 头部结束 -->
-    <div class="contentitem">
-      <div class="usercomment">
-        <img src="../../images/myattention/science1.png" alt="">
-        <div class="commentcontent">
-          <p>
-            <span>系统</span>
-          </p>
-          <p>你的用户组将升级为&nbsp;科技大侠&nbsp;看看我能做什么></p>
-          <i>2018-03-19</i>
+    <div class="main" id="main">
+      <div class="contentitem">
+        <div class="usercomment">
+          <img src="../../images/myattention/science1.png" alt="">
+          <div class="commentcontent">
+            <p>
+              <span>系统</span>
+            </p>
+            <p>你的用户组将升级为&nbsp;科技大侠&nbsp;看看我能做什么></p>
+            <i>2018-03-19</i>
+          </div>
         </div>
       </div>
+
     </div>
 
   </div>
@@ -171,8 +177,60 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
   apiready = function () {
-
+    systemDatas();
   };
+
+  var userdata = {};
+  userdata = $api.getStorage('userdata');
+  function systemDatas(){
+    var system = api.pageParam.type;
+    var html = '';
+    api.ajax({
+        url: 'http://www.juzzn.com/getNotice.php',
+        method: 'post',
+        data: {
+            values: {
+                type:system,
+                uid:userdata['uid']
+            }
+        }
+    },function(ret, err){
+        if (ret.status == 1) {
+            var data = ret.data;
+            for(var i=0;i<data.length;i++){
+              html+='<div class="contentitem">';
+                html+='<div class="usercomment">';
+                  html+='<img src="'+data[i]['avatar']+'" alt="">';
+                  html+='<div class="commentcontent">';
+                    html+='<p><span>'+data[i]['author']+'</span></p>';
+                    html+='<p>'+data[i]['note']+'</p>';
+                    html+='<i>'+data[i]['dateline']+'</i>';
+                  html+='</div>';
+                html+='</div>';
+              html+='</div>';
+            }
+            clearMessage();
+        } else {
+            alert( ret.msg );
+        }
+        $api.html($api.byId('main'), html);
+
+    });
+
+  }
+
+  function clearMessage(){
+    api.ajax({
+        url: 'http://www.juzzn.com/clearNotice.php',
+        method: 'post',
+        data: {
+            values: {
+                uid: userdata['uid'],type:'system'
+            }
+        }
+    },function(ret, err){});
+
+  }
 </script>
 
 </html>

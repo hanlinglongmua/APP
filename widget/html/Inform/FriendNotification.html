@@ -53,59 +53,64 @@
           }
           .inform ul li{
             width: 100%;
-            height: 44px;
-            display: flex;
-            align-items: center;
+            height: 54px;
+            position: relative;
+            border-bottom: 1px solid #e1e1e1;
           }
 
-          .inform ul li span{
+          .inform ul li .img{
             width: 32px;
             height: 32px;
-            margin-left: 5px;
-            background-size: 80% !important;
-            background-position: center center !important;
+            margin:0 5px;
+            position: absolute;
+            top: 50%;
+            margin-top: -16px;
           }
-
-          .inform ul li .main{
+          .inform ul li img{
+            border-radius: 50%;
             width: 100%;
-            height: 44px;
-            float: right;
-            border-bottom: 1px solid #e1e1e1;
+            height: 100%;
+          }
+          .inform ul li .main{
+            position: absolute;
+            left: 42px;
+            width: 80%;
           }
 
           .inform ul li .time{
             font-size: 10px;
-            color: #bebebe;
-            float: right;
-            margin-top: -36px;
-            margin-right: 10px;
-            position: relative;
+            color: #808080;
+            position: absolute;
+            right: 5px;
+            top: 20%;
           }
           .inform ul li .time .num{
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             text-align: center;
-            line-height: 16px;
+            line-height: 15px;
             background-color: #d84a42;
             bottom:-20px;
             right: 0;
             color: #fff;
           }
           .inform ul li .title{
-            height: 50%;
-            font-size: 12px;
+            font-size: 14px;
             color: #111;
-            line-height: 28px;
+            line-height: 34px;
           }
 
           .inform ul li .text{
-            height: 50%;
-            font-size: 8px;
-            color: #6c6c6c;
-            line-height: 16px;
-
+            width: 90%;
+            font-size: 10px;
+            color: #7c7c7c;
+            line-height: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
           }
           /*ul菜单 edn*/
       </style>
@@ -119,21 +124,14 @@
         </div>
       <!-- section end -->
       <!-- ul菜单 -->
-      <ul>
+      <ul id="main">
         <li>
-          <span style="background:url('../../images/myattention/science1.png') no-repeat"></span>
+          <div class="img"><img src="../../images/myattention/science1.png" alt=""></div>
           <div class="main">
             <div class="title">大艺术家</div>
             <div class="text">我不太清楚</div>
-            <div class="time">04-11 <div class="num">1</div></div>
           </div>
-        </li>
-        <li>
-          <span style="background:url('../../images/myattention/science1.png') no-repeat"></span>
-          <div class="main">
-            <div class="title">果果</div>
-            <div class="text">我不太清楚我不太清楚我不太清楚我不太清楚</div>
-          </div>
+          <div class="time">04-11 <div class="num">1</div></div>
         </li>
       </ul>
       <!-- ul菜单 end -->
@@ -142,7 +140,88 @@
   <script type="text/javascript" src="../../script/api.js"></script>
   <script type="text/javascript">
       apiready = function(){
-
+        friendDatas();
       };
+
+      var userdata = {};
+      userdata = $api.getStorage('userdata');
+      function friendDatas(){
+        var follow = api.pageParam.type;
+        var html = '';
+        api.ajax({
+            url: 'http://www.juzzn.com/getNotice.php',
+            method: 'post',
+            data: {
+                values: {
+                    type:follow,uid:userdata['uid']
+                }
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+                var data = ret.data;
+                for(var i=0;i<data.length;i++){
+                  if(data[i]['type'] == 'follow'){
+                    html+='<li onclick="openFriendDetalisData('+data[i]['uid']+')">';
+                      html+='<div class="img"><img src="'+data[i]['avatar']+'" alt=""></div>';
+                      html+='<div class="main">';
+                        html+='<div class="title">'+data[i]['username']+'</div>';
+                        html+='<div class="text">'+data[i]['message']+'</div>';
+                      html+='</div>';
+                      html+='<div class="time">'+data[i]['dateline']+'<div class="num">'+data[i]['new']+'</div></div>';
+                    html+='</li>';
+                  }else{
+                    html+='<li onclick="openChatWindow('+data[i]['uid']+')">';
+                      html+='<div class="img"><img src="'+data[i]['avatar']+'" alt=""></div>';
+                      html+='<div class="main">';
+                        html+='<div class="title">'+data[i]['username']+'</div>';
+                        html+='<div class="text">'+data[i]['message']+'</div>';
+                      html+='</div>';
+                      html+='<div class="time">'+data[i]['dateline']+'<div class="num">'+data[i]['new']+'</div></div>';
+                    html+='</li>';
+                  }
+                }
+                clearMessage();
+            } else {
+                alert(ret.msg);
+            }
+            $api.html($api.byId('main'), html);
+
+        });
+      }
+
+      function clearMessage(){
+        api.ajax({
+            url: 'http://www.juzzn.com/clearNotice.php',
+            method: 'post',
+            data: {
+                values: {
+                    uid: userdata['uid'],type:'follow'
+                }
+            }
+        },function(ret, err){});
+
+      }
+
+
+      function openChatWindow(uid){
+        api.openWin({
+            name: 'ChatWindow',
+            url: '../ChatWindow.html',
+            pageParam: {
+                uid: uid
+            }
+        });
+
+      }
+
+      function openFriendDetalisData(uid){
+        api.openWin({
+            name: 'FriendDetailsData',
+            url: '../FriendDetailsData.html',
+            pageParam: {
+                uid: uid
+            }
+        });
+      }
   </script>
   </html>

@@ -52,7 +52,7 @@
           }
           .inform ul li{
             width: 100%;
-            height: 44px;
+            height: 54px;
             display: flex;
             align-items: center;
           }
@@ -82,8 +82,8 @@
           }
           .inform ul li .time .num{
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             text-align: center;
             line-height: 16px;
@@ -128,7 +128,7 @@
         </li>
         <li>
           <span style="background:url('../images/inform/artical_notefation.png') no-repeat"></span>
-          <div class="main" onclick="openMessageNotification()">
+          <div id="messageinfo" class="main" onclick="openMessageNotification()">
             <div class="title">消息通知</div>
             <div class="text">收到新的点赞</div>
             <div class="time">04-11 <div class="num">1</div></div>
@@ -136,7 +136,7 @@
         </li>
         <li>
           <span style="background:url('../images/inform/community_notice.png') no-repeat"></span>
-          <div class="main" onclick="openSystermNotification()">
+          <div id="systeminfo" class="main" onclick="openSystermNotification()">
             <div class="title">系统通知</div>
             <div class="text">无</div>
           </div>
@@ -147,12 +147,60 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+      var userdata = {};
+      userdata = $api.getStorage('userdata');
+
+      apiready = function(){
+        informonbush();
+        setInterval("informonbush()",2000)
+      }
+
+      function informonbush(){
+        var html = '';
+        var sys = '';
+        api.ajax({
+            url: 'http://www.juzzn.com/getNotice.php',
+            method: 'post',
+            data: {
+                values: {
+                    type:'msgNum',uid:userdata['uid']
+                }
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+                var data = ret.data;
+
+                html+='<div class="title">消息通知</div>';
+                html+='<div class="text">'+data['info']['msg']+'</div>';
+                if(data['info']['total']>0){
+                  html+='<div class="time">'+data['info']['dateline']+'<div class="num">'+data['info']['total']+'</div></div>';
+                }else{
+                  html+='';
+                }
+
+                sys+='<div class="title">系统通知</div>';
+                sys+='<div class="text">'+data['system']['msg']+'</div>';
+                if(data['system']['total']>0){
+                  sys+='<div class="time">'+data['system']['dateline']+'<div class="num">'+data['system']['total']+'</div></div>';
+                }else {
+                  sys+='';
+                }
+
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+            $api.html($api.byId('messageinfo'), html);
+            $api.html($api.byId('systeminfo'), sys);
+        });
+
+      }
+
       function openSystermNotification(){
         api.openWin({
             name: 'SystermNotification',
             url: 'Inform/SystermNotification.html',
             pageParam: {
-                name: 'test'
+                type: 'system'
             }
         });
 

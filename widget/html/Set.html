@@ -65,10 +65,11 @@
             top:18px;
             width: 12px;
   				  height: 12px;
-  				  border: 2px solid #e5e5e5;
+  				  border: 1px solid #b8b8b8;
   				  border-bottom: none;
   				  border-left: none;
   				  transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
           }
           .main ul .cache>span{
             position: absolute;
@@ -94,10 +95,11 @@
             top:18px;
             width: 12px;
   				  height: 12px;
-  				  border: 2px solid #e5e5e5;
+  				  border: 1px solid #b8b8b8;
   				  border-bottom: none;
   				  border-left: none;
   				  transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
           }
           .music i{
             position: absolute;
@@ -187,7 +189,7 @@
                 </li>
                 <li class="cache" style="margin:10px 0 10px 0;">清理缓存<span>0&nbsp;M</span><i></i></li>
                 <li style="border:1px solid #efefef">分享应用</li>
-                <li class="about">关于应用<i></i></li>
+                <li class="about" onclick="openAbout()">关于应用<i></i></li>
                 <li class="end" style="margin-top:10px; padding:0;">
                       <input type="button" name="" id="" value="退出当前账号" onclick="loginout()">
                 </li>
@@ -206,6 +208,17 @@
             name: 'ENDMy'//登录成功刷新会员中心页面
         });
         api.closeWin();
+
+      }
+
+      function openAbout(){
+        api.openWin({
+            name: 'About',
+            url: 'About.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
       }
 

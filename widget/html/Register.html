@@ -137,7 +137,7 @@
               <div class="idcode ico">
                   <img src="../images/register/register_idcode.png" alt="">
                     <input type="text" id="codenum" class="idcodeinput" placeholder="请填写手机验证码">
-                    <input type="button" class="idcodebtn" onclick="sendCode()" value="发送验证码">
+                    <input type="button" id="sendbtn" class="idcodebtn" onclick="sendCode()" value="发送验证码">
               </div>
               <div class="registerbtn">
                   <input type="button" name="" class="registerbtni" value="注册" onclick="register()">
@@ -167,7 +167,6 @@
         var user = $api.val($api.byId('username'));
         var pass = $api.val($api.byId('password'));
         var codenum = $api.val($api.byId('codenum'));
-
         username = user;
         password = pass;
         code = codenum;
@@ -192,29 +191,53 @@
       }
 
       function sendCode(){
+        var countdown = 60;
         var phonenum = $api.val($api.byId('username'));
+<<<<<<< HEAD
         if(!(/^1[3|7|5|8][0-9]\d{4,8}$/.test(phonenum))){
+=======
+        var sendbtn = $api.byId('sendbtn');
+
+        if(!(/^1[3|5|7|8][0-9]\d{4,8}$/.test(phonenum))){
+>>>>>>> fz
            alert("请输入正确的手机号码");
            document.getElementById('username').focus();
            return false;
         }
         phone = phonenum;
-        api.ajax({
-            url: 'http://www.juzzn.com/sendSms.php',
-            method: 'post',
-            data: {
-                values: {
-                    phone:phone
-                }
-            }
-        },function(ret, err){
-            if (ret.status == 1) {
-                var data =ret.data;
-                Toast( '发送成功' );
-            } else {
-                Toast( ret.msg );
-            }
-        });
+
+          api.ajax({
+              url: 'http://www.juzzn.com/sendSms.php',
+              method: 'post',
+              data: {
+                  values: {
+                      phone:phone
+                  }
+              }
+          },function(ret, err){
+              if (ret.status == 1) {
+                  var data =ret.data;
+                  Toast( '发送成功' );
+                  sendbtn.disabled = true;
+                  sendbtn.value = '重新发送'+countdown;
+                  clock = setInterval(timeclock,1000);
+                  function timeclock(){
+                    countdown--;
+                    if(countdown > 0){
+                      sendbtn.value = '重新发送'+countdown;
+                      sendbtn.style.backgroundColor = '#e1e1e1';
+                    }else{
+                      clearInterval(clock);
+                      sendbtn.disabled = false;
+                      sendbtn.value = '发送验证码';
+                      sendbtn.style.backgroundColor = '#444e57';
+                      nums = 60;
+                    }
+                  };
+              } else {
+                  Toast( ret.msg );
+              }
+          });
 
       }
 

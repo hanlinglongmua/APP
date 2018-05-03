@@ -37,9 +37,9 @@
             -webkit-flex-flow: column;
         }
         .header {
-            height: 44px;
+            height: 54px;
             width: 100%;
-            line-height: 44px;
+            line-height: 54px;
             font-size: 20px;
             text-align: center;
             position: relative;
@@ -47,7 +47,7 @@
         }
         .header.myself,header.main{
             background: #666;
-            line-height: 44px;
+            line-height: 54px;
             color: #fff;
         }
         .index .discov{
@@ -55,7 +55,7 @@
           width: 50%;
           height: 100%;
           position: absolute;
-          top:0;
+          top:10px;
           right: 50%;
           left: 50%;
           margin-left: -25%;
@@ -75,8 +75,8 @@
         .index .serchedit{
           width: 56px;
           position: absolute;
-          right:14px;
-          top:2px;
+          right: 0;
+          top:12px;
         }
         .index .edit{
           margin-left: 10px;
@@ -141,14 +141,14 @@
         footer ul li div.footerBg.one{
           background: url('images/index/indexed.png') no-repeat center center;
           background-color: none;
-          -webkit-background-size: 130% 130%;
-          background-size: 130% 130%;
+          -webkit-background-size: 200% 200%;
+          background-size: 200% 200%;
         }
         footer ul li div.footerBg.three{
           background: url('images/index/mined.png') no-repeat center center;
           background-color: none;
-          -webkit-background-size: 130% 130%;
-          background-size: 130% 130%;
+          -webkit-background-size: 200% 200%;
+          background-size: 200% 200%;
         }
         .flex-1 {
             -webkit-box-flex: 1;
@@ -207,8 +207,17 @@
 </body>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
-
     apiready = function() {
+        api.addEventListener({
+            name: 'indexleft'
+        }, function(ret, err){
+            Goright();
+        });
+        api.addEventListener({
+            name: 'indexright'
+        }, function(ret, err){
+            Goleft();
+        });
         header = $api.dom('header'); // 获取 header 标签元素
         footer = $api.dom('footer'); // 获取 footer 标签元素
         // 1.修复开启沉浸式效果带来的顶部Header与手机状态栏重合的问题，最新api.js方法已支持适配iPhoneX；
@@ -221,9 +230,9 @@
         api.openFrameGroup ({
           name: 'toggleIndex',
           background: '#fff',
-          scrollEnabled: true,
+          scrollEnabled: false,
           rect: {
-            marginTop: 44, // main页面距离win顶部的高度
+            marginTop: 54, // main页面距离win顶部的高度
             marginBottom: footerH, // main页面距离win底部的高度
             w: 'auto' // main页面的宽度 自适应屏幕宽度
           },
@@ -249,6 +258,7 @@
                 name: 'FindChoice'
             });
           }else if(ret.index==1){
+            serchedit.style.marginRight = 15+ 'px';
             serchedit.style.display = 'block';
             onserchedit.style.display = 'none';
           }
@@ -264,7 +274,21 @@
       api.setFrameGroupIndex({
           name: 'toggleIndex',
           index: index_,
-          scroll: false
+          scroll: true
+      });
+    }
+    function Goright(){
+      api.setFrameGroupIndex({
+          name: 'toggleIndex',
+          index: 1,
+          scroll: true
+      });
+    }
+    function Goleft(){
+      api.setFrameGroupIndex({
+          name: 'toggleIndex',
+          index: 0,
+          scroll: true
       });
     }
     //循环查出判断Class
@@ -331,7 +355,7 @@
               url: 'html/FindChoice.html',
               rect: {
                   x:230,
-                  y:30,
+                  y:45,
                   w: '120',
                   h: '155'
               },
@@ -346,7 +370,6 @@
         });
         num=0;
       }
-
     }
 </script>
 

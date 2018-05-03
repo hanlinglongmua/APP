@@ -55,6 +55,13 @@
             line-height: 35px;
             background-color: white;
           }
+           .collection .menu .line{
+             position: absolute;
+             left: 50%;
+             border-right: 1px solid #e7e7e7;
+             height: 14px;
+             top: 81px;
+           }
           .collection .menu .men a{
             color: #979797;
             font-size: 16px;
@@ -97,6 +104,7 @@
           }
           .main .article img{
             height: 60px;
+            width: 82px;
           }
           .main .article .text{
             width: 100%;
@@ -198,6 +206,7 @@
         </div>
         <div class="menu" id="menu">
           <div class="men"><a href="javascript:void(0)" class="click current">资讯<span class="underline current"></span></a></div>
+          <span class="line"></span>
           <div class="men"><a href="javascript:void(0)" class="click">帖子<span class="underline"></span></a></div>
         </div>
       </div>
@@ -334,11 +343,11 @@ function MyCollectionData(index){
                   if(index==0){
                     for(var i=0;i<data.article.length;i++){
                       html+='<div class="article" onclick="OpenDetail('+data.article[i]['aid']+')">';
-                            html+='<div class="image"><img src="'+data.article[i]['pic']+'" alt=""></div>';
+                            html+='<div class="image"><img src="http://www.juzzn.com/data/attachment/'+data.article[i]['pic']+'" alt=""></div>';
                             html+='<div class="text">';
                                   html+='<div class="title t">'+data.article[i]['title']+'</div>';
                                   html+='<div class="foot t">';
-                                        html+='<div class="from">'+data.article[i]['from']+'</div>';
+                                        html+='<div class="from">'+data.article[i]['username']+'&nbsp;&nbsp;&nbsp;'+data.article[i]['dateline']+'</div>';
                                         html+='<div class="read">'+data.article[i]['viewnum']+'&nbsp;阅读</div>';
                                   html+='</div>';
                             html+='</div>';
@@ -350,7 +359,7 @@ function MyCollectionData(index){
                           html+='<div class="text" style="padding-left:0;">';
                                 html+='<div class="title t">'+data["topic"][j]["subject"]+'</div>';
                                 html+='<div class="foot t">';
-                                      html+='<div class="from">'+data["topic"][j]["author"]+'</div>';
+                                      html+='<div class="from">'+data["topic"][j]["author"]+'&nbsp;&nbsp;&nbsp;'+data["topic"][j]['dateline']+'</div>';
                                       html+='<div class="read">'+data["topic"][j]["num"]+'&nbsp;条评论</div>';
                                 html+='</div>';
                           html+='</div>';

@@ -130,6 +130,13 @@
          right: 28px;
          line-height: 20px;
        }
+       .nickname{
+         font-size: 12px;
+         color: #7b7b7b;
+         position: absolute;
+         right: 28px;
+         line-height: 20px;
+       }
         .realname{
           font-size: 12px;
           color: #7b7b7b;
@@ -200,6 +207,12 @@
                 </a>
             </div>
             <div class="mine">
+                <a href="javascript:;" onclick="openDataNickName()">
+                    <div id="nickname">
+                        <span class="title">昵称<span class="nickname">昵称</span></span>
+                    </div>
+                    <span class="arrow"></span>
+                </a>
                 <a href="javascript:;" onclick="openDataTrueName()">
                     <div id="turename">
                         <span class="title">真实姓名<span class="realname">保密</span></span>
@@ -247,6 +260,7 @@
       }, function(ret, err){
         mydatas();
       });
+
     }
 
     function mydatas(){
@@ -277,6 +291,10 @@
                 html+='</a>';
               html+='</div>';
               html+='<div class="mine">';
+                html+='<a href="javascript:;" onclick="openDataNickName('+userdata['uid']+')">';
+                  html+='<div id="nickname"><span class="title">昵称<span class="nickname">'+data['username']+'</span></span></div>';
+                  html+='<span class="arrow"></span>';
+                html+='</a>';
                 html+='<a href="javascript:;" onclick="openDataTrueName('+userdata['uid']+')">';
                   html+='<div id="turename"><span class="title">真实姓名<span class="realname">'+data['realname']+'</span></span></div>';
                   html+='<span class="arrow"></span>';
@@ -301,6 +319,7 @@
                   html+='<span class="arrow"></span>';
                 html+='</a>';
               html+='</div>';
+
           } else {
               alert( ret.msg );
           }
@@ -337,6 +356,16 @@
           }
       });
 
+    }
+
+    function openDataNickName(uid){
+      api.openWin({
+          name: 'DataNickName',
+          url: 'DataNickName.html',
+          pageParam: {
+              uid: uid
+          }
+      });
     }
 
     function openDataTrueName(uid){

@@ -22,7 +22,7 @@
         color: #fff;
         position: absolute;
         right: 8px;
-        top: 2px;
+        top: 40px;
       }
 
       * {
@@ -71,19 +71,31 @@
          /*my-header*/
          .my-header{
            width: 100%;
-           height:9rem;
+           height:10rem;
            background:url('../images/my/headerMy.png') no-repeat;
-           background-size:100%;
-
+           background-size:100% 85%;
          }
          .my-header .set {
           background:url('../images/my/headerSet.png') no-repeat;
           position: absolute;
           width: 40px;
           height: 50px;
-          top:-8px;
+          top:28px;
          -webkit-background-size: 100% 100%;
           background-size: 100% 100%;
+         }
+         .my-header .inform{
+           position: relative;
+         }
+         .my-header .inform #infostyle{
+           position: absolute;
+           top: 10px;
+           right: 12px;
+           width: 4px;
+           height: 4px;
+           border-radius: 50%;
+           background-color: red;
+           display: none;
          }
          .my-header img{
           height: 30px;
@@ -107,7 +119,7 @@
            top:50%;
            left:50%;
            margin-left:-40px;
-           top: 40px;
+           top: 62px;
            text-align: center;
          }
          .thisopp{
@@ -193,7 +205,10 @@
 <body>
   <div class="myindex" id="myindex">
       <div class="my-header">
-          <i class="iconfont">&#xe667;</i>
+          <div class="inform">
+            <i class="iconfont">&#xe667;</i>
+            <div id="infostyle"></div>
+          </div>
           <div class="set" onclick="Openset()"></div>
       </div>
       <div class="nick">
@@ -273,22 +288,55 @@
 <script type="text/javascript">
 apiready=function(){
   VueUser();
+  ontimebush();
   api.addEventListener({
       name: 'RefreshMy'
   }, function(ret, err){
-      VueUser();
       Toast('成功登录账号')
+      VueUser();
   });
   api.addEventListener({
       name: 'ENDMy'
   }, function(ret, err){
-      VueUser();
       Toast('成功退出当前账号')
+      VueUser();
   });
-}
 
-// var userdata = {};
-// userdata = $api.getStorage('userdata');
+  api.addEventListener({
+      name: 'mydata'
+  }, function(ret, err){
+    VueUser();
+  });
+
+  setInterval("ontimebush()",5000);
+}
+function ontimebush(){
+  var inforred = document.getElementById('infostyle')
+  var userdata = {};
+  userdata = $api.getStorage('userdata');
+  if(userdata){
+    api.ajax({
+        url: 'http://www.juzzn.com/getNotice.php',
+        method: 'post',
+        data: {
+            values: {
+                type:'total',uid:userdata['uid']
+            }
+        }
+    },function(ret, err){
+        if (ret.status == 1) {
+            if(ret.total){
+                inforred.style.display = 'block';
+            }else{
+                inforred.style.display = 'none';
+            }
+        } else {
+            // alert( JSON.stringify( err ) );
+        }
+
+    });
+  }
+}
 function VueUser(){
   var userdata = {};
   userdata = $api.getStorage('userdata');
@@ -307,7 +355,7 @@ function VueUser(){
         if (ret.status ==1) {
           var data = ret.data;
             html+='<div class="my-header">';
-                  html+='<i class="iconfont" onclick="openInform()">&#xe667;</i>';
+                  html+='<div class="inform"><i class="iconfont" id="hvaeinform" onclick="openInform()">&#xe667;</i><div id="infostyle"></div></div>';
                   html+='<div class="set" onclick="Openset()"></div>';
             html+='</div>';
             html+='<div class="nick">';
@@ -322,9 +370,9 @@ function VueUser(){
                   }
             html+='</div>';
             html+='<div class="footer">';
-                  html+='<div class="participate" onclick="openMyParticipate('+ret.data['uid']+')">参与&nbsp;'+ret.data['joinNum']+'<i></i></div>';
-                  html+='<div onclick="openMyAttention('+ret.data['uid']+')">关注&nbsp;'+ret.data['followNum']+'<i></i></div>';
-                  html+='<div onclick="openMyFans('+ret.data['uid']+')">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
+              html+='<div class="participate" onclick="openMyParticipate('+ret.data['uid']+')">参与&nbsp;'+ret.data['joinNum']+'<i></i></div>';
+              html+='<div onclick="openMyAttention('+ret.data['uid']+')">关注&nbsp;'+ret.data['followNum']+'<i></i></div>';
+              html+='<div onclick="openMyFans('+ret.data['uid']+')">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
             html+='</div>';
             if(data['mobile'] != ''){
               bindingphonenum+='手机<span class="notmean">'+data['mobile']+'</span>';
@@ -360,6 +408,7 @@ function VueUser(){
       $api.html($api.byId('bindingphonenum'), bindingphonenum);
       $api.html($api.byId('myindex'), html);
     }
+
 }
 
 function OpenmyAbount(){
@@ -402,10 +451,16 @@ function OpenmyAbount(){
    });
  }
  function OpenDeviceShare(){
-   api.openWin({
-       name: 'DeviceShare',
-       url: 'DeviceShare.html'
-   });
+   var userdata = {};
+   userdata = $api.getStorage('userdata');
+   if(userdata){
+     api.openWin({
+         name: 'DeviceShare',
+         url: 'DeviceShare.html'
+     });
+   }else{
+       Toast('请登录之后再进行操作')
+   }
  }
  function OpenSuggestionFeedback(){
      var userdata = {};

@@ -176,7 +176,7 @@
                 <div><input type="text" placeholder="添加标题"></div>
             </div>
             <div class="addtext">
-                <div><input type="text" placeholder="说点什么..."></div>
+                <div id="wysiwyg" contenteditable style="height:100%;width:100%;border-style:none"></div>
             </div>
             <div class="list">
                 <ul>
@@ -194,8 +194,8 @@
         <div class="footer">
           <ul>
             <li><i class="iconfont">&#xe614;</i></li><!-- 表情 -->
-            <li><i class="iconfont">&#xe627;</i></li><!-- 图片 -->
-            <li><i class="iconfont">&#xe64e;</i></li><!-- 视频 -->
+            <li><i class="iconfont" onclick = "openPhoto();">&#xe627;</i></li><!-- 图片 -->
+            <li><i class="iconfont" onclick="takePhoto()">&#xe64e;</i></li><!-- 视频 -->
           </ul>
         </div>
     </footer>
@@ -203,6 +203,58 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+  window.onload = function(){
+    var wysiwyg = document.getElementById('wysiwyg')
+    wysiwyg.contentEditable = true;
+  }
 
+  function inputImg(url){
+    document.execCommand('insertimage',false,url);
+  }
+  function openPhoto(){
+    var UIMediaScanner = api.require('UIMediaScanner');
+      UIMediaScanner.open({
+          type: 'picture',
+          column: 4,
+          classify: true,
+          max: 4,
+          sort: {
+              key: 'time',
+              order: 'desc'
+          },
+          texts: {
+              stateText: '已选择*项',
+              cancelText: '取消',
+              finishText: '完成'
+          },
+          styles: {
+              bg: '#fff',
+              mark: {
+                  icon: '',
+                  position: 'bottom_left',
+                  size: 20
+              },
+              nav: {
+                  bg: '#eee',
+                  stateColor: '#000',
+                  stateSize: 18,
+                  cancelBg: 'rgba(0,0,0,0)',
+                  cancelColor: '#000',
+                  cancelSize: 18,
+                  finishBg: 'rgba(0,0,0,0)',
+                  finishColor: '#000',
+                  finishSize: 18
+              }
+          },
+          scrollToBottom: {
+              intervalTime: 3,
+              anim: true
+          },
+          exchange: true,
+          rotation: true
+      }, function(ret) {
+            inputImg(ret.list[0]['path'])
+      });
+  }
   </script>
   </html>
