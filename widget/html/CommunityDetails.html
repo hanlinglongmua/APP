@@ -1033,6 +1033,43 @@
     }
 
   }
+  //视频加载
+  function openVideo(str){
+    var videoPlayer = api.require('videoPlayer');
+    videoPlayer.play({
+        styles: {
+            head: {
+                bg: 'rgba(0.5,0.5,0.5,0.7)',
+                height: 24,
+                titleSize: 10,
+                titleColor: '#fff',
+                backSize: 24,
+                backImg: 'fs://img/back.png',
+                setSize: 24,
+                setImg: 'fs://img/set.png'
+            },
+            foot: {
+                bg: 'rgba(0.5,0.5,0.5,0.7)',
+                height: 24,
+                playSize: 24,
+                playImg: 'fs://img/back.png',
+                pauseImg: 'fs://img/back.png',
+                nextSize: 24,
+                nextImg: 'fs://img/back.png',
+                timeSize: 14,
+                timeColor: '#fff',
+                sliderImg: 'fs://img/slder.png',
+                progressColor: '#696969',
+                progressSelected: '#76EE00'
+            }
+        },
+        path:str , //（可选项）字符串类型；文档的路径，支持网络和本地（fs://）路径；默认：未传值时不播放
+        //在 android 平台上不支持 widget://
+        autoPlay: true //（可选项）布尔类型；打开时是否自动播放；默认：true（自动播放）
+    }, function(ret, err) {
+
+    });
+  }
   // function changeboss(){
   //     var changebos = api.pageParam.change;
   //     if(changebos=='1'){
