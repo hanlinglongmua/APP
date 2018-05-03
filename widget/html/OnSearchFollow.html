@@ -19,6 +19,7 @@
       background-color: #f2f2f2;
     }
 
+
     html,body {
       height: 100%;
     }
@@ -126,7 +127,8 @@
         <div id="header" style="height:44px;line-height: 44px">
           <ul class="ul">
             <li class="flex">
-              <input type="number" class="search-input" placeholder="请输入搜索内容" autofocus="autofocus" id="input" onkeyup="searchFans()" onfocus="SearchFocus()" onblur="SearchBlur()"/>
+             <input type="text" class="search-input" id="input"  placeholder="请输入搜索内容" autofocus="autofocus"  onkeyup="searchFans()" onfocus="SearchFocus()" onblur="SearchBlur()"/>
+            <!-- <input type="text" placeholder="请输入内容" id="input" autofocus="autofocus"> -->
               <img src="../images/same_content/search.png" alt="" id="img">
               <div class="searchbtn" onclick="api.closeWin()">取消</div>
             </li>
@@ -144,19 +146,31 @@
 
     var userdata = {};
     userdata = $api.getStorage('userdata');
-    var inputtext = document.getElementById('input');
+    var inputtext = document.getElementById('intput');
     var images = document.getElementById('img');
+
+/*  window.onload = function(){
+    document.getElementById('input').focus();
+ }
+
+   // 使用模块弹出键盘
+   var softInput = api.require('softInputMgr');
+     softInput.toggleKeyboard();
+
+    document.getElementById("input").focus()*/
+
+
 
     function SearchFocus(){
       images.style.left = 2 + 'px';
       images.style.marginLeft = 'auto';
-      inputtext.style.textAlign = 'left';
+    /*  inputtext.style.textAlign = 'left';*/
     }
 
     function SearchBlur(){
       images.style.left = '50%';
       images.style.marginLeft = -110 + 'px';
-      inputtext.style.textAlign = 'center';
+    /*  inputtext.style.textAlign = 'center';*/
     }
 
     function searchFans(){
@@ -223,7 +237,7 @@
         }
     }
 
-    //自定义弹框
+
     function Toast(msg,duration){
         duration=isNaN(duration)?3000:duration;
         var m = document.createElement('div');
@@ -237,5 +251,25 @@
             setTimeout(function() { document.body.removeChild(m) }, d * 1000);
         }, duration);
     }
+
+  /*  var input=d3.select(#output),
+     now,    //计算花费的时间
+     timer, //计算花费定时器的使用
+     count=0;//刷新试图的函数
+     function refreshFrame(){
+       if(count<500){
+         input.text(count++);
+         count++
+         setTimeout(refreshFrame,16){
+         }else {
+           console.timeEnd("Animation")
+         }
+       }
+       setTimeout(function(){
+         console.time("Animation")
+         refreshFrame();
+       },50;);
+     }*/
+
 </script>
 </html>

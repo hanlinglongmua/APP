@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>设备命名</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0 ;
+            list-style: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background-color: #f2f2f2;
+        }
+        /*header 顶部样式*/
+
+        .header {
+            width: 100%;
+            height: 44px;
+            position: fixed;
+            z-index: 999;
+        }
+
+        .header .top {
+            width: 100%;
+            height: 70px;
+            background: url('../../images/gatewayimages/same_content/Header.jpg');
+        }
+
+        .header .top .sect {
+            float: left;
+            width: 33.33%;
+            height: 100%;
+        }
+
+        .header .top .fo {
+            font-size: 16px;
+            color: #fff;
+            line-height: 86px;
+            text-align: center;
+        }
+
+        .header .top .left>i {
+            position: absolute;
+            left: 15px;
+            top: 36px;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #fff;
+            border-top: none;
+            border-right: none;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+        .header .top .right {
+            position: relative;
+        }
+
+        .header .top .right .t {
+            position: absolute;
+            font-size: 13px;
+            color: #dfdfdf;
+            right: 12px;
+            text-align: center;
+            line-height: 86px;
+        }
+        /*header end*/
+
+        .main {
+            background: #f2f2f2;
+            padding-top: 80px;
+        }
+         .title{
+          font-size: 13px;
+          color: #282828;
+          width: 100%;
+          position: absolute;
+          margin: 10px auto;
+          margin: 3px;
+}
+        .border img {
+            width: 245px;
+            height: 245px;
+            margin: 23px auto;
+            display: flex;
+        }
+
+        .wifi img {
+            width: 15px;
+            height: 12px;
+        }
+
+        .tech {
+
+            height: 40px;
+            border: 1px solid;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        .tech span {
+
+            margin-top: 10px;
+        }
+
+        .tech i {
+            border-right: 1px solid #111;
+            border-bottom: 1px solid #111;
+            width: 10px;
+            height: 10px;
+            transform: rotate(-45deg);
+            float: right;
+            position: absolute;
+            right: 10px;
+        }
+
+        .boot img {
+            width: 15px;
+            height: 15px;
+        }
+        .length{
+          padding: 10px 0 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gateway">
+        <!-- header -->
+        <div class="header">
+            <div class="top">
+                <div class="sect left"><i></i></div>
+                <div class="sect fo">网络配置</div>
+                <div class="sect right">
+                    <div class="t">下一步</div>
+                </div>
+            </div>
+        </div>
+        <!-- header end -->
+        <div class="main">
+            <div class="border">
+                <img src="../../images/gatewayimages/networkconfigure/port.png">
+            </div>
+
+            <div class="title">
+              <p><span>1&nbsp;、</span>摄像机接通电源，正常开机后，接入以太网线</p>
+                <p><span>2&nbsp;、</span>确认手机连接的网线和摄像头接入的以太网是同一路由器</p>
+                  <p><span>3&nbsp;、</span>听到语音提示以太网联网成功后点击下一步</p>
+            </div>
+
+        </div>
+        <footer style="padding:0px 0px 0 20px; position:absolute; bottom:0px; width:90%;">
+            <div class="wifi">
+                <p class="length"><img src="../../images/gatewayimages/networkconfigure/wifi.png"> 当前连接网络
+                </p>
+            </div>
+            <div class="tech">
+                <span>骏卓科技<i></i></span>
+            </div>
+            <div class="boot">
+                <p class="length"><img src="../../images/gatewayimages/networkconfigure/boot.png"> 不支持5G&nbsp;wifi
+                </p>
+            </div>
+        </footer>
+        </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+</script>
+
+</html>
