@@ -24,13 +24,13 @@
             -webkit-text-stroke-width: 0.2px;
             -moz-osx-font-smoothing: grayscale;
             position: absolute;
-            top: -2px;
-            right: 50px;
+            top: 0;
+            right: 15px;
         }
 
         .iconfonta {
-            top: -2px;
-            right: 2px;
+            top: 0;
+            right: -13px;
         }
 
         html,
@@ -79,46 +79,41 @@
             color: #fff;
         }
 
-        .index .discov {
-            display: inline-block;
-            width: 50%;
-            height: 100%;
-            position: absolute;
-            top: 10px;
-            right: 50%;
-            left: 50%;
-            margin-left: -25%;
+        .index .discov{
+          display: inline-block;
+          width: 50%;
+          height: 100%;
+          position: absolute;
+          top:10px;
+          right: 50%;
+          left: 50%;
+          margin-left: -25%;
         }
-
-        .index .discov>i {
-            border-left: 1px solid #e5e5e5;
-            border-right: 1px solid #e5e5e5;
+        .index .discov>i{
+          border-left:1px solid #e5e5e5;
+          border-right:1px solid #e5e5e5;
         }
-
-        .index .discov>a {
-            color: #808080;
-            width: 38%;
+        .index .discov>a{
+          color: #808080;
+          width: 38%;
         }
-
-        .index .discov>a.hover {
-            color: #0d0d0d;
-            height: 36px;
+        .index .discov>a.hover{
+          color:#0d0d0d;
+          height: 36px;
         }
-
-        .index .serchedit {
-            width: 56px;
-            position: absolute;
-            right: 0;
-            top: 12px;
+        .index .serchedit{
+          width: 56px;
+          position: absolute;
+          right:14px;
+          top:9px;
         }
-
-        .index .edit {
-            margin-left: 10px;
-            width: 16px;
+        .index .edit{
+          margin-left: 10px;
+          width: 16px;
         }
+        header img{
+          width: 18px;
 
-        header img {
-            width: 18px;
         }
         /*脚步*/
 
@@ -260,6 +255,18 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        // 引导页
+        var intro_ist = $api.getStorage('introt');
+         if (!intro_ist) {
+          api.openWin({
+              name: 'index_introt',
+              url: 'html/index_introt.html',
+              pageParam: {
+                  name: 'index_introt'
+              }
+          });
+        }
+
         api.addEventListener({
             name: 'indexleft'
         }, function(ret, err) {
@@ -279,40 +286,42 @@
         // 最新api.js为了适配iPhoneX增加的方法，修复底部Footer部分与iPhoneX的底部虚拟横条键重叠的问题；
         footerH = $api.fixTabBar(footer);
         menus = $api.domAll(header, ".menu");
-        api.openFrameGroup({
-            name: 'toggleIndex',
-            background: '#fff',
-            scrollEnabled: false,
-            rect: {
-                marginTop: 54, // main页面距离win顶部的高度
-                marginBottom: footerH, // main页面距离win底部的高度
-                w: 'auto' // main页面的宽度 自适应屏幕宽度
-            },
-            index: 0,
-            frames: [{
-                name: 'Discovery',
-                url: 'html/Discovery.html',
-                bgColor: '#fff'
-            }, {
-                name: 'ThisWeekHot',
-                url: 'html/Community.html',
-                bgColor: '#000'
-            }]
-        }, function(ret, err) {
-            SetClass(ret.index);
-            var serchedit = document.getElementById('serchedit');
-            var onserchedit = document.getElementById('serchedit current');
-            if (ret.index == 0) {
-                serchedit.style.display = 'none';
-                onserchedit.style.display = 'block';
-                api.closeFrame({
-                    name: 'FindChoice'
-                });
-            } else if (ret.index == 1) {
-                serchedit.style.marginRight = 15 + 'px';
-                serchedit.style.display = 'block';
-                onserchedit.style.display = 'none';
-            }
+
+        api.openFrameGroup ({
+          name: 'toggleIndex',
+          background: '#fff',
+          scrollEnabled: false,
+          rect: {
+            marginTop: 54, // main页面距离win顶部的高度
+            marginBottom: footerH, // main页面距离win底部的高度
+            w: 'auto' // main页面的宽度 自适应屏幕宽度
+          },
+          index: 0,
+          frames: [{
+              name: 'Discovery',
+              url: 'html/Discovery.html',
+              bgColor: '#fff'
+          },{
+              name: 'ThisWeekHot',
+              url: 'html/Community.html',
+              bgColor: '#000'
+          }
+        ]
+      }, function(ret, err){
+          SetClass(ret.index);
+          var serchedit = document.getElementById('serchedit');
+          var onserchedit = document.getElementById('serchedit current');
+          if(ret.index==0){
+            serchedit.style.display = 'none';
+            onserchedit.style.display = 'block';
+            api.closeFrame({
+                name: 'FindChoice'
+            });
+          }else if(ret.index==1){
+            serchedit.style.display = 'block';
+            onserchedit.style.display = 'none';
+          }
+
 
         });
     };
@@ -402,28 +411,29 @@
     }
     var num = 0;
 
-    function openFindChoice() {
-        if (num == 0) {
-            api.openFrame({
-                name: 'FindChoice',
-                url: 'html/FindChoice.html',
-                rect: {
-                    x: 230,
-                    y: 45,
-                    w: '120',
-                    h: '155'
-                },
-                pageParam: {
-                    name: 'test'
-                }
-            });
-            num = 1;
-        } else {
-            api.closeFrame({
-                name: 'FindChoice'
-            });
-            num = 0;
-        }
+    function openFindChoice(){
+      if(num==0){
+          api.openFrame({
+              name: 'FindChoice',
+              url: 'html/FindChoice.html',
+              rect: {
+                  x:230,
+                  y:30,
+                  w: '120',
+                  h: '155'
+              },
+              pageParam: {
+                  name: 'test'
+              }
+          });
+          num=1;
+      }else {
+        api.closeFrame({
+            name: 'FindChoice'
+        });
+        num=0;
+      }
+
     }
 </script>
 

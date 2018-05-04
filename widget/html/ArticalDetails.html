@@ -257,6 +257,7 @@
       text-align: center;
       font-weight: 500;
       line-height: 40px;
+      border-bottom: 1px solid #f7f7f7;
     }
     .main .menu .left div {
       margin-right: 5px;
@@ -888,7 +889,16 @@ return_top.onclick = function (){
                                 html+='<div class="left"><img src="'+data.comments[i]['avatar']+'" alt="" onclick="openFriendDetailsData('+data.comments[i]['uid']+')"></div>';//评论头像
                                 html+='<div class="right">';
                                   html+='<div class="top">'+data.comments[i]['username']+'</div>';//评论人
-                                  html+='<i></i>';
+                                  if(userdata){
+                                    if(data.comments[i]['uid'] == userdata['uid']){//举报
+                                      html+='';
+                                    }else{
+                                      html+='<i onclick="accusation('+data.comments[i]['cid']+','+pageParamAid+',\'article\')"></i>';
+                                    }
+                                  }else{
+                                    html+='<i></i>';
+                                  }
+
                                   html+='<div class="mid">';
                                     html+='<div class="art">'+data.comments[i]['message']+'</div>';//评论内容
                                   html+='</div>';
@@ -917,7 +927,7 @@ return_top.onclick = function (){
                       }
 
                     html+='<div id="footer" class="footer">';
-                      html+='<div class="ii"><i></i></div>';
+                      html+='<div class="ii" onclick="api.closeWin()"><i></i></div>';
                       html+='<div class="list">';
                         html+='<div class="li"><input type="text" name="" id="talk" placeholder="写评论..." onclick="inputFouse(\'\');"></div>';
                         html+='<div class="li">';
@@ -953,6 +963,33 @@ return_top.onclick = function (){
             }
             $api.html($api.byId('articalDetails'), html);
         });
+  }
+  //举报
+  function accusation(pid,tid,type){
+    api.openFrame({
+        name: 'accusation',
+        url: 'Accusation.html',
+        rect: {
+            x: 0,
+            y: 0,
+            marginTop:518,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            pid:pid,tid:tid,type:type
+        },
+        animation:{
+          type:"push",
+          subType:"from_bottom",
+          duration:300
+        },
+        bounces: false,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false
+    });
+
   }
 
   //关注
@@ -1086,11 +1123,11 @@ return_top.onclick = function (){
 
   function OpenDetail(aid){
     api.openWin({
-        name: 'ArticalDetails',
-        url: 'ArticalDetails.html',
-        pageParam: {
-            aid: aid
-        }
+      name: 'ArticalDetails'+aid,
+      url: 'ArticalDetails.html',
+      pageParam: {
+           aid:aid
+      }
     });
   }
   //评论自动换行

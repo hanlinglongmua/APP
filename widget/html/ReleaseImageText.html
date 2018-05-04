@@ -135,6 +135,9 @@
             top: 0;
             left: 20px;
           }
+          #wysiwyg img{
+              width: 100%;
+          }
           /*section*/
 
           /*footer*/
@@ -256,5 +259,19 @@
             inputImg(ret.list[0]['path'])
       });
   }
+  function takePhoto(){
+    var FNPhotograph = api.require('FNPhotograph');
+    FNPhotograph.open({
+        path: 'fs://savePath',
+        album: true ,
+        quality: 'medium'
+    }, function(ret){
+        if(ret.eventType=='takePhoto'){
+          FNPhotograph.close();
+          inputImg(ret.imagePath)
+        }
+    });
+  }
+
   </script>
   </html>
