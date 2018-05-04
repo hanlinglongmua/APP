@@ -76,8 +76,8 @@
         .index .serchedit{
           width: 56px;
           position: absolute;
-          right: 0;
-          top:12px;
+          right:14px;
+          top:9px;
         }
         .index .edit{
           margin-left: 10px;
@@ -209,6 +209,18 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        // 引导页
+        var intro_ist = $api.getStorage('introt');
+         if (!intro_ist) {
+          api.openWin({
+              name: 'index_introt',
+              url: 'html/index_introt.html',
+              pageParam: {
+                  name: 'index_introt'
+              }
+          });
+        }
+
         api.addEventListener({
             name: 'indexleft'
         }, function(ret, err){
@@ -259,7 +271,6 @@
                 name: 'FindChoice'
             });
           }else if(ret.index==1){
-            serchedit.style.marginRight = 15+ 'px';
             serchedit.style.display = 'block';
             onserchedit.style.display = 'none';
           }
@@ -356,7 +367,7 @@
               url: 'html/FindChoice.html',
               rect: {
                   x:230,
-                  y:45,
+                  y:30,
                   w: '120',
                   h: '155'
               },

@@ -454,7 +454,7 @@
       border-radius: 10px;
       height: 50px;
       max-height: 62px;
-      padding:3px 0 3px 0;
+      padding:3px 0 3px 5px;
       margin: 0 2% 0 2%;
       width: 96%;
       outline: none;
@@ -649,8 +649,7 @@
 
   apiready=function(){
     pageParamTid = api.pageParam.tid;
-      CommentDetailsData();
-      // changeboss();
+    CommentDetailsData();
   }
 
   function CommentDetailsData(){
@@ -705,7 +704,7 @@
                       html+='<div class="left">评论</div>';
                 html+='</div>';
                 if(data.reply){
-                html+='<a id="talkmain">';
+                // html+='<a id="talkmain">';
                 for(var i = 0;i<data.reply.length;i++){
                 html+='<div class="replay">';
                       html+='<div class="text">';
@@ -714,7 +713,16 @@
                             html+='</div>';
                             html+='<div class="right">';
                                     html+='<div class="top">'+data.reply[i]['m_name']+'</div>';//评论名字
-                                    html+='<i></i>';
+                                    if(userdata){
+                                      if(data.reply[i]['m_uid'] == userdata['uid']){
+                                        html+='';
+                                      }else{
+                                        html+='<i onclick="accusation('+data.reply[i]['pid']+','+pageParamTid+',\'post\')"></i>';
+                                      }
+                                    }else{
+                                      html+='<i></i>';
+                                    }
+
                                     html+='<div class="mid">';
                                           html+='<div class="art">'+data.reply[i]['m_message']+'</div>';//评论内容
                                           if(data.reply[i]['comNum']>0){
@@ -727,7 +735,7 @@
                                                   html+='</div>'
                                                 }
                                                 html+='<div class="an li">';
-                                                      html+='<a href="javascript:void(0)" onclick="OpcomSonSon('+data.reply[i]['pid']+','+pageParamTid+')">共<span>'+data.reply[i]['comNum']+'</span>条回复&nbsp;></a>';
+                                                      html+='<a href="javascript:void(0)" onclick="OpcomSonSon('+data.reply[i]['pid']+','+pageParamTid+','+data['fid']+')">共<span>'+data.reply[i]['comNum']+'</span>条回复&nbsp;></a>';
                                                 html+='</div>'
                                               html+='</div>';
                                             }
@@ -751,7 +759,7 @@
                       html+='</div>';
                 html+='</div>';
               }
-              html+='</a>';
+              // html+='</a>';
             }else{
                 html+='<div class="replay" style="margin:30px auto;text-align:center;">暂无评论</div>';
             }
@@ -783,14 +791,41 @@
         $api.html($api.byId('footer'), htmlfooter);
     })
   }
-  // 打开回复按钮
-  function OpcomSonSon(pid,tid) {
+  //举报
+  function accusation(pid,tid,type){
+    api.openFrame({
+        name: 'accusation',
+        url: 'Accusation.html',
+        rect: {
+            x: 0,
+            y: 0,
+            marginTop:518,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            pid:pid,tid:tid,type:type
+        },
+        animation:{
+          type:"push",
+          subType:"from_bottom",
+          duration:300
+        },
+        bounces: false,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false
+    });
+
+  }
+  // 打开回复详情
+  function OpcomSonSon(pid,tid,fid) {
     if(userdata){
       api.openWin({
         name: 'CommunityCommentDetails',
         url: 'CommunityCommentDetails.html',
         pageParam: {
-            pid: pid,tid:tid
+            pid: pid,tid:tid,fid:fid
         }
       });
     }else{
@@ -885,7 +920,6 @@
   }
   //已收藏
   function faved(type){
-    // alert(234234);return;
     var userdata = {};
     userdata = $api.getStorage('userdata');
     var favdata = '';
@@ -940,7 +974,7 @@
         }
     });
   }
-
+  //回复内容点赞
   function  postlike(pid) {
     if(userdata){
       api.ajax({

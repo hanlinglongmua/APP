@@ -117,7 +117,7 @@
             height: 50%;
             font-size: 11px;
             color: #7c7c7c;
-            line-height: 16px;
+            line-height: 20px;
           }
           .iconfont{
             font-family: "iconfont" !important;
@@ -194,7 +194,11 @@
               var data = ret.data;
 
               cominfo+='<div class="title">社区通知</div>';
-              cominfo+='<div class="text">'+data['post']['msg']+'</div>';
+              if(data['post']['msg'] != ''){
+                cominfo+='<div class="text">'+data['post']['msg']+'</div>';
+              }else {
+                cominfo+='<div class="text">暂无消息</div>';
+              }
               if(data['post']['total']>0){
                 cominfo+='<div class="time">'+data['post']['dateline']+'<div class="num">'+data['post']['total']+'</div></div>';
               }else {
@@ -202,7 +206,11 @@
               }
 
               artinfo+='<div class="title">文章通知</div>';
-              artinfo+='<div class="text">'+data['article']['msg']+'</div>';
+              if(data['article']['msg'] != ''){
+                artinfo+='<div class="text">'+data['article']['msg']+'</div>';
+              }else {
+                artinfo+='<div class="text">暂无消息</div>';
+              }
               if(data['article']['total']>0){
                 artinfo+='<div class="time">'+data['article']['dateline']+'<div class="num">'+data['article']['total']+'</div></div>';
               }else{
@@ -210,13 +218,17 @@
               }
 
               friinfo+='<div class="title">好友通知</div>';
-              friinfo+='<div class="text">'+data['follow']['msg']+'</div>';
+              if(data['follow']['msg'] != ''){
+                friinfo+='<div class="text">'+data['follow']['msg']+'</div>';
+              }else{
+                friinfo+='<div class="text">暂无消息</div>';
+              }
               if(data['follow']['total']>0){
                 friinfo+='<div class="time">'+data['follow']['dateline']+'<div class="num">'+data['follow']['total']+'</div></div>';
               }else {
                 friinfo+='';
               }
-              
+
           } else {
               // alert( JSON.stringify( err ) );
           }

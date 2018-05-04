@@ -20,7 +20,7 @@
             font-size: 16px;
             color: #000;
             position: absolute;
-            right: 38px;
+            right: 46px;
             top: 0;
           }
           body，html{
@@ -121,7 +121,7 @@
             }
           }
           .header .href{
-            font-size: 10px;
+            font-size: 12px;
             margin:12px 0 0 56px;
             height: 20px;
             line-height: 10px;
@@ -135,10 +135,9 @@
           /*main*/
           .mue{
             width: 100%;
-            height: 24px;
-            border-top: 1px solid #e1e1e1;
+            height: 26px;
             border-bottom: 1px solid #e1e1e1;
-            line-height: 24px;
+            line-height: 26px;
           }
           .mue .left{
             padding-left: 12px;
@@ -164,7 +163,7 @@
           .main .mid .text .top{
             position: relative;
             width: 100%;
-            font-size: 12px;
+            font-size: 14px;
             color: #222;
             height: 20px;
             line-height: 20px;
@@ -204,16 +203,16 @@
           }
           .main .answer{
             color: #808080;
-            font-size: 8px;
-            height: 15px;
-            line-height: 16px;
+            font-size: 10px;
+            height: 20px;
+            line-height: 18px;
             position: relative;
           }
           .main .answer .answ{
             position: absolute;
             top: 0;
             right: 10px;
-            font-size: 10px;
+            font-size: 12px;
             color: #4e4e4e;
           }
           /*main end*/
@@ -306,8 +305,8 @@
       <!-- footer -->
       <div class="footer">
         <div class="mai">
-          <input type="text" name="" value="" placeholder="回复评论">
-          <input type="button" name="" value="发送">
+          <input type="text" id="inputtext" name="" value="" placeholder="回复评论">
+          <input type="button" name="" onclick="criticism()" value="发送">
         </div>
       </div>
       <!-- footer end -->
@@ -319,7 +318,50 @@
     var pageParampid = '';
     var userdata = {};
     userdata = $api.getStorage('userdata');
+    //评论
+    var replyPid = 0;
+    var fid = '';
+    function criticisms(m_pid){
+      document.getElementById('inputtext').focus();
+      replyPid = m_pid;
+    }
+    function criticism(){
+          fid = api.pageParam.fid;
+          pageParampid = api.pageParam.pid;
+          pageParamtid = api.pageParam.tid;
+          var inputtext = $api.val($api.byId('inputtext'));
+          var criticismData={};
+          criticismData.fid = fid;
+          criticismData.tid = pageParamtid;//文章id
+          criticismData.authorid = userdata['uid'];//操作用户id
+          criticismData.author = userdata['username'];//操作用户id名称
+          criticismData.message = inputtext;//评论内容
+          criticismData.pid = replyPid?replyPid:pageParampid;
+          criticismData.bbcodeoff = 0;
+          alert(fid+"+"+pageParamtid+"+"+userdata['uid']+"+"+userdata['username']+"+"+inputtext+"+"+replyPid)
+          if(inputtext==''){
+            Toast('请输入你要评论的内容',2000)
+          }else {
+            api.ajax({
+              url: 'http://www.juzzn.com/comment.php',
+              method: 'post',
+              data: {
+                    values:criticismData
+              }
+              },function(ret, err){
+              if (ret.status == 1) {
+                Toast('发表成功',1000);
+                CommunityCommentDetails();
+              }else {
+                Toast(ret.msg);
+              }
+          });
+        }
+    }
     apiready = function(){
+      CommunityCommentDetails();
+    }
+    function CommunityCommentDetails(){
       var html = '';
       var htmls = '';
       var data = {};
@@ -331,7 +373,7 @@
           method: 'post',
           data: {
               values: {
-                tid:pageParamtid,uid:userdata['uid']
+                tid:pageParamtid
               }
           }
       },function(ret, err){
@@ -341,7 +383,13 @@
                   data = ret.data.reply[i];
                   html+='<div class="head">';
                     html+='<div class="left" onclick="openFriendDetailsData('+data['m_uid']+')"><img src="'+data['m_avatar']+'"></div>';//楼主头像
-                    html+='<div class="right"><div class="up">'+data['m_name']+'</div><div class="down">'+data['m_dateline']+'</div><i></i></div>';//楼主名字和发表时间
+                    html+='<div class="right"><div class="up">'+data['m_name']+'</div><div class="down">'+data['m_dateline']+'</div>';//楼主名字和发表时间
+                      if(data['m_uid'] == userdata['uid']){//举报
+                        html+='';
+                      }else{
+                        html+='<i onclick="accusation('+data['pid']+','+pageParamtid+',\'post\')"></i>';
+                      }
+                    html+='</div>';
                   html+='</div>';
                   html+='<div class="text">'+data['m_message']+'</div>';//楼主回复的内容
                   html+='<div class="href"><a href="#" onclick="openCommunityDetails('+data['tid']+','+data['authorid']+')">查看原文章</a></div>';
@@ -351,8 +399,14 @@
                       htmls+='<div class="left" onclick="openFriendDetailsData('+datas['m_uid']+')"><img src="'+datas['m_avatar']+'" alt=""></div>';//回复楼主的人的头像
                       htmls+='<div class="mid">';
                         htmls+='<div class="text">';
-                          htmls+='<div class="top">'+datas['m_name']+'<i></i></div>';//回复楼主的人的名字
-                          htmls+='<div class="mi">回复<a href="#">'+data['m_name']+'</a>：'+datas['msg']+'</div>';//楼主的名字和回复楼主的内容
+                          htmls+='<div class="top">'+datas['m_name']+'';//回复楼主的人的名字
+                            if(data['m_uid'] == userdata['uid']){//举报
+                              htmls+='';
+                            }else{
+                              htmls+='<i onclick="accusation('+datas['m_pid']+','+pageParamtid+',\'post\')"></i>';
+                            }
+                          htmls+='</div>';
+                          htmls+='<div class="mi" onclick="criticisms('+datas['m_pid']+')">回复<a href="#">'+data['m_name']+'</a>：'+datas['msg']+'</div>';//楼主的名字和回复楼主的内容
                           htmls+='<div class="answer"><div class="time">'+datas['m_dateline']+'</div><div class="answ">回复</div>';//回复楼主的时间
 
                           if(datas['floorLike'] == 1){
@@ -372,6 +426,32 @@
           }
           $api.html($api.byId('header'), html);
           $api.html($api.byId('main'), htmls);
+      });
+    }
+    //举报
+    function accusation(pid,tid,type){
+      api.openFrame({
+          name: 'accusation',
+          url: 'Accusation.html',
+          rect: {
+              x: 0,
+              y: 0,
+              marginTop:518,
+              w: 'auto',
+              h: 'auto'
+          },
+          pageParam: {
+              pid:pid,tid:tid,type:type
+          },
+          animation:{
+            type:"push",
+            subType:"from_bottom",
+            duration:300
+          },
+          bounces: false,
+          bgColor: 'rgba(0,0,0,0)',
+          vScrollBarEnabled: false,
+          hScrollBarEnabled: false
       });
 
     }

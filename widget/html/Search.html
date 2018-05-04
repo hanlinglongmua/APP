@@ -88,7 +88,7 @@
       padding: 0 10px 0 10px;
     }
     .search-input{
-        width: 83%;
+        width: 86%;
         padding-left: 2%;
         height: 28px;
         text-align: center;
@@ -178,19 +178,24 @@
     .delete{
       float: right;
       color: #a9a9a9;
+      position: relative;
+      margin-right: 20px;
     }
     .delete img{
       width: 16px;
       height: 17px;
       vertical-align:middle;
+      position: absolute;
+      right: -18px;
+      top: 4px;
     }
     .calloff{
       float: right;
       vertical-align:middle;
       text-align: center;
-      line-height: 50px;
+      line-height: 46px;
       font-size: 15px;
-      width: 15%;
+      width: 11%;
       color: #686868;
       font-style: normal;
     }
@@ -439,8 +444,8 @@
                             <span>搜索历史</span>
                           <div class="delete" onclick="clearAll()">清空<img src="../images/search/remove.png"></div>
                       </div>
-                      <div class="bigbox">
-                          <ul class="ul" id="history">
+                      <div class="bigbox" id="history">
+                          <ul class="ul">
                             <li>小辣椒手机</li>
                             <li>屏幕指纹录入解锁</li>
                             <li>夏普mini发布</li>
@@ -682,8 +687,12 @@
                   var seatchhtml = '';
                   if (ret.status == 1) {
                     var data=ret.data;
-                    for(var i=0;i<data.length;i++){
-                      seatchhtml+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                    if(data[0]){
+                      htmls+='<ul class="ul">';
+                      for(var i=0;i<data.length;i++){
+                        htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                      }
+                      htmls+='</ul>';
                     }
                   }
                   $api.html($api.byId('history'),seatchhtml);
@@ -723,9 +732,12 @@
         },function(ret, err){
             if (ret.status == 1) {
               var data=ret.data;
-              alert(JSON.stringify(data))
-              for(var i=0;i<data.length;i++){
-                htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+              if(data[0]){
+                htmls+='<ul class="ul">';
+                for(var i=0;i<data.length;i++){
+                  htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                }
+                htmls+='</ul>';
               }
             } else {
                 alert( JSON.stringify( err ) );
