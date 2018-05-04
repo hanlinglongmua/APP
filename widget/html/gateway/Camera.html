@@ -10,16 +10,13 @@
         @font-face {
             font-family: 'iconfont';
             src: url('../../icon/iconfont.eot');
-            src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'),
-             url('../../icon/iconfont.woff') format('woff'),
-             url('../../icon/iconfont.ttf') format('truetype'),
-             url('../../icon/iconfont.svg#iconfont') format('svg');
+            src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'), url('../../icon/iconfont.woff') format('woff'), url('../../icon/iconfont.ttf') format('truetype'), url('../../icon/iconfont.svg#iconfont') format('svg');
         }
 
         * {
             margin: 0;
             border: 0;
-            padding: 0 ;
+            padding: 0;
             list-style: none;
         }
 
@@ -40,7 +37,6 @@
             -webkit-box-orient: vertical;
             -webkit-flex-flow: column;
             position: relative;
-            /*  background-color: #f2f2f2;*/
         }
 
         header {
@@ -54,7 +50,6 @@
             text-align: center;
             color: #fff;
             z-index: 99;
-
         }
 
         header>i {
@@ -142,6 +137,16 @@
             box-shadow: 0 0 20px #9e9e9e;
         }
 
+        .ways .top,
+        .ways .right {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1px solid #797979;
+            border-top: none;
+            border-right: none;
+        }
+
         .top i {
             left: 15px;
             top: 14px;
@@ -180,11 +185,12 @@
             bottom: 10px;
             background-color: #808080;
         }
-        .text{
-          position: absolute;
-          width: 54%;
-          height: 20px;
-          right: 0;
+
+        .text {
+            position: absolute;
+            width: 54%;
+            height: 20px;
+            right: 0;
         }
         /*footer*/
 
@@ -207,13 +213,13 @@
             float: right;
             display: flex;
             justify-content: center;
-
         }
         /*footer end*/
     </style>
 </head>
 
 <body>
+    <!-- 头部 begin -->
     <header>
         <i></i>
         <span>摄像头</span>
@@ -225,24 +231,26 @@
             </ul>
         </div>
     </header>
-    <div class="area">
-        <div class="detection">
+    <!-- 头部 end -->
 
+    <div class="area">
+        <div class="detection" style="position:relative;">
             <p style="position:absolute;right:10px;top:10px;font-size:13px;color:#111;">2018-4-18 <span style="margin-left:15px;">12:30:12</span></p>
             <i class="iconfontb">&#xe603;</i>
             <img src="../../images/gatewayimages/ditectionarea/detection.png">
-
         </div>
     </div>
+
     <div class="stop">
         <div class="ways">
-            <i class="top" style="position:absolute;width:8px;height:8px;border:1px solid #797979;border-top:none;border-right:none;right:84px;top:10px;transform:rotate(45deg);"></i>
-            <i class="right" style="position:absolute;width:8px;height:8px;border:1px solid  #797979;border-top:none;border-right:none;right:74px;top:10px;transform:rotate(-135deg);"></i>
+            <i class="top" style="right:84px;top:10px;transform:rotate(45deg);"></i>
+            <i class="right" style="right:74px;top:10px;transform:rotate(-135deg);"></i>
             <span style="font-size；11px;color:#fff;">stop</span>
-            <i class="top" style="position:absolute;width:8px;height:8px;border:1px solid #797979;border-top:none;border-right:none;right:12px;top:12px;transform:rotate(-45deg);"></i>
-            <i class="right" style="position:absolute;width:8px;height:8px;border:1px solid #797979;border-top:none;border-right:none;right:12px;top:6px;transform:rotate(135deg);"></i>
+            <i class="top" style="right:12px;top:12px;transform:rotate(-45deg);"></i>
+            <i class="right" style="right:12px;top:6px;transform:rotate(135deg);"></i>
         </div>
     </div>
+
     <section>
         <div class="bigzero">
             <i class="top" style="position:absolute;width:18px;height:18px;border:1px solid #d1d1d1;border-top:none;border-right:none;right:68px;top:12px;transform:rotate(135deg);"></i>
@@ -265,14 +273,13 @@
     <footer>
         <div class="footer">
             <ul>
-
                 <form style="float:left;">
                     <select name="cars" style="position:absolute;color:#3a3a3a;border:1px solid #d1d1d1;background-color:#fff;width:40%;height:25px;float:left;left:5px;margin-top:10px;">
       <option value="">远程监控</option>
         <option value="">远程监控</option>
           <option value="">本地监控（高清）</option>
             <option value="">远程监控（标清）</option>
-      </select>
+    </select>
                 </form>
                 <div class="text">
 
