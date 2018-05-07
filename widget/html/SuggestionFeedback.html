@@ -135,13 +135,13 @@
             <div class="sug">
               <div class="title">你要反馈的意见或者建议:</div>
               <div class="text" id="text">
-                <textarea type="text" name="" class="suggestion" id="suggestion" value="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
+                <textarea type="text" name="" class="suggestion" id="suggestion" maxLength="300" value="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
               </div>
             </div>
             <div class="link">
               <div class="lt">您的联系方式：</div>
               <div class="li" id="li">
-                <input type="text" name="" class="link" id="link" value="" placeholder="请留下您的QQ或者邮箱">
+                <input type="text" name="" class="link" id="link" maxLength="25" value="" placeholder="请留下您的QQ或者邮箱">
               </div>
             </div>
             <div class="btn" id="btn">
@@ -155,6 +155,12 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+  // 限制文本框输入长度
+  var input = document.querySelector("#suggestion")
+  console.log(input.maxLength);
+  var input = document .querySelector("#link")
+  console.log(input.maxLength);
+  
       var userdata = {};
       userdata = $api.getStorage('userdata');
       function subsug(){

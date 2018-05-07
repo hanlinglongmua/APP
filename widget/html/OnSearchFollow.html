@@ -127,7 +127,7 @@
         <div id="header" style="height:44px;line-height: 44px">
           <ul class="ul">
             <li class="flex">
-              <input type="text" class="search-input" placeholder="请输入搜索内容" autofocus="autofocus" id="input" onkeyup="searchFans()" onfocus="SearchFocus()" onblur="SearchBlur()"/>
+              <input type="text" class="search-input" placeholder="请输入搜索内容" autofocus="autofocus" id="input" maxLength="10" onkeyup="searchFans()" onfocus="SearchFocus()" onblur="SearchBlur()"/>
               <img src="../images/same_content/search.png" alt="" id="img">
               <div class="searchbtn" onclick="api.closeWin()">取消</div>
             </li>
@@ -238,5 +238,8 @@
             setTimeout(function() { document.body.removeChild(m) }, d * 1000);
         }, duration);
     }
+    // 限制文本输入长度
+    var input = document.querySelector("#input")
+    console.log(input.maxLength);
 </script>
 </html>

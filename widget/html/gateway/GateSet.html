@@ -11,10 +11,7 @@
         @font-face {
             font-family: 'iconfont';
             src: url('../../icon/iconfont.eot');
-            src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'),
-             url('../../icon/iconfont.woff') format('woff'),
-             url('../../icon/iconfont.ttf') format('truetype'),
-             url('../../icon/iconfont.svg#iconfont') format('svg');
+            src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'), url('../../icon/iconfont.woff') format('woff'), url('../../icon/iconfont.ttf') format('truetype'), url('../../icon/iconfont.svg#iconfont') format('svg');
         }
 
         * {
@@ -26,7 +23,6 @@
         html {}
 
         body {
-
             background-color: #f1f1f1;
             overflow-x: hidden;
         }
@@ -37,7 +33,6 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
             display: block;
         }
-
 
         ul,
         li,
@@ -73,11 +68,12 @@
         .myindex {
             position: relative;
             background: #fff;
-            overflow-x: hidden
+
         }
         /*my-header开始*/
 
         .header .top {
+            /*position: fixed;*/
             width: 100%;
             height: 70px;
             background: url('../../images/gatewayimages/same_content/Header.jpg');
@@ -108,15 +104,16 @@
             transform: rotate(45deg);
         }
         /*my-header结束*/
-        /*开始*/
 
-        .item_content .phone,
+        .item_content .devicename,
         .item_content .mine,
         .item_content .msg,
-        .item_content .hobby {
+        .item_content .usermap {
             padding-top: 10px;
         }
-
+        .devicename a {
+            color: #111;
+        }
         .item_content a {
             display: flex;
             justify-content: space-between;
@@ -158,6 +155,7 @@
             font-size: 22px;
             color: #000;
         }
+
         .mask {
             position: fixed;
             width: 100%;
@@ -167,8 +165,9 @@
             background-color: rgba(0, 0, 0, 0.7);
             display: none;
         }
+
         .popup {
-          border-radius: 10px;
+            border-radius: 10px;
             width: 55%;
             margin: -70px auto;
             position: fixed;
@@ -199,21 +198,22 @@
             padding: 10px;
             justify-content: center;
         }
-        .phone a {
-            color: #111;
-        }
-        input{
-          border: 1px solid #e1e1e1;
-          display: flex;
-          margin: 10px auto;
-          width: 50%;
-          text-align: center;
 
+
+
+        input {
+            border: 1px solid #e1e1e1;
+            display: flex;
+            margin: 10px auto;
+            width: 50%;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
+  <!-- 头部 begin -->
+  <header>
     <div class="myindex">
         <div class="header">
             <div class="top">
@@ -222,132 +222,142 @@
             </div>
         </div>
     </div>
-    <div class="item_content" id="data">
-        <div class="phone">
+  </header>
+    <!-- 头部 end -->
+    <div class="item_content" >
 
+        <div class="devicename">
+            <!-- 设备命名 begin -->
             <a class="del" href="javascript:;">
-
                 <div id="headerimg">
                     <i class="iconfont">&#xe62e;</i>
                     <span class="title">设备命名</span>
                 </div>
-
-                <div class="mask">
-                </div>
-
+                <div class="mask"></div>
                 <span class="arrow"></span>
                 <div class="popup">
-                <strong style="display:flex;justify-content:center;margin:10px 0  0 10px;">设备命名</strong>
+                    <strong style="display:flex;justify-content:center;margin:10px 0  0 10px;">设备命名</strong>
                     <p><input type="password" value="" placeholder="摄像机"></p>
                     <div class="button">
                         <span class="close">取消</span>
                         <span class="confirm">确定</span>
                     </div>
-
                 </div>
+                <!-- 设备命名 end -->
             </a>
-
         </div>
 
         <div class="mine">
+
             <a href="javascript:;">
-                <div id="turename">
+                <div >
                     <i class="iconfont" style="color:#3468f9;">&#xe602;</i>
                     <span class="title">安全设置</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
             <a href="javascript:;">
-                <div id="sex">
-                    <i class="iconfont"  style="color:#d73737;">&#xe616;</i>
+                <div >
+                    <i class="iconfont" style="color:#d73737;">&#xe616;</i>
                     <span class="title">报警设置</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
             <a href="javascript:;">
-                <div id="sex">
+                <div >
                     <i class="iconfont" style="color:#2394fc;font-size:18px;">&#xe66c;</i>
                     <span class="title">视频监控存储</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
             <a href="javascript:;">
-                <div id="sex">
+                <div >
                     <i class="iconfont" style="color:#2f2f2f;">&#xe626;</i>
                     <span class="title">图像翻转</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
         </div>
+
         <div class="msg">
+
             <a href="javascript:;">
-                <div id="phonenum">
+                <div >
                     <i class="iconfont" style="color:#1296da;">&#xe606;</i>
                     <span class="title">网络信息</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
             <a href="javascript:;">
-                <div id="qq">
+                <div >
                     <i class="iconfont" style="color:#f2ca7d;">&#xe611;</i>
                     <span class="title">用户管理</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
+       <!-- 解除绑定 begin -->
             <a class="del" href="javascript:;">
-                <div id="qq">
+                <div >
                     <i class="iconfont" style="color:#0a0a0a;font-size:20px;">&#xe66b;</i>
                     <span class="title">解除绑定</span>
                 </div>
-                <div class="mask">
-                </div>
+                <div class="mask"> </div>
                 <span class="arrow"></span>
                 <div class="popup">
-                <strong >设备命名</strong>
+                    <strong>设备命名</strong>
                     <p>摄像机</p>
                     <div class="button">
                         <span class="close">取消</span>
                         <span class="confirm">确定</span>
                     </div>
-
                 </div>
+              <!-- 解除绑定 end -->
             </a>
         </div>
-        <div class="hobby">
+
+        <div class="usermap">
+
             <a href="javascript:;">
-                <div id="hobbies">
+                <div >
                     <i class="iconfont" style="font-size:24px;">&#xe631;</i>
                     <span class="title">使用指南</span>
                 </div>
                 <span class="arrow"></span>
             </a>
+
         </div>
     </div>
 
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-var mask = document.querySelector(".mask");
-var popup = document.querySelector(".popup")
-var del = document.querySelector(".del")
-var close = document.querySelector(".close")
-var confirm = document.querySelector(".confirm")
-del.addEventListener("click", function() {
-    mask.style.display = "block"
-    popup.style.display = "block"
-})
-close.addEventListener("click", function() {
-  /*  mask.style.display = ""*/
-    popup.style.display = ""
-})
+    var mask = document.querySelector(".mask");
+    var popup = document.querySelector(".popup")
+    var del = document.querySelector(".del")
+    var close = document.querySelector(".close")
+    var confirm = document.querySelector(".confirm")
+    del.addEventListener("click", function() {
+        mask.style.display = "block"
+        popup.style.display = "block"
+    })
+    close.addEventListener("click", function() {
+        /*  mask.style.display = ""*/
+        popup.style.display = ""
+    })
 
-confirm.addEventListener('click', function(a) {
+    confirm.addEventListener('click', function(a) {
 
-    /*    alert("") ///
-        //再次关闭*/
-    mask.style.display = ""
-    popup.style.display = ""
-})
+        /*    alert("") ///
+            //再次关闭*/
+        mask.style.display = ""
+        popup.style.display = ""
+    })
 </script>
 
 </html>

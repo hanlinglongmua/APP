@@ -79,13 +79,16 @@
               </div>
               <div class="send">发送</div>
           </div>
-          <textarea name="textarea" id="textarea" cols="40" rows="1" placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
+          <textarea name="textarea" id="textarea"  cols="40" rows="1" placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
         </div>
         <!-- main end -->
     </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+
+
+
       function changeHeight(i){
         i.style.height = 'auto';
         i.style.height=i.scrollHeight +32 +"px";

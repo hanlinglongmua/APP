@@ -25,7 +25,7 @@
             -webkit-flex-flow: column;
             position: relative;
         }
-
+        /*header头部 begin*/
         header {
             height: 70px;
             line-height: 86px;
@@ -35,7 +35,6 @@
             position: relative;
             text-align: center;
             color: #fff;
-          
         }
 
         header>i {
@@ -50,12 +49,10 @@
             transform: rotate(45deg);
             -webkit-transform: rotate(45deg);
         }
-
+        /*header 头部end*/
         .main {
-            -moz-box-flex: 1.0;
-            /* Firefox */
-            -webkit-box-flex: 1.0;
-            /* Safari 和 Chrome */
+            -moz-box-flex: 1.0;  /* Firefox */
+            -webkit-box-flex: 1.0;  /* Safari 和 Chrome */
             box-flex: 1.0;
             position: relative;
             background: #f2f2f2;
@@ -167,58 +164,35 @@
 </head>
 
 <body>
+  <!-- header头部 begin -->
     <header>
         <i></i>
         <span>安全设置</span>
     </header>
+    <!-- header头部 end -->
+
     <div class="main">
         <div>
             <ul style="padding:15px 0px 0px 0px;">
+              <!-- 密码设置 -->
                 <span style="margin-left:10px; font-size:15px; color:#1e1e1e;">摄像头密码设置</span>
                 <li class="cache" style="margin:10px 0 10px 0;">密码设置<i></i></li>
+                <!-- 摄像头工作时间 -->
                 <span style="margin-left:10px;font-size:15px; color:#1e1e1e;">摄像头工作时间</span>
-                <li class="music" style="margin:10px 0px 0px 0px;">
+                <li class="music" style="margin:10px 0px 0px 0px;border-bottom:1px solid #e1e1e1;">
                     <span>启用</span>
-
                     <input type="checkbox" class="toggle">
                 </li>
                 <li class="cache" style="margin:0px 0 0px 0;">工作时间<span>0:00-0:00</span><i></i></li>
 
             </ul>
+
         </div>
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    function loginout() {
-        Toast('成功退出当前账号', 3000)
-        var userdata = {}
-        userdata = $api.getStorage('userdata');
-        $api.clearStorage('userdata');
-        api.sendEvent({
-            name: 'ENDMy' //登录成功刷新会员中心页面
-        });
-        api.closeWin();
 
-    }
-
-    //自定义弹框
-    function Toast(msg, duration) {
-        duration = isNaN(duration) ? 3000 : duration;
-        var m = document.createElement('div');
-        m.innerHTML = msg;
-        m.style.cssText =
-            "width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
-        document.body.appendChild(m);
-        setTimeout(function() {
-            var d = 0.5;
-            m.style.webkitTransition = '-webkit-transform ' + d + 's ease-in, opacity ' + d + 's ease-in';
-            m.style.opacity = '0';
-            setTimeout(function() {
-                document.body.removeChild(m)
-            }, d * 1000);
-        }, duration);
-    }
 </script>
 
 </html>

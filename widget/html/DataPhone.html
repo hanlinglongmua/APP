@@ -91,7 +91,7 @@
           </header>
 
           <section>
-            <input type="text" placeholder="请输入...">
+            <input type="text" id="text" maxLength="15" placeholder="请输入...">
           </section>
       </div>
   </body>
@@ -100,5 +100,8 @@
       apiready = function(){
 
       };
+      // 限制文本输入长度
+      var textarea = document.querySelector("#text")
+      console.log(textarea.maxLength);
   </script>
   </html>

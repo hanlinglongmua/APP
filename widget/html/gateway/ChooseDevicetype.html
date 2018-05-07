@@ -105,8 +105,7 @@
             padding: 15px 0px 15px 30px;
         }
 
-        .border span
-       {
+        .border span {
             display: flex;
             justify-content: center;
             font-size: 14px;
@@ -117,12 +116,11 @@
 
 <body>
     <div class="gateway">
-        <!-- header -->
+        <!-- header begin -->
         <div class="header">
             <div class="top">
-                <div class="sect left"><i onclick="CloseDeviceShare()"></i></div>
+                <div class="sect left"><i ></i></div>
                 <div class="sect fo">选择设备型号</div>
-
             </div>
         </div>
         <!-- header end -->
@@ -130,25 +128,24 @@
         <div class="main">
             <div>
                 <ul>
+            <!-- 常用设备 begin-->
                     <li class="alldevice">常用设备</li>
                     <div class="allborder">
-
                         <div class="border">
                             <img src="../../images/gatewayimages/choosedevicetype/camera.png">
                             <span>摄像头</span>
                         </div>
-                        <div class="border">
-                            <img src="../../images/gatewayimages/choosedevicetype/camera.png">
-                            <span>摄像头</span>
-                        </div>
-
                     </div>
+              <!-- 常用设备 end-->
+
+              <!-- 传感器 begin -->
                     <li class="alldevice">可燃气体传感器<i>连接前请先绑定网关和摄像头</i></li>
                     <div class="allborder">
                         <div class="border">
                             <img src="../../images/gatewayimages/choosedevicetype/combustiblesensor.png">
                             <span>可燃气体传感器</span>
                         </div>
+
                         <div class="border">
                             <img src="../../images/gatewayimages/choosedevicetype/bodysensor.png">
                             <span>人体红外传感器</span>
@@ -157,11 +154,14 @@
                             <img src="../../images/gatewayimages/choosedevicetype/doorsensor.png">
                             <span>门磁传感器</span>
                         </div>
+
                         <div class="border">
                             <img src="../../images/gatewayimages/choosedevicetype/emengercysensor.png">
                             <span>紧急按钮传感器</span>
                         </div>
+
                     </div>
+                    <!-- 传感器 end -->
                 </ul>
             </div>
         </div>

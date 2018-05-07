@@ -10,10 +10,7 @@
         @font-face {
             font-family: 'iconfont';
             src: url('../../icon/iconfont.eot');
-            src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'),
-            url('../../icon/iconfont.woff') format('woff'),
-            url('../../icon/iconfont.ttf') format('truetype'),
-            url('../../icon/iconfont.svg#iconfont') format('svg');
+            src: url('../../icon/iconfont.eot?#iefix') format('embedded-opentype'), url('../../icon/iconfont.woff') format('woff'), url('../../icon/iconfont.ttf') format('truetype'), url('../../icon/iconfont.svg#iconfont') format('svg');
         }
 
         * {
@@ -34,7 +31,7 @@
             -webkit-flex-flow: column;
             position: relative;
         }
-        /*header 顶部样式*/
+        /*header 顶部样式 begin*/
 
         .header {
             width: 100%;
@@ -90,10 +87,8 @@
         /*header end*/
 
         .main {
-            -moz-box-flex: 1.0;
-            /* Firefox */
-            -webkit-box-flex: 1.0;
-            /* Safari 和 Chrome */
+            -moz-box-flex: 1.0;  /* Firefox */
+            -webkit-box-flex: 1.0;  /* Safari 和 Chrome */
             box-flex: 1.0;
             position: relative;
             background: #f2f2f2;
@@ -117,7 +112,7 @@
         }
 
         .search-input {
-            width: 100%;
+            width: 70%;
             height: 50px;
             background: #fff;
             text-align: left;
@@ -159,7 +154,6 @@
             border-radius: 6px;
             font-size: 15px;
             margin: 13px auto;
-
         }
 
         .iconfont {
@@ -170,37 +164,12 @@
             float: right;
             top: 0;
             right: 5px;
-            position:absolute;;
+            position: absolute;
+            ;
         }
-        .allchoose{
-              //用div的样式代替select的样式
-              width: 200px;
-              height: 40px;
-              border-radius: 5px;
-              //盒子阴影修饰作用,自己随意
-              box-shadow: 0 0 5px #ccc;
-              position: relative;
-          }
-          select{
-              //清除select的边框样式
-              border: none;
-              width: 100%;
-              //清除select聚焦时候的边框颜色
-              outline: none;
-              //将select的宽高等于div的宽高
-              width: 100%;
-              height: 40px;
-              line-height: 40px;
-              //隐藏select的下拉图标
-              appearance: none;
-              -webkit-appearance: none;
-              -moz-appearance: none;
-              //通过padding-left的值让文字居中
-              padding-left: 60px;
-              border-bottom: 1px solid #e1e1e1;
-              font-size: 15px;
-              color: #e1e1e1;
-          }
+
+
+
     </style>
 </head>
 
@@ -209,7 +178,7 @@
         <!-- header -->
         <div class="header">
             <div class="top">
-                <div class="sect left"><i ></i></div>
+                <div class="sect left"><i></i></div>
                 <div class="sect fo">连接wifi</div>
                 <div class="sect right">
                     <div class="t">完成</div>
@@ -221,29 +190,35 @@
         <div class="main">
             <div>
                 <ul>
-                 <li><span class="number">请选择wifi</span><i></i></li>
 
+                    <li><span class="number">请选择wifi</span><i></i></li>
 
-                  <li>  <input type="number" value="" class="search-input" placeholder="请输入wifi密码">
-<span>  <p class="iconfont">&#xe61d;</p></span>
-                  </li>
+                    <li> <input class="search-input"  type="text" id="title"  maxLength="15" placeholder="请输入wifi密码" >
+                        <span><p class="iconfont">&#xe61d;</p></span>
+                    </li>
 
                 </ul>
             </div>
         </div>
+
         <div class="title">
             输入摄像头连接的家庭WIFI网络名和密码。连接过程请将摄像头.路由器尽可能地靠近。
         </div>
+
         <div class="center-button" style="padding:0px 10px;">
             <button type="button" name="">完成</button>
         </div>
+
         <div class="title">
             如需更改wifi:设置-网络信息
         </div>
+
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+var input = document.querySelector("#title")
+console.log(input.maxLength);
 </script>
 
 </html>

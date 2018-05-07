@@ -305,7 +305,7 @@
       <!-- footer -->
       <div class="footer">
         <div class="mai">
-          <input type="text" id="inputtext" name="" value="" placeholder="回复评论">
+          <input type="text" id="inputtext" maxlength="50" name="" value="" placeholder="回复评论">
           <input type="button" name="" onclick="criticism()" value="发送">
         </div>
       </div>
@@ -314,6 +314,10 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+  // 限制文本输入长度
+  var input = document.querySelector("#inputtext")
+  console.log(input.maxLength);
+
     var pageParamtid = '';
     var pageParampid = '';
     var userdata = {};

@@ -420,7 +420,7 @@
          <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
               <ul>
                   <li class="flex1">
-                        <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput" onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
+                        <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput" maxLength="5"  onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
                         <div class="calloff" id="searchbtn" onclick="SearchTole()">搜索</div>
                         <span class="search-advertise" id="searchAdvertise"></span>
                   </li>
@@ -513,7 +513,8 @@
       apiready = function(){
         hot();
         searchHistory();
-      }//
+      }
+
       var searchInput = $api.byId('searchInput');
       var searchAdvertise = $api.byId('searchAdvertise');
       function SearchTxetFocus(){
@@ -689,11 +690,11 @@
                   if (ret.status == 1) {
                     var data=ret.data;
                     if(data[0]){
-                      htmls+='<ul class="ul">';
+                      html+='<ul class="ul">';
                       for(var i=0;i<data.length;i++){
-                        htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                        html+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
                       }
-                      htmls+='</ul>';
+                      html+='</ul>';
                     }
                   }
                   $api.html($api.byId('history'),seatchhtml);
@@ -793,5 +794,9 @@
           Toast('请登录再进行操作')
         }
       }
+      // 限制input输入长度
+      var input = document.querySelector("#searchInput")
+        console.log(input.maxLength);
+
   </script>
   </html>

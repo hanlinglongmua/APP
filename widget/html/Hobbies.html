@@ -93,12 +93,16 @@
           </header>
 
           <section>
-            <textarea type="text" id="text" placeholder="请输入..."></textarea>
+            <textarea type="text" id="text" maxLength="9" placeholder="请输入..."></textarea>
           </section>
       </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+  // 限制文本框输入长度
+  var textarea = document.querySelector("#text")
+  console.log(textarea.maxLength);
+
   function save(){
       var userdata = {};
       userdata = $api.getStorage('userdata');
