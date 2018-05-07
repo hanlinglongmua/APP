@@ -135,7 +135,7 @@
             <div class="sug">
               <div class="title">你要反馈的意见或者建议:</div>
               <div class="text" id="text">
-                <textarea type="text" name="" class="suggestion" id="suggestion" maxLength="300" value="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
+                <textarea type="text" name="" class="suggestion" id="suggestion" maxLength="100" value="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
               </div>
             </div>
             <div class="link">
@@ -156,11 +156,11 @@
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
   // 限制文本框输入长度
-  var input = document.querySelector("#suggestion")
-  console.log(input.maxLength);
+  var textarea= document.querySelector("#suggestion")
+  console.log(textarea.maxLength);
   var input = document .querySelector("#link")
   console.log(input.maxLength);
-  
+
       var userdata = {};
       userdata = $api.getStorage('userdata');
       function subsug(){

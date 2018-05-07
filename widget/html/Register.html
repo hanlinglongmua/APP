@@ -128,7 +128,9 @@
           <div class="registermain">
               <div class="phone ico">
                   <img src="../images/register/register_phone.png" alt="">
-                  <input type="text" name="" id="username" maxLength="14" value="" placeholder="手机号码">
+
+                  <input type="text" name="" id="username" maxlength="14" onblur="aleardreg()" value="" placeholder="手机号码">
+
               </div>
               <div class="password ico">
                 <img src="../images/register/register_password.png" alt="">
@@ -189,6 +191,24 @@
           });
 
       }
+      //判断手机是否已注册
+      function aleardreg(){
+        var phonenum = $api.val($api.byId('username'));
+        api.ajax({
+            url: 'http://www.juzzn.com/checkMobile.php',
+            method: 'post',
+            data: {
+                values: {
+                    phone: phonenum
+                }
+            }
+        },function(ret, err){
+            if (ret.status == 1) {
+                Toast('该手机号码已被注册',1000)
+            }
+        });
+
+      }
 
       function sendCode(){
         var countdown = 60;
@@ -218,6 +238,7 @@
                   Toast( '发送成功' );
                   sendbtn.disabled = true;
                   sendbtn.value = '重新发送'+countdown;
+                  sendbtn.style.backgroundColor = '#e1e1e1';
                   clock = setInterval(timeclock,1000);
                   function timeclock(){
                     countdown--;

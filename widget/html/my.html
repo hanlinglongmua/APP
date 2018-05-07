@@ -233,10 +233,10 @@
                     </div>
                     <span class="arrow"></span>
                 </a>
-                <a href="javascript:;" onclick="OpenBindingCellPhone()">
+                <a href="javascript:;" id="bindingphonenum" onclick="OpenBindingCellPhone()">
                     <div>
                         <img src="../images/same_content/bodytel.png" alt="">
-                        <span class="title" id="bindingphonenum">手机<span class="notmean">未绑定</span></span>
+                        <span class="title">手机<span class="notmean">未绑定</span></span>
                     </div>
                     <span class="arrow"></span>
                 </a>
@@ -375,9 +375,21 @@ function VueUser(){
               html+='<div onclick="openMyFans('+ret.data['uid']+')">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
             html+='</div>';
             if(data['mobile'] != ''){
-              bindingphonenum+='手机<span class="notmean">'+data['mobile']+'</span>';
+              bindingphonenum+='<div>';
+                bindingphonenum+='<img src="../images/same_content/bodytel.png" alt="">';
+                bindingphonenum+='<span class="title">手机<span class="notmean">'+data['mobile']+'</span></span>';
+              bindingphonenum+='</div>';
+              bindingphonenum+='<span class="arrow"></span>';
+              document.getElementById('bindingphonenum').removeAttribute('onclick');
+              document.getElementById('bindingphonenum').setAttribute('onclick','openUntiePhone()');
             }else{
-              bindingphonenum+='手机<span class="notmean">未绑定</span>';
+              bindingphonenum+='<div>';
+                bindingphonenum+='<img src="../images/same_content/bodytel.png" alt="">';
+                bindingphonenum+='<span class="title">手机<span class="notmean">未绑定</span></span>';
+              bindingphonenum+='</div>';
+              bindingphonenum+='<span class="arrow"></span>';
+              document.getElementById('bindingphonenum').removeAttribute('onclick');
+              document.getElementById('bindingphonenum').setAttribute('onclick','OpenBindingCellPhone()');
             }
 
             $api.html($api.byId('myindex'), html);
@@ -404,7 +416,13 @@ function VueUser(){
             html+='<div class="concern">关注&nbsp;<i></i></div>';
             html+='<div class="fans">粉丝&nbsp;</div>';
       html+='</div>';
-      bindingphonenum+='手机<span class="notmean">未绑定</span>';
+      bindingphonenum+='<div>';
+        bindingphonenum+='<img src="../images/same_content/bodytel.png" alt="">';
+        bindingphonenum+='<span class="title">手机<span class="notmean">未绑定</span></span>';
+      bindingphonenum+='</div>';
+      bindingphonenum+='<span class="arrow"></span>';
+      document.getElementById('bindingphonenum').removeAttribute('onclick');
+      document.getElementById('bindingphonenum').setAttribute('onclick','OpenBindingCellPhone()');
       $api.html($api.byId('bindingphonenum'), bindingphonenum);
       $api.html($api.byId('myindex'), html);
     }
@@ -476,6 +494,16 @@ function OpenmyAbount(){
      }else{
          Toast('请登录之后再进行操作')
      }
+ }
+ function openUntiePhone(){
+   api.openWin({
+       name: 'UntiePhone',
+       url: 'UntiePhone.html',
+       pageParam: {
+           name: 'test'
+       }
+   });
+
  }
  function OpenBindingCellPhone(){
    var userdata = {};
