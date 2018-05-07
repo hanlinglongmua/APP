@@ -99,7 +99,7 @@
           section .main .addtitle input{
             margin: 0 2% 0 2%;
             font-size: 16px;
-            color: #bfbfbf;
+            color: #000;
             height: 50px;
             outline: none;
             width: 96%;
@@ -107,14 +107,9 @@
           section .main .addtext{
             border-bottom: 1px solid #efefef;
             height: 228px;
-          }
-          section .main .addtext input{
-            margin: 0 2% 0 2%;
-            font-size: 16px;
-            color: #bfbfbf;
-            height: 50px;
-            outline: none;
             width: 96%;
+            margin: 0 2%;
+            overflow-y: auto;
           }
           section .main .list ul li{
             border-bottom: 1px solid #efefef;
@@ -148,6 +143,7 @@
             height: 44px;
             border-top: 1px solid #efefef;
             background-color: #f7f7f7;
+            display: none;
           }
           footer .footer ul{
             width: 100%;
@@ -167,7 +163,7 @@
         <div class="top">
             <div class="sect left"><i onclick="api.closeWin()"></i></div>
             <div class="sect fo">发帖</div>
-            <div class="sect right"><div class="t">发布</div></div>
+            <div class="sect right"><div class="t" onclick="postAll()">发布</div></div>
         </div>
     </header>
     <!-- header end -->
@@ -176,16 +172,16 @@
     <section>
         <div class="main">
             <div class="addtitle">
-                <div><input type="text" placeholder="添加标题"></div>
+                <div><input id="titletext" type="text" placeholder="添加标题"></div>
             </div>
             <div class="addtext">
-                <div id="wysiwyg" contenteditable style="height:100%;width:100%;border-style:none"></div>
+                <div id="wysiwyg" onfocus="openFooter()" contenteditable style="height:100%;width:100%;border-style:none"></div>
             </div>
             <div class="list">
                 <ul>
-                  <li><div class="li"><i class="iconfont">&#xe653;</i><div>附加语音</div></div></li>
-                  <li><div class="li"><i class="iconfont">&#xe62c;</i><div>你在哪里</div></div></li>
-                  <li><div class="li"><i class="iconfont">&#xe61d;</i><div>可见设置</div></div></li>
+                  <li><div class="li" onclick="startTape()"><i class="iconfont">&#xe653;</i><div>附加语音</div></div></li>
+                  <!-- <li><div class="li" onclick="startLocation()"><i class="iconfont">&#xe62c;</i><div>你在哪里</div></div></li> -->
+                  <!-- <li><div class="li"><i class="iconfont">&#xe61d;</i><div>可见设置</div></div></li> -->
                 </ul>
             </div>
         </div>
@@ -193,12 +189,12 @@
     <!-- main end -->
 
     <!-- footer -->
-    <footer>
+    <footer id="footer">
         <div class="footer">
           <ul>
-            <li><i class="iconfont">&#xe614;</i></li><!-- 表情 -->
+            <li><i class="iconfont" onclick="getImgsPaths()">&#xe614;</i></li><!-- 表情 -->
             <li><i class="iconfont" onclick = "openPhoto();">&#xe627;</i></li><!-- 图片 -->
-            <li><i class="iconfont" onclick="takePhoto()">&#xe64e;</i></li><!-- 视频 -->
+            <li><i class="iconfont" onclick="takeVideo()">&#xe64e;</i></li><!-- 视频 -->
           </ul>
         </div>
     </footer>
@@ -206,72 +202,232 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
+  var userdata = {};
+  apiready = function() {
+    userdata = $api.getStorage('userdata');
+  }
   window.onload = function(){
     var wysiwyg = document.getElementById('wysiwyg')
     wysiwyg.contentEditable = true;
   }
 
-  function inputImg(url){
+  //发布
+  function postAll(){
+    var title = $api.val($api.byId('titletext'));
+    var wysiwyg = $api.html($api.byId('wysiwyg'));
+    alert(wysiwyg)
+    api.ajax({
+        url: 'http://www.juzzn.com/post.php?type=article',
+        method: 'post',
+        data: {
+            values: {
+              title:title,content:wysiwyg,author:userdata['username'],authorid:userdata['uid']
+            }
+        }
+    },function(ret, err){
+        if (ret.status == 1) {
+            alert( JSON.stringify( ret ) );
+        } else {
+            alert( JSON.stringify( err ) );
+        }
+    });
+
+  }
+
+  function inputimg(url){
     document.execCommand('insertimage',false,url);
   }
-  function openPhoto(){
-    var UIMediaScanner = api.require('UIMediaScanner');
-      UIMediaScanner.open({
-          type: 'picture',
-          column: 4,
-          classify: true,
-          max: 4,
-          sort: {
-              key: 'time',
-              order: 'desc'
-          },
-          texts: {
-              stateText: '已选择*项',
-              cancelText: '取消',
-              finishText: '完成'
-          },
-          styles: {
-              bg: '#fff',
-              mark: {
-                  icon: '',
-                  position: 'bottom_left',
-                  size: 20
-              },
-              nav: {
-                  bg: '#eee',
-                  stateColor: '#000',
-                  stateSize: 18,
-                  cancelBg: 'rgba(0,0,0,0)',
-                  cancelColor: '#000',
-                  cancelSize: 18,
-                  finishBg: 'rgba(0,0,0,0)',
-                  finishColor: '#000',
-                  finishSize: 18
-              }
-          },
-          scrollToBottom: {
-              intervalTime: 3,
-              anim: true
-          },
-          exchange: true,
-          rotation: true
-      }, function(ret) {
-            inputImg(ret.list[0]['path'])
-      });
+  function inputVideo(url){
+    document.execCommand('insertHTML',false,url);
   }
-  function takePhoto(){
-    var FNPhotograph = api.require('FNPhotograph');
-    FNPhotograph.open({
-        path: 'fs://savePath',
-        album: true ,
-        quality: 'medium'
-    }, function(ret){
-        if(ret.eventType=='takePhoto'){
-          FNPhotograph.close();
-          inputImg(ret.imagePath)
+  function openPhoto(){
+    api.actionSheet({
+        cancelTitle: '取消',
+        buttons: ['从相册选择照片','拍照']
+    }, function(ret, err){
+        if( ret ){
+          if(ret.buttonIndex == 1){//从相册选择照片
+            wysiwyg.contentEditable = true;
+            var UIMediaScanner = api.require('UIMediaScanner');
+              UIMediaScanner.open({
+                  type: 'picture',
+                  column: 4,
+                  classify: true,
+                  max: 4,
+                  sort: {
+                      key: 'time',
+                      order: 'desc'
+                  },
+                  texts: {
+                      stateText: '已选择*项',
+                      cancelText: '取消',
+                      finishText: '完成'
+                  },
+                  styles: {
+                      bg: '#fff',
+                      mark: {
+                          icon: '',
+                          position: 'bottom_left',
+                          size: 20
+                      },
+                      nav: {
+                          bg: '#eee',
+                          stateColor: '#000',
+                          stateSize: 18,
+                          cancelBg: 'rgba(0,0,0,0)',
+                          cancelColor: '#000',
+                          cancelSize: 18,
+                          finishBg: 'rgba(0,0,0,0)',
+                          finishColor: '#000',
+                          finishSize: 18
+                      }
+                  },
+                  scrollToBottom: {
+                      intervalTime: 3,
+                      anim: true
+                  },
+                  exchange: true,
+                  rotation: true
+              }, function(ret) {
+                    var path = ret.list[0]['path'];
+                    api.ajax({
+                        url: 'http://www.juzzn.com/post.php?type=file',
+                        method: 'post',
+                        data: {
+                            files: {
+                                file: path
+                            }
+                        }
+                    },function(ret, err){
+                      if (ret) {
+                          inputimg(ret.file);
+                      } else {
+                          alert( JSON.stringify( err ) );
+                      }
+                    });
+
+                    document.execCommand('insertparagraph');
+              });
+          }else if(ret.buttonIndex == 2){//拍照片
+            api.getPicture({
+                sourceType: 'camera',
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'url',
+                allowEdit: true,
+                quality: 50,//指定图片质量
+                targetWidth: 100,//指定图片宽度
+                targetHeight: 100,//指定图片高度
+                saveToPhotoAlbum: false//保存照片
+            }, function(ret, err){
+                if(ret){
+                     api.ajax({
+                         url: 'http://www.juzzn.com/post.php?type=file',
+                         method: 'post',
+                         data: {
+                             files: {
+                                 file: ret.data
+                             }
+                         }
+                     },function(ret, err){
+                         if (ret) {
+                             inputimg(ret.file);
+                         } else {
+                             alert( JSON.stringify( err ) );
+                         }
+                     });
+                }else{
+                     alert(JSON.stringify(err));
+                }
+            });
+          }
+        }else{
+             alert( JSON.stringify( err ) );
         }
     });
   }
+  //拍视频
+  function takeVideo(){
+    api.getPicture({
+        sourceType: 'camera',
+        encodingType: 'jpg',
+        mediaValue: 'video',
+        destinationType: 'url',
+        allowEdit: true,
+        quality: 50,//指定图片质量
+        targetWidth: 100,//指定图片宽度
+        targetHeight: 100,//指定图片高度
+        saveToPhotoAlbum: false//保存照片
+    }, function(ret, err){
+        if(ret){
+          api.ajax({
+              url: 'http://www.juzzn.com/post.php?type=file',
+              method: 'post',
+              data: {
+                  files: {
+                      file: ret.data
+                  }
+              }
+          },function(ret, err){
+              if (ret) {
+                  var html='<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%" poster="" data-setup="{}"><source src="'+ret.data+'" type="video/mp4" /></video>';
+                  inputVideo(ret.file);
+              } else {
+                  alert( JSON.stringify( err ) );
+              }
+          });
 
+        }else{
+             alert(JSON.stringify(err));
+        }
+    });
+  }
+  //录音
+  function startTape(){
+    alert('该功能暂未开放')
+    // api.startRecord({
+    //     path: ''
+    // });
+    // api.stopRecord(function(ret, err){
+    //     if(ret){
+    //          var path = ret.path;
+    //          var duration = ret.duration;
+    //     }
+    // });
+
+  }
+  //获取定位
+  function startLocation(){
+    api.startLocation({
+        accuracy: '100m',
+        filter: 1,
+        autoStop: true
+    }, function(ret, err){
+        if( ret ){
+          alert(11)
+             api.getLocation(function(ret, err){
+                 if(ret.status){
+                      alert( JSON.stringify( ret ) );
+                 }else{
+                      alert( JSON.stringify( err ) );
+                 }
+             });
+
+        }else{
+           //定位失败
+        }
+    });
+
+  }
+  //表情
+  function getImgsPaths(sourcePathOfChatBox, callback){
+      alert('该功能暂未开放')
+  }
+
+  //变换底部
+  var footer = document.getElementById('footer');
+  function openFooter(){
+    footer.style.display = 'block';
+  }
   </script>
   </html>

@@ -93,6 +93,7 @@
         height: 28px;
         text-align: center;
         background-color: #e4e5e7;
+
     }
     .search-advertise{
         position: absolute;
@@ -519,6 +520,9 @@
         searchInput.style.textAlign = 'left';
         searchAdvertise.style.right  = '18%';
         searchAdvertise.style.left  = 'auto';
+        $api.html($api.byId('searchbtn'), '搜索');
+        document.getElementById('searchbtn').removeAttribute('onclick');
+        document.getElementById('searchbtn').setAttribute('onclick','SearchTole()')
       }
       function SearchTxetBlur(){
         searchInput.style.textAlign = 'center';
@@ -632,10 +636,12 @@
                       html+='</div>'
 
                       //添加搜索记录
-                      var aa = $api.getStorage('historys');
+                      var aa = '';
+                      if($api.getStorage('historys')){
+                        aa = $api.getStorage('historys');
+                      }
                       var cc = searchInputVal+','+aa;
                       $api.setStorage('historys', cc);
-
                     }else {
                       Toast(ret.msg);
                     }
@@ -688,11 +694,11 @@
                   if (ret.status == 1) {
                     var data=ret.data;
                     if(data[0]){
-                      htmls+='<ul class="ul">';
+                      seatchhtml+='<ul class="ul">';
                       for(var i=0;i<data.length;i++){
-                        htmls+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
+                        seatchhtml+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
                       }
-                      htmls+='</ul>';
+                      seatchhtml+='</ul>';
                     }
                   }
                   $api.html($api.byId('history'),seatchhtml);

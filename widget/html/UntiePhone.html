@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>绑定手机</title>
+    <title>解绑手机</title>
     <style>
         * {
             margin: 0;
@@ -145,13 +145,19 @@
         .main li .name.two{
           width: 34%;
         }
+        .main .tipstext{
+          font-size: 12px;
+          text-align: center;
+          color: #b3b3b3;
+          height: 24px;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <i onclick="api.closeWin()"></i>
-        <span>绑定手机</span>
+        <span>解绑手机</span>
     </header>
     <form action="" id='myForm' method="post" >
       <div class="main">
@@ -160,7 +166,7 @@
                   <div class="bg">
                       <div class="name">手机号</div>
                       <div class="input">
-                          <input type="text" id="phonenum" placeholder="请输入手机号">
+                          <input type="text" id="phonenum" placeholder="请输入手机号" onfocus="tips()" onblur="canceltips()">
                       </div>
                   </div>
               </li>
@@ -173,8 +179,9 @@
                       <input type="button" class="name yzm" id="sendbtn" onclick="sendCode()" value="获取验证码">
                   </div>
               </li>
+              <div class="tipstext" id="tips"></div>
           </ul>
-          <bottom class="bottom" onclick="binding()">开始</bottom>
+          <bottom class="bottom" onclick="binding()">解除绑定</bottom>
       </div>
     </form>
 </body>
@@ -183,19 +190,27 @@
     apiready = function(){
 
     }
+    function tips(){
+      $api.text($api.byId('tips'),'修改绑定的手机号后，原手机号将不能再用来登录');
+    }
+    function canceltips(){
+      $api.text($api.byId('tips'),'');
+    }
 
     var userdata = {};
     userdata = $api.getStorage('userdata');
     var phone = '';
     var code = '';
     function sendCode(){
-      var sendbtn = document.getElementById('sendbtn');
+      var countdown = 60;
+      var sendbtn = $api.byId('sendbtn');
       var phonenum = $api.val($api.byId('phonenum'));
       if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenum))){
          alert("请输入正确的手机号码");
          document.getElementById('phonenum').focus();
          return false;
       }
+
       phone = phonenum;
       api.ajax({
           url: 'http://www.juzzn.com/sendSms.php',
@@ -226,8 +241,8 @@
                   nums = 60;
                 }
               };
-          } else {
-              Toast( ret.msg );
+          } else{
+              Toast(ret.msg);
           }
       });
 
@@ -239,7 +254,7 @@
       phone = phonenum;
       code = codenum;
       api.ajax({
-          url: 'http://www.juzzn.com/binding.php',
+          url: 'http://www.juzzn.com/cancelMobile.php',
           method: 'post',
           data: {
               values: {
@@ -251,6 +266,9 @@
               var data =ret.data;
               Toast( '绑定成功' );
               api.closeWin();
+              api.sendEvent({
+                  name: 'ENDMy'
+              });
           } else {
               Toast( ret.msg );
           }
