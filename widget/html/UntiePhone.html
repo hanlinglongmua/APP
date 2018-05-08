@@ -27,8 +27,8 @@
         }
 
         header {
-            height: 70px;
-            line-height: 86px;
+            height: 44px;
+            line-height: 44px;
             position: fixed;
             width: 100%;
             position: relative;
@@ -42,7 +42,7 @@
         header>i {
           position: absolute;
           left: 15px;
-          top:36px;
+          top:14px;
           width: 12px;
           height: 12px;
           border: 1px solid #fff;
@@ -166,7 +166,7 @@
                   <div class="bg">
                       <div class="name">手机号</div>
                       <div class="input">
-                          <input type="text" id="phonenum" maxlength="14"  placeholder="请输入手机号" onfocus="tips()" onblur="canceltips()">
+                          <input type="text" id="phonenum" placeholder="请输入手机号" onfocus="tips()" onblur="canceltips()">
                       </div>
                   </div>
               </li>
@@ -174,7 +174,7 @@
                   <div class="bg one">
                       <div class="name two">验证码</div>
                       <div class="input one">
-                          <input type="text" id="code" maxlength="8"  placeholder="请输入验证码">
+                          <input type="text" id="code" placeholder="请输入验证码">
                       </div>
                       <input type="button" class="name yzm" id="sendbtn" onclick="sendCode()" value="获取验证码">
                   </div>
@@ -187,12 +187,6 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-// 限制input输入长度
-var input = document.querySelector("#phonenum")
-console.log(input.maxLength);
-var input = document.querySelector("#code")
-console.log(input.maxLength);
-
     apiready = function(){
 
     }
@@ -211,7 +205,7 @@ console.log(input.maxLength);
       var countdown = 60;
       var sendbtn = $api.byId('sendbtn');
       var phonenum = $api.val($api.byId('phonenum'));
-      if(!(/^1[3|7|5|8][0-9]\d{4,8}$/.test(phonenum))){
+      if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenum))){
          alert("请输入正确的手机号码");
          document.getElementById('phonenum').focus();
          return false;

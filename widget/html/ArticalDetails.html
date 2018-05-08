@@ -52,7 +52,7 @@
       margin-left: 10px;
       color: #111;
       font-size: 18px;
-      padding: 28px 0 14px 0;
+      padding: 14px 0 14px 0;
       position: relative;
       font-weight: bold;
     }
@@ -743,7 +743,7 @@
       <!-- 返回标签结束 -->
       <div class="list">
         <div class="li">
-          <input type="text" name="" id="talk" maxLength="150" placeholder="写评论...">
+          <input type="text" name="" id="talk" placeholder="写评论...">
         </div>
         <!-- 字体图标 -->
         <div class="li">
@@ -759,7 +759,7 @@
             <i class="iconfont iconcollection">&#xe6a7;</i>
           </a>
           <a href="javascript:;">
-            <i class="iconfont iconshare">&#xe600;</i>
+            <i class="iconfont iconshare">&#xf0343;</i>
           </a>
         </div>
       </div>
@@ -774,7 +774,7 @@
               </div>
               <div class="send" onclick="criticism()">发送</div>
           </div>
-          <textarea name="textarea" id="textarea"   cols="40" rows="1"  placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
+          <textarea name="textarea" id="textarea" cols="40" rows="1"  placeholder="回复评论" onpropertychange="changeHeight(this)" oninput="changeHeight(this)"></textarea>
       </div>
     <!-- 增大后的评论 -->
 
@@ -786,7 +786,6 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-
 var return_top = document.querySelector("#topget")
 var sTop;
 window.onscroll = function () { //sTop :滚动条距离顶部的距离数值 sTop

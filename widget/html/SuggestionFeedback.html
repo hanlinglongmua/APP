@@ -25,7 +25,7 @@
           }
           .header .top{
             width: 100%;
-            height: 70px;
+            height: 44px;
             background: url('../images/same_content/Header.jpg');
           }
           .header .top .sect{
@@ -36,13 +36,13 @@
           .header .top .fo{
             font-size: 18px;
             color: #ffffff;
-            line-height: 86px;
+            line-height: 44px;
             text-align: center;
           }
           .header .top .left>i{
             position: absolute;
             left: 15px;
-            top:36px;
+            top:14px;
             width: 12px;
             height: 12px;
             border: 1px solid #fff;
@@ -56,7 +56,7 @@
           .main{
             width: 100%;
             height: 100%;
-            padding-top: 70px;
+            padding-top: 44px;
           }
           .main .box{
             padding: 0 10px 0 10px;
@@ -135,13 +135,13 @@
             <div class="sug">
               <div class="title">你要反馈的意见或者建议:</div>
               <div class="text" id="text">
-                <textarea type="text" name="" class="suggestion" id="suggestion" maxLength="100" value="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
+                <textarea type="text" name="" class="suggestion" id="suggestion" value="" placeholder="欢迎说出您的疑问和建议，我们会及时处理" ></textarea>
               </div>
             </div>
             <div class="link">
               <div class="lt">您的联系方式：</div>
               <div class="li" id="li">
-                <input type="text" name="" class="link" id="link" maxLength="25" value="" placeholder="请留下您的QQ或者邮箱">
+                <input type="text" name="" class="link" id="link" value="" placeholder="请留下您的QQ或者邮箱">
               </div>
             </div>
             <div class="btn" id="btn">
@@ -155,12 +155,6 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
-  // 限制文本框输入长度
-  var textarea= document.querySelector("#suggestion")
-  console.log(textarea.maxLength);
-  var input = document .querySelector("#link")
-  console.log(input.maxLength);
-
       var userdata = {};
       userdata = $api.getStorage('userdata');
       function subsug(){

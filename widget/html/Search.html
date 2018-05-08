@@ -32,7 +32,7 @@
         display: box;
     }
     header{
-      height: 70px;
+      height: 50px;
       line-height: 50px;
       position: fixed;
       background-color: #fff;
@@ -64,7 +64,7 @@
     header .black {
       position: absolute;
       left: 16px;
-      top:48px;
+      top:18px;
       width: 10px;
       height: 10px;
       border: 1px solid #808080;
@@ -75,7 +75,6 @@
     }
     header div{
       text-align: center;
-      padding-top: 30px;
     }
     header div a{
       color: #e5e5e5;
@@ -421,7 +420,7 @@
          <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
               <ul>
                   <li class="flex1">
-                        <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput" maxLength="5"  onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
+                        <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput" onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
                         <div class="calloff" id="searchbtn" onclick="SearchTole()">搜索</div>
                         <span class="search-advertise" id="searchAdvertise"></span>
                   </li>
@@ -429,7 +428,7 @@
          </div>
              <div id="searchBody">
               <div>
-                    <div class="middles">热门搜索</div>
+                    <!-- <div class="middles">热门搜索</div>
                         <div class="bigbox" id="hot">
                             <ul class="ul">
                                 <li>黑科技</li>
@@ -441,7 +440,7 @@
                                 <li>隐形电视</li>
                                 <li>懒人清扫神器</li>
                             </ul>
-                      </div>
+                      </div> -->
                       <div class="history">
                             <span>搜索历史</span>
                           <div class="delete" onclick="clearAll()">清空<img src="../images/search/remove.png"></div>
@@ -514,8 +513,7 @@
       apiready = function(){
         hot();
         searchHistory();
-      }
-
+      }//
       var searchInput = $api.byId('searchInput');
       var searchAdvertise = $api.byId('searchAdvertise');
       function SearchTxetFocus(){
@@ -701,7 +699,6 @@
                         seatchhtml+='<li onclick="find(\''+data[i]+'\')">'+data[i]+'</li>';
                       }
                       seatchhtml+='</ul>';
-
                     }
                   }
                   $api.html($api.byId('history'),seatchhtml);
@@ -801,9 +798,5 @@
           Toast('请登录再进行操作')
         }
       }
-      // 限制input输入长度
-      var input = document.querySelector("#searchInput")
-        console.log(input.maxLength);
-
   </script>
   </html>

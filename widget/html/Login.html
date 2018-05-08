@@ -30,8 +30,7 @@
   .helmet{
      background: url('../images/same_content/Header.jpg');
      width: 100%;
-     height: 70px;
-     line-height: 86px;
+     line-height: 44px;
      color: #ffffff;
      font-size: 20px;
      text-align: center;
@@ -39,7 +38,7 @@
   .helmetleft{
     position: absolute;
     left: 15px;
-    top:36px;
+    top:14px;
     width: 12px;
     height: 12px;
     border: 1px solid #fff;
@@ -50,11 +49,10 @@
   }
   .headermid{
     font-size: 18px;
-    line-height: 70px;
+    line-height: 44px;
     color: #fff;
     text-align: center;
   }
-
   /*表单盒子*/
   .center{
     margin-top: 20px;
@@ -216,7 +214,7 @@
   <!-- header -->
   <div class="headerdiscontent">
      <div class="helmet">
-      <span >登录</span>
+       <div class="headermid">登录</div>
        <div class="helmetleft" onclick="api.closeWin()"></div>
      </div>
   </div>
@@ -229,11 +227,11 @@
            <form action="" id='myForm' method="post" >
              <div class="center-input">
                <span></span>
-               <input type="text" name="" value="" placeholder="手机号码/邮箱" maxLength="15" class="accound" id="accound">
+               <input type="text" name="" value="" placeholder="手机号码/邮箱" class="accound" id="accound">
              </div>
              <div class="center-input">
                <span class="passWLogo"></span>
-               <input type="password" name="" value="" placeholder="账号密码"  maxLength="15" class="password" id="password">
+               <input type="password" name="" value="" placeholder="账号密码" class="password" id="password">
              </div>
            <div class="center-button">
              <button type="button" name=""  id="btns" onclick="sub()">登录</button>
@@ -268,13 +266,6 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-
-// 限制input输入长度
-var input = document.querySelector("#password")
-console.log(input.maxLength);
-var input = document.querySelector("#accound")
-console.log(input.maxLength);
-
     function sub(){
       var accound = $api.val($api.byId('accound'))
       var password = $api.val($api.byId('password'))

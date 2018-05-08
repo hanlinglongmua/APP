@@ -6,83 +6,37 @@
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>Hello APP</title>
-    <link rel="stylesheet" type="text/css" href="css/api.css" />
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
     <style type="text/css">
         @font-face {
-            font-family: 'iconfont';
-            src: url('icon/iconfont.eot');
-            src: url('icon/iconfont.eot?#iefix') format('embedded-opentype'),
-            url('icon/iconfont.woff') format('woff'),
-            url('icon/iconfont.ttf') format('truetype'),
-            url('icon/iconfont.svg#iconfont') format('svg');
+          font-family: 'iconfont';
+          src: url('../icon/iconfont.eot');
+          src: url('../icon/iconfont.eot?#iefix') format('embedded-opentype'),
+          url('../icon/iconfont.woff') format('woff'),
+          url('../icon/iconfont.ttf') format('truetype'),
+          url('../icon/iconfont.svg#iconfont') format('svg');
         }
-/*刚刚截图的那一块，他们是图片形式来的，属于选中状态
-我给你未选中状态下的图标
-丽玲姐，你懂了吗
-为什么你们那么奇葩的，不是要不就两张图片  要不就两个图标吗
-ui说选中状态下的图标上传不了库里面，就让我这样
-这个我好久没用过了，不过 应该是有教程的啊~
-那些我都拷贝啦 是不会放在js里面，你试过吗
-就是 你等等  我先看看
-就是已经能用的了是吧？  你试过了吗
-图标能用，已经可以引用进来，就是不会放在js里面
-你的意思是  不会点击切换到那个状态吗
-对
-你是用原生开发的是把？
-对，我们不准用插件那些  行  我看看
-..*/
-        .iconfont,
-        .iconfonta {
-            font-family: "iconfont" !important;
-            font-size: 22px;
-            color: #111;
-            font-style: normal;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-width: 0.2px;
-            -moz-osx-font-smoothing: grayscale;
-            position: absolute;
-            top: 0;
-            right: 38px;
-            width: 18px;
-            height: 18px;
-        }
-
-        .iconfonta {
-          width: 18px;
-          height: 18px;
-          top: 0;
-          right: 0px;
-        }
-
-        html,
-        body {
+        html,body {
             height: 100%;
         }
-
-        ul,
-        li {
-            list-style: none;
+        ul,li{
+          list-style: none;
         }
-
-        i {
-            font-style: normal;
+        i{
+          font-style: normal;
         }
-
-        a {
-            text-decoration: none;
+        a{
+          text-decoration: none;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
+        *{
+          margin: 0;
+          padding: 0;
         }
-
         .wrap {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-flex-flow: column;
         }
-
         .header {
             height: 54px;
             width: 100%;
@@ -92,14 +46,11 @@ ui说选中状态下的图标上传不了库里面，就让我这样
             position: relative;
             z-index: 9;
         }
-
-        .header.myself,
-        header.main {
+        .header.myself,header.main{
             background: #666;
             line-height: 54px;
             color: #fff;
         }
-
         .index .discov{
           display: inline-block;
           width: 50%;
@@ -134,117 +85,100 @@ ui说选中状态下的图标上传不了库里面，就让我这样
         }
         header img{
           width: 18px;
-
         }
         /*脚步*/
-
         footer {
-            height: 50px;
-            width: 100%;
-            background-color: #81a9c3;
-            color: white;
-            text-align: center;
-            position: relative;
+          height: 50px;
+          width: 100%;
+          background-color: #81a9c3;
+          color: white;
+          text-align: center;
+          position: relative;
         }
-
-        footer ul {
-            width: 100%;
-            height: 100%;
-            background: #e5e5e5;
+        footer ul{
+          width: 100%;
+          height: 100%;
+          background: #e5e5e5;
         }
-
-        footer ul li {
-            width: 33.333%;
-            height: 100%;
-            float: left;
-            background: #e5e5e5;
+        footer ul li{
+          width: 33.333%;
+          height: 100%;
+          float: left;
+          background: #e5e5e5;
         }
-
-        footer ul li span {
-            height: 20px;
-            font-size: 10px;
-            display: inline;
+        footer ul li span{
+          height: 20px;
+          font-size: 10px;
+          display: inline;
         }
-
-        footer ul li div {
-            height: 14px;
-            font-size: 10px;
-            color: #999;
+        footer ul li div{
+          height: 14px;
+          font-size: 10px;
+          color: #999;
         }
-
-        footer ul li div.footerBg {
-            height: 36px;
-            width: 36px;
-            margin: 0 auto;
+        footer ul li div.footerBg{
+          height: 36px;
+          width: 36px;
+          margin:0 auto;
         }
-
-        footer ul li div.footerBg div {
+        footer ul li div.footerBg div{
             width: 26px;
             height: 26px;
             position: relative;
             margin: 0 auto;
-            top: 6px;
+            top:6px;
+          }
+        footer ul li div.footerBg.big{
+          position: relative;
+          margin: 0 auto;
+          border-radius: 50%;
+          background: url('images/index/mained.png') no-repeat center center;
+          background-color: #000;
+          -webkit-background-size: 180% 180%;
+          background-size: 180% 180%;
+          width: 50px;
+          height: 50px;
         }
-
-        footer ul li div.footerBg.big {
-            position: relative;
-            margin: 0 auto;
-            border-radius: 50%;
-            background: url('images/index/mained.png') no-repeat center center;
-            background-color: #000;
-            -webkit-background-size: 180% 180%;
-            background-size: 180% 180%;
-            width: 50px;
-            height: 50px;
+        footer ul li div.footerBg.one{
+          background: url('images/index/indexed.png') no-repeat center center;
+          background-color: none;
+          -webkit-background-size: 200% 200%;
+          background-size: 200% 200%;
         }
-
-        footer ul li div.footerBg.one {
-            background: url('images/index/indexed.png') no-repeat center center;
-            background-color: none;
-            -webkit-background-size: 200% 200%;
-            background-size: 200% 200%;
+        footer ul li div.footerBg.three{
+          background: url('images/index/mined.png') no-repeat center center;
+          background-color: none;
+          -webkit-background-size: 200% 200%;
+          background-size: 200% 200%;
         }
-
-        footer ul li div.footerBg.three {
-            background: url('images/index/mined.png') no-repeat center center;
-            background-color: none;
-            -webkit-background-size: 200% 200%;
-            background-size: 200% 200%;
-        }
-
         .flex-1 {
             -webkit-box-flex: 1;
             -webkit-flex: 1;
             position: relative;
         }
-
-        .serchedit {
-            display: none;
+        .serchedit{
+          display: none;
         }
-
-        .serchedit.current {
-            display: block;
+        .serchedit.current{
+          display: block;
         }
     </style>
 </head>
 
 <body class="wrap">
     <header class="header index current" id="header">
-        <div class="discov">
-            <a style="margin-right:-5px;" class="menu hover" onclick="fnSetNavMenuIndex(0)">发现</a>
-            <i></i>
-            <a class="menu" onclick="fnSetNavMenuIndex(1)">社区</a>
-        </div>
-        <div class="serchedit current" id="serchedit current">
-            <!-- <img onclick="openSearch()" src="images/same_content/search.png" alt=""> -->
-            <i onclick="openSearch()" class="iconfont">&#xe612;</i>
-        </div>
-        <div class="serchedit" id="serchedit">
-            <!-- <img onclick="openSearch()" src="images/same_content/search.png" alt="">
-        <img onclick="openFindChoice()" class="edit" src="images/same_content/edit.png" alt=""> -->
-            <i onclick="openSearch()" class="iconfont">&#xe612;</i>
-            <i onclick="openFindChoice()" class="iconfonta">&#xe60e;</i>
-        </div>
+      <div class="discov">
+        <a style="margin-right:-5px;" class="menu hover" onclick="fnSetNavMenuIndex(0)">发现</a>
+        <i></i>
+        <a class="menu" onclick="fnSetNavMenuIndex(1)">社区</a>
+      </div>
+      <div class="serchedit current" id="serchedit current">
+        <img onclick="openSearch()" src="images/same_content/search.png" alt="">
+      </div>
+      <div class="serchedit" id="serchedit">
+        <img onclick="openSearch()" src="images/same_content/search.png" alt="">
+        <img onclick="openFindChoice()" class="edit" src="images/same_content/edit.png" alt="">
+      </div>
     </header>
 
 
@@ -253,29 +187,32 @@ ui说选中状态下的图标上传不了库里面，就让我这样
     </section>
     <footer id="footer">
         <ul>
-            <li onclick="clickRandomSwiBtn1()">
-                <div class="footerBg one current">
+          <li onclick="clickRandomSwiBtn1()">
+              <div class="footerBg one current">
 
-                </div>
-                <div>首页</div>
-            </li>
-            <li onclick="clickRandomSwiBtn2()">
-                <div class="footerBg big two current">
-                </div>
-            </li>
-            <li onclick="clickRandomSwiBtn3()">
+              </div>
+              <div>首页</div>
+          </li>
+          <li onclick="clickRandomSwiBtn2()">
+              <div class="footerBg big two current">
+              </div>
+          </li>
+          <li onclick="clickRandomSwiBtn3()">
+              <div class="footerBg three current">
 
-                <div class="footerBg three current">
-
-                </div>
-                <div>我的</div>
-            </li>
+              </div>
+              <div>我的</div>
+          </li>
         </ul>
     </footer>
 </body>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        //状态栏颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
         // 引导页
         var intro_ist = $api.getStorage('introt');
          if (!intro_ist) {
@@ -290,12 +227,12 @@ ui说选中状态下的图标上传不了库里面，就让我这样
 
         api.addEventListener({
             name: 'indexleft'
-        }, function(ret, err) {
+        }, function(ret, err){
             Goright();
         });
         api.addEventListener({
             name: 'indexright'
-        }, function(ret, err) {
+        }, function(ret, err){
             Goleft();
         });
         header = $api.dom('header'); // 获取 header 标签元素
@@ -307,7 +244,6 @@ ui说选中状态下的图标上传不了库里面，就让我这样
         // 最新api.js为了适配iPhoneX增加的方法，修复底部Footer部分与iPhoneX的底部虚拟横条键重叠的问题；
         footerH = $api.fixTabBar(footer);
         menus = $api.domAll(header, ".menu");
-
         api.openFrameGroup ({
           name: 'toggleIndex',
           background: '#fff',
@@ -343,95 +279,91 @@ ui说选中状态下的图标上传不了库里面，就让我这样
             onserchedit.style.display = 'none';
           }
 
-
-        });
+      });
     };
     //定义全局元素
-    var menus, header, footer, headerH, footerH, navH;
+  var menus,header,footer,headerH,footerH,navH;
     //定义首页发现
     //点击切换社区栏目
-    function fnSetNavMenuIndex(index_) {
-        SetClass(index_);
-        api.setFrameGroupIndex({
-            name: 'toggleIndex',
-            index: index_,
-            scroll: true
-        });
+    function fnSetNavMenuIndex(index_){
+      SetClass(index_);
+      api.setFrameGroupIndex({
+          name: 'toggleIndex',
+          index: index_,
+          scroll: true
+      });
     }
-
-    function Goright() {
-        api.setFrameGroupIndex({
-            name: 'toggleIndex',
-            index: 1,
-            scroll: true
-        });
+    function Goright(){
+      api.setFrameGroupIndex({
+          name: 'toggleIndex',
+          index: 1,
+          scroll: true
+      });
     }
-
-    function Goleft() {
-        api.setFrameGroupIndex({
-            name: 'toggleIndex',
-            index: 0,
-            scroll: true
-        });
+    function Goleft(){
+      api.setFrameGroupIndex({
+          name: 'toggleIndex',
+          index: 0,
+          scroll: true
+      });
     }
     //循环查出判断Class
-    function SetClass(index_) {
-        for (var i = 0; i < menus.length; i++) {
-            if (index_ == i) {
-                $api.addCls(menus[i], "hover");
-            } else {
-                $api.removeCls(menus[i], "hover");
-            }
+    function SetClass(index_){
+        for(var i=0;i<menus.length;i++){
+          if(index_==i){
+            $api.addCls(menus[i],"hover");
+          }else {
+            $api.removeCls(menus[i],"hover");
+          }
         }
     }
 
-    function clickRandomSwiBtn1() {
-        api.closeFrame({
-            name: 'zhineng'
-        });
-        api.closeFrame({
-            name: 'My'
-        });
+    function clickRandomSwiBtn1(){
+      api.closeFrame({
+          name: 'zhineng'
+      });
+      api.closeFrame({
+          name: 'My'
+      });
     }
 
     //打开zhineng页面
-    function clickRandomSwiBtn2() {
-        api.openFrame({
-            name: 'zhineng',
-            url: 'html/zhineng.html',
-            rect: {
-                marginTop: 0,
-                marginBottom: footerH,
-                w: 'auto',
-                h: 'auto'
-            },
-            bounces: false
-        });
+    function clickRandomSwiBtn2(){
+      api.openFrame({
+          name: 'zhineng',
+          url: 'html/zhineng.html',
+          rect: {
+            marginTop: 0,
+            marginBottom: footerH,
+            w: 'auto',
+            h: 'auto'
+          },
+          bounces: false
+      });
     }
     //打开My页面
-    function clickRandomSwiBtn3() {
-        api.openFrame({
-            name: 'My',
-            url: 'html/my.html',
-            rect: {
-                marginTop: 0,
-                marginBottom: footerH,
-                w: 'auto',
-                h: 'auto'
-            },
-            bounces: false
-        });
+    function clickRandomSwiBtn3(){
+      api.openFrame({
+          name: 'My',
+          url: 'html/my.html',
+          rect: {
+            marginTop: 0,
+            marginBottom: footerH,
+            w: 'auto',
+            h: 'auto'
+          },
+          bounces: false
+      });
     }
     //打开search页面
-    function openSearch() {
-        api.openWin({
-            name: 'search',
-            url: 'html/Search.html'
-        });
+    function openSearch(){
+      api.openWin({
+          name: 'search',
+          url: 'html/Search.html'
+      });
 
     }
     var num = 0;
-
     function openFindChoice(){
       if(num==0){
           api.openFrame({
@@ -454,7 +386,6 @@ ui说选中状态下的图标上传不了库里面，就让我这样
         });
         num=0;
       }
-
     }
 </script>
 
