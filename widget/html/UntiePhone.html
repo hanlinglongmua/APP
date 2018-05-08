@@ -211,7 +211,7 @@ console.log(input.maxLength);
       var countdown = 60;
       var sendbtn = $api.byId('sendbtn');
       var phonenum = $api.val($api.byId('phonenum'));
-      if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phonenum))){
+      if(!(/^1[3|7|5|8][0-9]\d{4,8}$/.test(phonenum))){
          alert("请输入正确的手机号码");
          document.getElementById('phonenum').focus();
          return false;
