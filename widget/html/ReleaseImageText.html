@@ -131,7 +131,10 @@
             left: 20px;
           }
           #wysiwyg img{
-              width: 100%;
+            width: 70%;
+          }
+          #wysiwyg video{
+            width: 70%;
           }
           /*section*/
 
@@ -215,7 +218,6 @@
   function postAll(){
     var title = $api.val($api.byId('titletext'));
     var wysiwyg = $api.html($api.byId('wysiwyg'));
-    alert(wysiwyg)
     api.ajax({
         url: 'http://www.juzzn.com/post.php?type=article',
         method: 'post',
@@ -231,14 +233,19 @@
             alert( JSON.stringify( err ) );
         }
     });
-
   }
 
   function inputimg(url){
     document.execCommand('insertimage',false,url);
+    document.execCommand('insertparagraph');
+    document.execCommand('insertparagraph');
+    document.execCommand('insertparagraph');
   }
   function inputVideo(url){
     document.execCommand('insertHTML',false,url);
+    document.execCommand('insertparagraph');
+    document.execCommand('insertparagraph');
+    document.execCommand('insertparagraph');
   }
   function openPhoto(){
     api.actionSheet({
@@ -250,7 +257,7 @@
             wysiwyg.contentEditable = true;
             var UIMediaScanner = api.require('UIMediaScanner');
               UIMediaScanner.open({
-                  type: 'picture',
+                  type: 'all',
                   column: 4,
                   classify: true,
                   max: 4,
@@ -299,14 +306,13 @@
                             }
                         }
                     },function(ret, err){
-                      if (ret) {
+                      if (ret.status) {
                           inputimg(ret.file);
+                          document.execCommand('insertparagraph');
                       } else {
-                          alert( JSON.stringify( err ) );
+                          // alert( JSON.stringify( err ) );
                       }
                     });
-
-                    document.execCommand('insertparagraph');
               });
           }else if(ret.buttonIndex == 2){//拍照片
             api.getPicture({
@@ -315,10 +321,10 @@
                 mediaValue: 'pic',
                 destinationType: 'url',
                 allowEdit: true,
-                quality: 50,//指定图片质量
+                quality: 80,//指定图片质量
                 targetWidth: 100,//指定图片宽度
                 targetHeight: 100,//指定图片高度
-                saveToPhotoAlbum: false//保存照片
+                saveToPhotoAlbum: true//保存照片
             }, function(ret, err){
                 if(ret){
                      api.ajax({
@@ -330,12 +336,13 @@
                              }
                          }
                      },function(ret, err){
-                         if (ret) {
+                         if (ret.status) {
                              inputimg(ret.file);
                          } else {
                              alert( JSON.stringify( err ) );
                          }
                      });
+                     document.execCommand('insertparagraph');
                 }else{
                      alert(JSON.stringify(err));
                 }
@@ -348,37 +355,38 @@
   }
   //拍视频
   function takeVideo(){
+    alert('录制视频时长最长为10s')
     api.getPicture({
         sourceType: 'camera',
-        encodingType: 'jpg',
         mediaValue: 'video',
+        videoQuality:'low',
         destinationType: 'url',
-        allowEdit: true,
-        quality: 50,//指定图片质量
-        targetWidth: 100,//指定图片宽度
-        targetHeight: 100,//指定图片高度
-        saveToPhotoAlbum: false//保存照片
+        saveToPhotoAlbum: false
     }, function(ret, err){
-        if(ret){
-          api.ajax({
-              url: 'http://www.juzzn.com/post.php?type=file',
-              method: 'post',
-              data: {
-                  files: {
-                      file: ret.data
-                  }
-              }
-          },function(ret, err){
-              if (ret) {
-                  var html='<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%" poster="" data-setup="{}"><source src="'+ret.data+'" type="video/mp4" /></video>';
-                  inputVideo(ret.file);
-              } else {
-                  alert( JSON.stringify( err ) );
-              }
-          });
-
+        if(ret.duration>0){
+          if(ret.duration<=10){
+            api.ajax({
+                url: 'http://www.juzzn.com/post.php?type=file',
+                method: 'post',
+                data: {
+                    files: {
+                        file: ret.data
+                    }
+                }
+            },function(ret, err){
+                if (ret.status) {
+                    var html='<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%" poster="" data-setup="{}"><source src="'+ret.file+'" type="video/mp4" /></video>';
+                    inputVideo(html);
+                } else {
+                    alert( JSON.stringify( err ) );
+                }
+            });
+            document.execCommand('insertparagraph');
+          }else{
+              alert('视频已超过10s，请重新录制');
+          }
         }else{
-             alert(JSON.stringify(err));
+          return;
         }
     });
   }

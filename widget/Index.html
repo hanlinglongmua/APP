@@ -61,15 +61,15 @@
           left: 50%;
           margin-left: -25%;
         }
-        .index .discov>i{
+        .index .discov i{
           border-left:1px solid #e5e5e5;
           border-right:1px solid #e5e5e5;
         }
-        .index .discov>a{
+        .index .discov a{
           color: #808080;
           width: 38%;
         }
-        .index .discov>a.hover{
+        .index .discov a.hover{
           color:#0d0d0d;
           height: 36px;
         }
@@ -209,6 +209,11 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        //状态栏颜色
+        api.setStatusBarStyle({
+            style: 'light',
+            color:'#000'
+        });
         // 引导页
         var intro_ist = $api.getStorage('introt');
          if (!intro_ist) {
@@ -361,27 +366,13 @@
     }
     var num = 0;
     function openFindChoice(){
-      if(num==0){
-          api.openFrame({
-              name: 'FindChoice',
-              url: 'html/FindChoice.html',
-              rect: {
-                  x:230,
-                  y:30,
-                  w: '120',
-                  h: '155'
-              },
-              pageParam: {
-                  name: 'test'
-              }
-          });
-          num=1;
-      }else {
-        api.closeFrame({
-            name: 'FindChoice'
-        });
-        num=0;
-      }
+      api.openWin({
+          name: 'ReleaseImageText',
+          url: 'html/ReleaseImageText.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
     }
 </script>
 

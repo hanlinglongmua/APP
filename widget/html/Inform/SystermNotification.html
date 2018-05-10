@@ -86,6 +86,7 @@
       border-top: none;
       border-right: none;
       transform: rotate(45deg);
+      -webkit-transform:rotate(45deg);
     }
     .main{
       padding-top: 44px;
@@ -185,38 +186,42 @@
   function systemDatas(){
     var system = api.pageParam.type;
     var html = '';
-    api.ajax({
-        url: 'http://www.juzzn.com/getNotice.php',
-        method: 'post',
-        data: {
-            values: {
-                type:system,
-                uid:userdata['uid']
-            }
-        }
-    },function(ret, err){
-        if (ret.status == 1) {
-            var data = ret.data;
-            for(var i=0;i<data.length;i++){
-              html+='<div class="contentitem">';
-                html+='<div class="usercomment">';
-                  html+='<img src="'+data[i]['avatar']+'" alt="">';
-                  html+='<div class="commentcontent">';
-                    html+='<p><span>'+data[i]['author']+'</span></p>';
-                    html+='<p>'+data[i]['note']+'</p>';
-                    html+='<i>'+data[i]['dateline']+'</i>';
+    if(userdata){
+      api.ajax({
+          url: 'http://www.juzzn.com/getNotice.php',
+          method: 'post',
+          data: {
+              values: {
+                  type:system,
+                  uid:userdata['uid']
+              }
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data = ret.data;
+              for(var i=0;i<data.length;i++){
+                html+='<div class="contentitem">';
+                  html+='<div class="usercomment">';
+                    html+='<img src="'+data[i]['avatar']+'" alt="">';
+                    html+='<div class="commentcontent">';
+                      html+='<p><span>'+data[i]['author']+'</span></p>';
+                      html+='<p>'+data[i]['note']+'</p>';
+                      html+='<i>'+data[i]['dateline']+'</i>';
+                    html+='</div>';
                   html+='</div>';
                 html+='</div>';
-              html+='</div>';
-            }
-            clearMessage();
-        } else {
-            alert( ret.msg );
-        }
-        $api.html($api.byId('main'), html);
+              }
+              clearMessage();
+          } else {
+              alert( ret.msg );
+          }
+          $api.html($api.byId('main'), html);
 
-    });
-
+      });
+    }else{
+      html+='';
+      $api.html($api.byId('main'), html);
+    }
   }
 
   function clearMessage(){

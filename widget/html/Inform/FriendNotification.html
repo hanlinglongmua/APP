@@ -44,6 +44,7 @@
             border-top: none;
             border-right: none;
             transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
           }
           /*section end*/
 
@@ -148,45 +149,50 @@
       function friendDatas(){
         var follow = api.pageParam.type;
         var html = '';
-        api.ajax({
-            url: 'http://www.juzzn.com/getNotice.php',
-            method: 'post',
-            data: {
-                values: {
-                    type:follow,uid:userdata['uid']
-                }
-            }
-        },function(ret, err){
-            if (ret.status == 1) {
-                var data = ret.data;
-                for(var i=0;i<data.length;i++){
-                  if(data[i]['type'] == 'follow'){
-                    html+='<li onclick="openFriendDetalisData('+data[i]['uid']+')">';
-                      html+='<div class="img"><img src="'+data[i]['avatar']+'" alt=""></div>';
-                      html+='<div class="main">';
-                        html+='<div class="title">'+data[i]['username']+'</div>';
-                        html+='<div class="text">'+data[i]['message']+'</div>';
-                      html+='</div>';
-                      html+='<div class="time">'+data[i]['dateline']+'<div class="num">'+data[i]['new']+'</div></div>';
-                    html+='</li>';
-                  }else{
-                    html+='<li onclick="openChatWindow('+data[i]['uid']+')">';
-                      html+='<div class="img"><img src="'+data[i]['avatar']+'" alt=""></div>';
-                      html+='<div class="main">';
-                        html+='<div class="title">'+data[i]['username']+'</div>';
-                        html+='<div class="text">'+data[i]['message']+'</div>';
-                      html+='</div>';
-                      html+='<div class="time">'+data[i]['dateline']+'<div class="num">'+data[i]['new']+'</div></div>';
-                    html+='</li>';
+        if(userdata){
+          api.ajax({
+              url: 'http://www.juzzn.com/getNotice.php',
+              method: 'post',
+              data: {
+                  values: {
+                      type:follow,uid:userdata['uid']
                   }
-                }
-                clearMessage();
-            } else {
-                alert(ret.msg);
-            }
-            $api.html($api.byId('main'), html);
+              }
+          },function(ret, err){
+              if (ret.status == 1) {
+                  var data = ret.data;
+                  for(var i=0;i<data.length;i++){
+                    if(data[i]['type'] == 'follow'){
+                      html+='<li onclick="openFriendDetalisData('+data[i]['uid']+')">';
+                        html+='<div class="img"><img src="'+data[i]['avatar']+'" alt=""></div>';
+                        html+='<div class="main">';
+                          html+='<div class="title">'+data[i]['username']+'</div>';
+                          html+='<div class="text">'+data[i]['message']+'</div>';
+                        html+='</div>';
+                        html+='<div class="time">'+data[i]['dateline']+'<div class="num">'+data[i]['new']+'</div></div>';
+                      html+='</li>';
+                    }else{
+                      html+='<li onclick="openChatWindow('+data[i]['uid']+')">';
+                        html+='<div class="img"><img src="'+data[i]['avatar']+'" alt=""></div>';
+                        html+='<div class="main">';
+                          html+='<div class="title">'+data[i]['username']+'</div>';
+                          html+='<div class="text">'+data[i]['message']+'</div>';
+                        html+='</div>';
+                        html+='<div class="time">'+data[i]['dateline']+'<div class="num">'+data[i]['new']+'</div></div>';
+                      html+='</li>';
+                    }
+                  }
+                  clearMessage();
+              } else {
+                  alert(ret.msg);
+              }
+              $api.html($api.byId('main'), html);
 
-        });
+          });
+        }else{
+          html+='';
+          $api.html($api.byId('main'), html);
+        }
       }
 
       function clearMessage(){
