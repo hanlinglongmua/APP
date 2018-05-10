@@ -8,15 +8,14 @@
     <title>Hello APP</title>
     <link rel="stylesheet" type="text/css" href="css/api.css" />
     <style type="text/css">
-/*1111111111111111111111111111111111111111111111111111111111111111111111111111*/
-        @font-face {
-            font-family: 'iconfont';
-            src: url('icon/iconfont.eot');
-            src: url('icon/iconfont.eot?#iefix') format('embedded-opentype'),
-            url('icon/iconfont.woff') format('woff'),
-            url('icon/iconfont.ttf') format('truetype'),
-            url('icon/iconfont.svg#iconfont') format('svg');
-        }
+    @font-face {
+      font-family: 'iconfont';
+      src: url('icon/iconfont.eot');
+      src: url('icon/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('icon/iconfont.woff') format('woff'),
+      url('icon/iconfont.ttf') format('truetype'),
+      url('icon/iconfont.svg#iconfont') format('svg');
+    }
         .iconfont,
         .iconfonta{
             font-family: "iconfont" !important;
@@ -192,13 +191,15 @@
             background-size: 180% 180%;
             width: 50px;
             height: 50px;
+
         }
 
-        footer ul li div.footerBg.one {
+       footer ul li div.footerBg.one {
             background: url('images/index/indexed.png') no-repeat center center;
             background-color: none;
             -webkit-background-size: 200% 200%;
             background-size: 200% 200%;
+
         }
 
         footer ul li div.footerBg.three {
@@ -246,9 +247,9 @@
     </section>
     <footer id="footer">
         <ul>
-            <li onclick="clickRandomSwiBtn1()">
+            <li onclick="clickRandomSwiBtn1()" class="footbook">
                 <div class="footerBg one current">
-
+              <i class="iconfont"  style="display:block">&#xe60c;</i>
                 </div>
                 <div>首页</div>
             </li>
@@ -268,6 +269,21 @@
 </body>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+// 先获取元素
+var footbookLi = document.querySelector('.footbook')
+var notselecte = document.querySelector('i')
+var selected = document.querySelector('img')
+// 绑定点击事件
+footbookLi.onclick = function () {
+    // 利用display属性去切换  当未选中状态显示时
+    if (notselecte.style.display == 'block') {
+        notselecte.style.display = 'none'
+        selected.style.display = 'block'
+    } else {
+        notselecte.style.display = 'block'
+        selected.style.display = 'none'
+    }
+}
     apiready = function() {
         // 引导页
         var intro_ist = $api.getStorage('introt');

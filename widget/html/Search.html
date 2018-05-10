@@ -17,7 +17,7 @@
     html body{
         height: 100%;
         width: 100%;
-        background-color: #ffffff;
+        /*background-color: #f1f1f1;*/
     }
     *{
         margin: 0;
@@ -82,15 +82,16 @@
       font-size: 17px;
     }
     header div a.current{
-      color: #000;
+      color: #242424;
+      font-weight: 600;
       border-bottom: 2px solid #000;
     }
     .body{
       padding: 0 10px 0 10px;
     }
     .search-input{
-        width: 86%;
-        padding-left: 2%;
+        width: 75%;
+        padding-left: 38px;
         height: 28px;
         text-align: center;
         background-color: #e4e5e7;
@@ -98,7 +99,7 @@
     }
     .search-advertise{
         position: absolute;
-        left: 50%;
+        left: 57%;
         margin-left: -90px;
         top: 13px;
         width: 18px;
@@ -206,7 +207,7 @@
       border-right:1px solid #cfcfcf;
     }
     .searchfor>div>a{
-      color: #cfcfcf;
+      color: #111;
       width: 20%;
     }
     /*section*/
@@ -421,7 +422,7 @@
          <div id="header" style="background-color: #ffffff; height:44px;line-height: 44px">
               <ul>
                   <li class="flex1">
-                        <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput" maxLength="5"  onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
+                        <input type="text" value="" class="search-input" placeholder="请输入内容"/ id="searchInput"  onfocus="SearchTxetFocus()" onblur="SearchTxetBlur()">
                         <div class="calloff" id="searchbtn" onclick="SearchTole()">搜索</div>
                         <span class="search-advertise" id="searchAdvertise"></span>
                   </li>
@@ -520,7 +521,7 @@
       var searchAdvertise = $api.byId('searchAdvertise');
       function SearchTxetFocus(){
         searchInput.style.textAlign = 'left';
-        searchAdvertise.style.right  = '18%';
+        searchAdvertise.style.right  = '92%';
         searchAdvertise.style.left  = 'auto';
         $api.html($api.byId('searchbtn'), '搜索');
         document.getElementById('searchbtn').removeAttribute('onclick');
@@ -528,8 +529,8 @@
       }
       function SearchTxetBlur(){
         searchInput.style.textAlign = 'center';
-        searchAdvertise.style.right  = 'auto';
-        searchAdvertise.style.left  = '50%';
+        searchAdvertise.style.right  = '60%';
+        searchAdvertise.style.left  = '30%';
       }
       //切换盒子
       var column = 1;
@@ -802,8 +803,8 @@
         }
       }
       // 限制input输入长度
-      var input = document.querySelector("#searchInput")
-        console.log(input.maxLength);
+    /**  var input = document.querySelector("#searchInput")
+        console.log(input.maxLength);*/
 
   </script>
   </html>
