@@ -100,6 +100,7 @@
           left: 50%;
           margin-left: -25%;
         }
+<<<<<<< HEAD
         .index .discov>i{
           position: absolute;
           height: 16px;
@@ -269,7 +270,7 @@
 </body>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
-// 先获取元素
+/*// 先获取元素
 var footbookLi = document.querySelector('.footbook')
 var notselecte = document.querySelector('i')
 var selected = document.querySelector('img')
@@ -283,8 +284,13 @@ footbookLi.onclick = function () {
         notselecte.style.display = 'block'
         selected.style.display = 'none'
     }
-}
+}*/
     apiready = function() {
+        //状态栏颜色
+        api.setStatusBarStyle({
+            style: 'light',
+            color:'#000'
+        });
         // 引导页
         var intro_ist = $api.getStorage('introt');
          if (!intro_ist) {
@@ -442,27 +448,14 @@ footbookLi.onclick = function () {
     var num = 0;
 
     function openFindChoice(){
-      if(num==0){
-          api.openFrame({
-              name: 'FindChoice',
-              url: 'html/FindChoice.html',
-              rect: {
-                  x:230,
-                  y:30,
-                  w: '120',
-                  h: '155'
-              },
-              pageParam: {
-                  name: 'test'
-              }
-          });
-          num=1;
-      }else {
-        api.closeFrame({
-            name: 'FindChoice'
-        });
-        num=0;
-      }
+
+      api.openWin({
+          name: 'ReleaseImageText',
+          url: 'html/ReleaseImageText.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
     }
 </script>

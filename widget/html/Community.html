@@ -200,7 +200,11 @@
       width: 100%;
       height: 100%;
     }
-        /*main end*/
+    .artical video{
+      /*width: 100%;*/
+      height: 300px;
+    }
+    /*main end*/
     </style>
 </head>
 <body>
@@ -421,7 +425,7 @@
                     html+='</div>';
                     if(data[i]['images'].length){
                       html+='<div class="picture">';
-                        for(var j = 0;j<3;j++){//图片
+                        for(var j = 0;j<data[i]['images'].length&&j<3;j++){//图片
                           html+='<div><img src="'+data[i]['images'][j]+'" alt="" onclick="openimg(this)" onerror="this.src=\'../images/about/Logo.png\'"></div>'
                         }
                       html+='</div>';
@@ -432,7 +436,7 @@
                       }else {
                         html+='<div class="ltls like"><i class="iconfont" onclick="like('+data[i]['tid']+','+data[i]['recNum']+')" id="likeimg'+data[i]['tid']+'">&#xe617;</i><div class="d" id="likenum'+data[i]['tid']+'">'+data[i]['recNum']+'</div></div>';//帖子喜欢数
                       }
-                      html+='<div class="ltls talk"><i class="iconfont talkicon">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';//帖子评论数
+                      html+='<div class="ltls talk"><i class="iconfont talkicon" onclick="toTalk('+data[i]['tid']+','+data[i]['authorid']+')">&#xe75b;</i><div class="d">'+data[i]['num']+'</div></div>';//帖子评论数
                       html+='<div class="ltls look"><i class="iconfont"  onclick="openShareOther()">&#xe600;</i><div class="d"></div></div>';//分享
                     html+='</div>';
                 html += '</div>';
@@ -450,9 +454,17 @@
 
     function openCommunityDetails(tid,authorid){
         api.openWin({
+          name: 'CommunityDetails',
+          url: 'CommunityDetails.html',
+          pageParam: {tid:tid,authorid:authorid}
+      });
+    }
+    function toTalk(tid,authorid){
+      api.openWin({
         name: 'CommunityDetails',
         url: 'CommunityDetails.html',
-        pageParam: {tid:tid,authorid:authorid}
+        pageParam: {tid:tid,authorid:authorid,talk:'#toTalk'}
+        //跳转到评论
       });
     }
   //打开一张图片

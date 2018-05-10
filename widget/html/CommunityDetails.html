@@ -623,6 +623,7 @@
   var userdata = {};
   userdata = $api.getStorage('userdata');
   var pageParamTid;
+  var talk;
   //评论盒子显示和消失
   var textareaMain = document.getElementById('textareaMain')
   var footer = document.getElementById('footer')
@@ -654,6 +655,7 @@
   apiready=function(){
     pageParamTid = api.pageParam.tid;
     CommentDetailsData();
+    talk = api.pageParam.talk;
   }
 
   function CommentDetailsData(){
@@ -691,7 +693,11 @@
                       html+='</div>';
                       html+='<div class="mid">';
                             html+='<div class="name">'+data['author']+'</div>';//关注名字
-                            html+='<div class="sign">'+data['sign']+'</div>';//关注个性签名
+                            if(data['sign']){
+                              html+='<div class="sign">'+data['sign']+'</div>';//个性签名
+                            }else {
+                              html+='<div class="sign">暂无签名</div>';
+                            }
                       html+='</div>';
                       html+='<div class="right" id="follows">';
                             if(data['haveFollow']){
@@ -703,7 +709,7 @@
                 html+='</div>';
           html+='</div>';
 
-          html+='<div class="main">';
+          html+='<div class="main" id="toTalk">';
                 html+='<div class="mue">';
                       html+='<div class="left">评论</div>';
                 html+='</div>';
@@ -773,7 +779,7 @@
           htmlfooter+='<div class="list">';
             htmlfooter+='<div class="li"><input type="text" name="" id="talk" placeholder="写评论..." onclick="inputFouse();"></div>';
             htmlfooter+='<div class="li">';
-              htmlfooter+='<a href="javascript:;"><i class="iconfont icontalk">&#xe75b;</i><div class="talknum">'+data['topicNum']+'</div></a>';
+              htmlfooter+='<a href="javascript:;"><i class="iconfont icontalk" onclick="toTalk()">&#xe75b;</i><div class="talknum">'+data['topicNum']+'</div></a>';
               if(data['haveLike']){
                 htmlfooter+='<a href="javascript:;" onclick ="footerAll(\'like\','+data['recNum']+')"><i class="iconfont iconlike" id="likeimg">&#xe635;</i><div class="likenum" id="likenum">'+data['recNum']+'</div></a>';
               }else {
@@ -793,7 +799,14 @@
         }
         $api.html($api.byId('details'), html);
         $api.html($api.byId('footer'), htmlfooter);
+        if(talk){
+            location.href  = "#toTalk";
+        }
     })
+  }
+  //跳转
+  function toTalk(){
+    location.href  = "#toTalk";
   }
   //举报
   function accusation(pid,tid,type){
@@ -918,7 +931,7 @@
             $api.html($api.byId('favorite'),'<a href="javascript:;" id="favorite" onclick="faved(\'favorite\')"><i class="iconfont iconcollection">&#xe672;</i></a>');
           }
         } else {
-            Toast(ret.msg,1000);
+            // Toast(ret.msg,1000);
         }
     });
   }
@@ -933,7 +946,7 @@
       resData.id = pageParamTid;//文章id
       resData.type = 'tid';//收藏帖子
     }else {
-      Toast('请登录后再操作')
+      Toast('请登录之后再进行操作')
     }
     api.ajax({
         url: 'http://www.juzzn.com/actionCancel.php?action=fav',
@@ -961,7 +974,7 @@
       followdatas.uid=userdata.uid;
       followdatas.followuid=pageParamAuthorid;
     }else{
-      Toast('请登录再进行操作')
+      Toast('请登录之后再进行操作')
     }
     api.ajax({
         url: 'http://www.juzzn.com/actionCancel.php?action=follow',
@@ -1044,7 +1057,7 @@
     }
   //自定义弹框
   function Toast(msg,duration){
-      duration=isNaN(duration)?3000:duration;
+      duration=isNaN(duration)?1000:duration;
       var m = document.createElement('div');
       m.innerHTML = msg;
       m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";

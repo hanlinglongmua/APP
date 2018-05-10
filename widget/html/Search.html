@@ -430,7 +430,7 @@
          </div>
              <div id="searchBody">
               <div>
-                    <div class="middles">热门搜索</div>
+                    <!-- <div class="middles">热门搜索</div>
                         <div class="bigbox" id="hot">
                             <ul class="ul">
                                 <li>黑科技</li>
@@ -442,7 +442,7 @@
                                 <li>隐形电视</li>
                                 <li>懒人清扫神器</li>
                             </ul>
-                      </div>
+                      </div> -->
                       <div class="history">
                             <span>搜索历史</span>
                           <div class="delete" onclick="clearAll()">清空<img src="../images/search/remove.png"></div>
@@ -662,25 +662,25 @@
         historys = $api.getStorage('historys');
         var html = '';
         html+='<div>';
-          html+='<div class="middles">热门搜索</div>';
-          html+='<div class="bigbox" id="hot">';//热门搜索
-            api.ajax({
-                url: 'http://www.juzzn.com/hotwords.php',
-                method: 'post',
-            },function(ret, err){
-              var htmlhot = '';
-              if (ret.status == 1) {
-                var hotData = ret.data;
-                htmlhot += '<ul class="ul">';
-                    for(var j=0;j<hotData.length;j++){
-                      htmlhot += '<li onclick="find(\''+hotData[j]['words']+'\')">'+hotData[j]['words']+'</li>';
-                    }
-                htmlhot += '</ul>';
-              }
-              $api.html($api.byId('hot'), htmlhot);
-            });
-          html+='</div>';
-          html+='<div class="history">';//搜索历史
+          // html+='<div class="middles">热门搜索</div>';
+          // html+='<div class="bigbox" id="hot">';//热门搜索
+          //   api.ajax({
+          //       url: 'http://www.juzzn.com/hotwords.php',
+          //       method: 'post',
+          //   },function(ret, err){
+          //     var htmlhot = '';
+          //     if (ret.status == 1) {
+          //       var hotData = ret.data;
+          //       htmlhot += '<ul class="ul">';
+          //           for(var j=0;j<hotData.length;j++){
+          //             htmlhot += '<li onclick="find(\''+hotData[j]['words']+'\')">'+hotData[j]['words']+'</li>';
+          //           }
+          //       htmlhot += '</ul>';
+          //     }
+          //     $api.html($api.byId('hot'), htmlhot);
+          //   });
+          // html+='</div>';
+          // html+='<div class="history">';//搜索历史
             html+='<span>搜索历史</span><div class="delete" onclick="clearAll()">清空<img src="../images/search/remove.png"></div>';
             html+='<div class="bigbox">';
               html+='<ul class="ul" id="history">';

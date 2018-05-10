@@ -97,6 +97,7 @@
       border-top: none;
       border-right: none;
       transform: rotate(45deg);
+      -webkit-transform:rotate(45deg);
     }
     .main{
       padding-top: 80px;
@@ -271,54 +272,59 @@
   function ArticalDatas() {
     var article = api.pageParam.type;
     var html = '';
-    api.ajax({
-        url: 'http://www.juzzn.com/getNotice.php',
-        method: 'post',
-        data: {
-            values: {
-                type:article,uid:userdata['uid']
-            }
-        }
-    },function(ret, err){
-        if (ret.status == 1) {
-            var data = ret.data;
-            for(var i=0;i<data.length;i++){
-              if(data[i]['from_idtype'] == 'post'){//回复
-                html+='<div class="contentitem" onclick="openArticalDetails('+data[i]['aid']+')">';
-                  html+='<div class="usercomment">';
-                    html+='<img src="'+data[i]['avatar']+'" alt="">';//评论人头像
-                    html+='<div class="commentcontent">';
-                      html+='<p><span>'+data[i]['author']+'</span>&nbsp; 评论了<span>你</span></p>';//评论人
-                      html+='<p>'+data[i]['note']+'</p>';//评论内容
-                      html+='<i>'+data[i]['dateline']+'</i>';//评论时间
-                    html+='</div>';
-                  html+='</div>';
-                  html+='<div class="arttitle">';
-                    html+='<p>'+data[i]['title']+'</p>';//评论的帖子
-                  html+='</div>';
-                html+='</div>';
-              }else if (data[i]['from_idtype'] == 'like') {//点赞
-                html+='<div class="contentitem" onclick="openArticalDetails('+data[i]['aid']+')">';
-                  html+='<div class="usercomment">';
-                    html+='<img src="'+data[i]['avatar']+'" alt="">';
-                    html+='<div class="commentcontent">';
-                      html+='<p><span>'+data[i]['author']+'</span>&nbsp; 赞了<span>你</span></p>';
-                      html+='<i>'+data[i]['dateline']+'</i>';
-                    html+='</div>';
-                  html+='</div>';
-                  html+='<div class="arttitle">';
-                    html+='<p>'+data[i]['title']+'</p>';
-                  html+='</div>';
-                html+='</div>';
+    if(userdata){
+      api.ajax({
+          url: 'http://www.juzzn.com/getNotice.php',
+          method: 'post',
+          data: {
+              values: {
+                  type:article,uid:userdata['uid']
               }
-            }
-            clearMessage();
-        } else {
-            alert(ret.msg);
-        }
-        $api.html($api.byId('main'), html);
+          }
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data = ret.data;
+              for(var i=0;i<data.length;i++){
+                if(data[i]['from_idtype'] == 'post'){//回复
+                  html+='<div class="contentitem" onclick="openArticalDetails('+data[i]['aid']+')">';
+                    html+='<div class="usercomment">';
+                      html+='<img src="'+data[i]['avatar']+'" alt="">';//评论人头像
+                      html+='<div class="commentcontent">';
+                        html+='<p><span>'+data[i]['author']+'</span>&nbsp; 评论了<span>你</span></p>';//评论人
+                        html+='<p>'+data[i]['note']+'</p>';//评论内容
+                        html+='<i>'+data[i]['dateline']+'</i>';//评论时间
+                      html+='</div>';
+                    html+='</div>';
+                    html+='<div class="arttitle">';
+                      html+='<p>'+data[i]['title']+'</p>';//评论的帖子
+                    html+='</div>';
+                  html+='</div>';
+                }else if (data[i]['from_idtype'] == 'like') {//点赞
+                  html+='<div class="contentitem" onclick="openArticalDetails('+data[i]['aid']+')">';
+                    html+='<div class="usercomment">';
+                      html+='<img src="'+data[i]['avatar']+'" alt="">';
+                      html+='<div class="commentcontent">';
+                        html+='<p><span>'+data[i]['author']+'</span>&nbsp; 赞了<span>你</span></p>';
+                        html+='<i>'+data[i]['dateline']+'</i>';
+                      html+='</div>';
+                    html+='</div>';
+                    html+='<div class="arttitle">';
+                      html+='<p>'+data[i]['title']+'</p>';
+                    html+='</div>';
+                  html+='</div>';
+                }
+              }
+              clearMessage();
+          } else {
+              alert(ret.msg);
+          }
+          $api.html($api.byId('main'), html);
 
-    });
+      });
+    }else{
+      html+='';
+      $api.html($api.byId('main'), html);
+    }
   }
 
   function clearMessage(){

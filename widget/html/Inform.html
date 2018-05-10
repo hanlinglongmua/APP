@@ -58,6 +58,7 @@
             border-top: none;
             border-right: none;
             transform:rotate(45deg);
+            -webkit-transform:rotate(45deg);
           }
           /*section end*/
 
@@ -176,49 +177,57 @@
       function informonbush(){
         var html = '';
         var sys = '';
-        api.ajax({
-            url: 'http://www.juzzn.com/getNotice.php',
-            method: 'post',
-            data: {
-                values: {
-                    type:'msgNum',uid:userdata['uid']
-                }
-            }
-        },function(ret, err){
-            if (ret.status == 1) {
-                var data = ret.data;
+        if(userdata){
+          api.ajax({
+              url: 'http://www.juzzn.com/getNotice.php',
+              method: 'post',
+              data: {
+                  values: {
+                      type:'msgNum',uid:userdata['uid']
+                  }
+              }
+          },function(ret, err){
+              if (ret.status == 1) {
+                  var data = ret.data;
 
-                html+='<div class="title">消息通知</div>';
-                if(data['info']['msg'] != ''){
-                  html+='<div class="text">'+data['info']['msg']+'</div>';
-                }else{
-                  html+='<div class="text">暂无消息</div>';
-                }
-                if(data['info']['total']>0){
-                  html+='<div class="time">'+data['info']['dateline']+'<div class="num">'+data['info']['total']+'</div></div>';
-                }else{
-                  html+='';
-                }
+                  html+='<div class="title">消息通知</div>';
+                  if(data['info']['msg'] != ''){
+                    html+='<div class="text">'+data['info']['msg']+'</div>';
+                  }else{
+                    html+='<div class="text">暂无消息</div>';
+                  }
+                  if(data['info']['total']>0){
+                    html+='<div class="time">'+data['info']['dateline']+'<div class="num">'+data['info']['total']+'</div></div>';
+                  }else{
+                    html+='';
+                  }
 
-                sys+='<div class="title">系统通知</div>';
-                if(data['system']['msg'] != ''){
-                  sys+='<div class="text">'+data['system']['msg']+'</div>';
-                }else{
-                  sys+='<div class="text">暂无消息</div>';
-                }
-                if(data['system']['total']>0){
-                  sys+='<div class="time">'+data['system']['dateline']+'<div class="num">'+data['system']['total']+'</div></div>';
-                }else {
-                  sys+='';
-                }
+                  sys+='<div class="title">系统通知</div>';
+                  if(data['system']['msg'] != ''){
+                    sys+='<div class="text">'+data['system']['msg']+'</div>';
+                  }else{
+                    sys+='<div class="text">暂无消息</div>';
+                  }
+                  if(data['system']['total']>0){
+                    sys+='<div class="time">'+data['system']['dateline']+'<div class="num">'+data['system']['total']+'</div></div>';
+                  }else {
+                    sys+='';
+                  }
 
-            } else {
-                alert( JSON.stringify( err ) );
-            }
-            $api.html($api.byId('messageinfo'), html);
-            $api.html($api.byId('systeminfo'), sys);
-        });
+              } else {
+                  alert( JSON.stringify( err ) );
+              }
+              $api.html($api.byId('messageinfo'), html);
+              $api.html($api.byId('systeminfo'), sys);
+          });
 
+        }else{
+          html+='<div class="title">消息通知</div>';
+            html+='<div class="text">暂无消息</div>';
+          sys+='<div class="title">系统通知</div>';
+            sys+='<div class="text">暂无消息</div>';
+          $api.html($api.byId('messageinfo'), html);
+        }
       }
 
       function openSystermNotification(){
@@ -229,7 +238,6 @@
                 type: 'system'
             }
         });
-
       }
 
       function openMessageNotification(){

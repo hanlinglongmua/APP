@@ -858,7 +858,11 @@ return_top.onclick = function (){
                         html+='<div class="left"><img src="'+data['avatar']+'" alt="" onclick="openFriendDetailsData('+data['uid']+')"></div>';//发布人头像
                         html+='<div class="mid">';
                           html+='<div class="name">'+data['username']+'</div>';//发布人名称
-                          html+='<div class="sign">'+data['sign']+'</div>';//签名
+                          if(data['sign']){
+                            html+='<div class="sign">'+data['sign']+'</div>';//签名
+                          }else{
+                            html+='<div class="sign">暂无签名</div>';
+                          }
                           if(data['haveFollow']){
                             html+='<div class="right" id="follow"><img src="../images/same_content/attentioned.png" onclick="followed()" alt=""></div>';//已关注
                           }else {
@@ -882,7 +886,7 @@ return_top.onclick = function (){
                       html+='</ul>';
                     html+='</div>';
                       if(data.comments.length){
-                        html+='<div class="main">';
+                        html+='<div class="main" id="toTalk">';
                           html+='<div class="mue"><div class="left">评论</div></div>';
                           for(i=0;i<data.comments.length;i++){
                             html+='<div class="replay">';
@@ -932,7 +936,7 @@ return_top.onclick = function (){
                       html+='<div class="list">';
                         html+='<div class="li"><input type="text" name="" id="talk" placeholder="写评论..." onclick="inputFouse(\'\');"></div>';
                         html+='<div class="li">';
-                          html+='<a href="javascript:;"><i class="iconfont icontalk">&#xe75b;</i><div class="talknum">'+data['commentnum']+'</div></a>';//评论次数
+                          html+='<a href="javascript:;"><i class="iconfont icontalk" onclick="toTalk()">&#xe75b;</i><div class="talknum">'+data['commentnum']+'</div></a>';//评论次数
                           // alert(data['haveLike'])
                           if(data['haveLike']== 1){
                             html+='<a href="javascript:;" onclick="likeData('+pageParamAid+',\'aid\')" id="likeicom"><i class="iconfont iconlike">&#xe635;</i><div class="likenum">'+data['likeNum']+'</div></a>';//点赞次数
@@ -964,6 +968,10 @@ return_top.onclick = function (){
             }
             $api.html($api.byId('articalDetails'), html);
         });
+  }
+  //跳转
+  function toTalk(){
+    location.href  = "#toTalk";
   }
   //举报
   function accusation(pid,tid,type){
@@ -1006,7 +1014,7 @@ return_top.onclick = function (){
       followData.followuid=data.uid;
       followData.fusername = data.username;
     }else{
-      Toast('请登录后再操作')
+      Toast('请登录之后再进行操作' )
     }
     api.ajax({
         url: 'http://www.juzzn.com/action.php?action=follow',
@@ -1035,7 +1043,7 @@ return_top.onclick = function (){
       followData.uid = userdata.uid;
       followData.followuid=data.uid;
     }else{
-      Toast('请登录后再操作')
+      Toast('请登录之后再进行操作' )
     }
     api.ajax({
         url: 'http://www.juzzn.com/actionCancel.php?action=follow',
@@ -1049,7 +1057,7 @@ return_top.onclick = function (){
             var follow = document.getElementById('follow');
             $api.html($api.byId('follow'), '<img src="../images/same_content/attention.png" onclick="follow()" alt="">');
         } else {
-            Toast(ret.msg);
+            // Toast(ret.msg);
         }
     });
   }
@@ -1062,7 +1070,7 @@ return_top.onclick = function (){
       likedatas.id = id;
       likedatas.type = type;
     }else{
-      Toast('请登录之后再进行操作')
+      Toast('请登录之后再进行操作' )
     }
     api.ajax({
         url: 'http://www.juzzn.com/like.php',
@@ -1076,7 +1084,7 @@ return_top.onclick = function (){
             $api.html($api.byId('postlike'+id),"&#xe635;");
             Toast('点赞成功')
         } else {
-            alert(ret.msg);
+            // alert(ret.msg);
         }
     });
 
@@ -1092,7 +1100,7 @@ return_top.onclick = function (){
           }
       });
     }else {
-      Toast('请登录之后再进行操作')
+      Toast('请登录之后再进行操作' )
     }
   }
 
@@ -1155,7 +1163,7 @@ return_top.onclick = function (){
       resData.idtype = 'aid';//收藏帖子
       resData.title = data['title'];//收藏标题
     }else {
-      Toast('请登录后再操作')
+      Toast('请登录之后再进行操作' )
     }
 
     api.ajax({
@@ -1186,7 +1194,7 @@ return_top.onclick = function (){
       resData.id = data['aid'];//文章id
       resData.type = 'aid';//收藏帖子
     }else {
-      Toast('请登录后再操作')
+      Toast('请登录之后再进行操作' )
     }
 
     api.ajax({
@@ -1219,7 +1227,7 @@ return_top.onclick = function (){
       footer.style.display = 'none';
       textareaMain.getElementsByTagName("textarea")[0].focus();
     }else {
-      Toast('请登录后再操作')
+      Toast('请登录之后再进行操作' )
       footer.getElementsByTagName("input")[0].blur();
     }
   }
@@ -1262,7 +1270,7 @@ return_top.onclick = function (){
     }
   //自定义弹框
   function Toast(msg,duration){
-      duration=isNaN(duration)?3000:duration;
+      duration=isNaN(duration)?1000:duration;
       var m = document.createElement('div');
       m.innerHTML = msg;
       m.style.cssText="width: 60%;min-width: 150px;opacity: 0.7;height: 30px;color: rgb(255, 255, 255);line-height: 30px;text-align: center;border-radius: 5px;position: fixed;top: 50%;left: 20%;z-index: 999999;background: rgb(0, 0, 0);font-size: 12px;";
@@ -1296,7 +1304,7 @@ return_top.onclick = function (){
       likeDatas.id = id;//帖子id
       likeDatas.type = type;//帖子id
     }else {
-      Toast('请登录之后再进行操作')
+      Toast('请登录之后再进行操作' )
     }
     api.ajax({
         url: 'http://www.juzzn.com/like.php',
@@ -1314,7 +1322,7 @@ return_top.onclick = function (){
               $api.html($api.byId('likeicom'),datahtml)
               Toast('点赞成功')
           }else {
-            Toast(ret.msg)
+            // Toast(ret.msg)
           }
         }
 
