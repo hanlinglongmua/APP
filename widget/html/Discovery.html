@@ -29,18 +29,25 @@
             overflow:hidden;  height: 160px;  position: relative;
           }
 
-          .scroll{
+          .content .scroll{
             position: absolute; height: 100%;
           }
 
-          .scroll img{
+          .content .scroll img{
             float: left;
             height:100%;
-            width: 100%;
           }
 
           .content ol{
-            position: absolute; width: 47px; bottom: 5px; left:50%; margin-left: -23px;
+            position: absolute;
+            width: 47px;
+            bottom: 5px;
+            left:0;
+            right: 0;
+            margin:0 auto;
+            display: flex;
+            -webkit-align-items: center;
+            -webkit-justify-content: center;
           }
 
           .content ol li{
@@ -362,7 +369,7 @@
     var countNum = 0;
     var countN = 0;
     apiready = function(){
-        // banner();
+        banner();
         discoveryDate(0,0);
         //下拉刷新
             api.setRefreshHeaderInfo({
@@ -418,72 +425,81 @@
           return result;
       }
 
-        //滑动处理
-        var startX, startY;
-        function touchTarger(targer){
-              targer.addEventListener('touchstart',function (ev) {
-                  startX = ev.touches[0].pageX;
-                  startY = ev.touches[0].pageY;
-              }, false);
-              targer.addEventListener('touchend',function (ev) {
-                  var endX, endY;
-                  endX = ev.changedTouches[0].pageX;
-                  endY = ev.changedTouches[0].pageY;
-                  var direction = GetSlideDirection(startX, startY, endX, endY);
-                  switch(direction) {
-                      case 3:
-                          if(targer==section){
-                            api.sendEvent({
-                                name: 'indexleft',
-                            });
-                          }else if(targer==content){
-                            removeTouch();
-                            animate();
-                          }
-                          break;
-                      case 4:
-                          num--;
-                          if(num<0){
-                            num = 5;
-                          }
-                          for (var i = 0; i < ridusTolles.length; i++) {
-                            ridusTolles[i].className='';
-                          }
-                          if(num==listpi.length-1){
-                            ridusTolles[0].className='current'
-                          }
-                          else{
-                            ridusTolles[num].className='current'
-                          }
-                          runIng(list,"left",-num*winWdith,null);
-                          break;
-                      default:
-                  }
-              }, false);
-          }
+      //滑动处理
+      var startX, startY;
+      function touchTarger(targer){
+            targer.addEventListener('touchstart',function (ev) {
+                startX = ev.touches[0].pageX;
+                startY = ev.touches[0].pageY;
+            }, false);
+            targer.addEventListener('touchend',function (ev) {
+                var endX, endY;
+                endX = ev.changedTouches[0].pageX;
+                endY = ev.changedTouches[0].pageY;
+                var direction = GetSlideDirection(startX, startY, endX, endY);
+                switch(direction) {
+                    case 3:
+                        if(targer==section){
+                          api.sendEvent({
+                              name: 'indexleft',
+                          });
+                        }else if(targer==content){
+                          removeTouch();
+                          animate();
+                        }
+                        break;
+                    case 4:
+                        num--;
+                        if(num<0){
+                          num = listpi.length;
+                        }
+                        for (var i = 0; i < ridusTolles.length; i++) {
+                          ridusTolles[i].className='';
+                        }
+                        if(num==listpi.length){
+                          ridusTolles[0].className='current'
+                        }
+                        else{
+                          $api.addCls(ridusTolles[num],'current')
+                        }
+                        runIng(list,"left",-num*winWdith,null);
+                        break;
+                    default:
+                }
+            }, false);
+        }
         touchTarger(content);
         touchTarger(section);
       }//
       //banner
-      // function banner(){
-      //   var html = '';
-      //   api.ajax({
-      //       url: 'http://www.juzzn.com/banner.php',
-      //       method: 'post'
-      //   },function(ret, err){
-      //       if (ret.status == 1) {
-      //           var data= ret.data;
-      //           for(var i=0;i<data.length&i<5;i++){
-      //             html+='<img src="'+data[i]['images']+'" alt="'+i+'"/>';
-      //           }
-      //       } else {
-      //           alert( JSON.stringify( err ) );
-      //       }
-      //       $api.html($api.byId('scroll'), html);
-      //
-      //   });
-      //
-      // }
+      function banner(){
+        var html = '';
+        var li = '';
+        api.ajax({
+            url: 'http://www.juzzn.com/banner.php',
+            method: 'post'
+        },function(ret, err){
+            if (ret.status == 1) {
+                var data= ret.data;
+                for(var i=0;i<data.length&i<5;i++){
+                  html+='<a href="'+data[i]['url']+'"><img src="'+data[i]['images']+'" alt="'+i+'"/></a>';
+                }
+                li+='<li class="current"></li>';
+                for(var i=1;i<data.length&i<5;i++){
+                  li+='<li></li>';
+                }
+            } else {
+                html+='<img src="../images/discovery/discovery_banner1.png" / alt="1">';
+                li+='<li></li>';
+            }
+            $api.html($api.byId('scroll'), html);
+            $api.html($api.byId('ridusTolle'), li);
+            for(var j = 0;j<listpi.length;j++){
+              listpi[j].style.width = winWdith+'px'
+            }
+        });
+
+      }
       var htmls = '';
       var userdata = {};
       userdata = $api.getStorage('userdata');
@@ -603,7 +619,7 @@
       var listpi = document.getElementById('scroll').getElementsByTagName('img');//获取图片数量
       var winWdith = document.body.clientWidth;//获取屏幕宽度
       var list = document.getElementById('scroll');//获取大盒子
-      var ridusTolles = document.getElementById('ridusTolle').getElementsByTagName('li')
+      var ridusTolles = document.getElementById('ridusTolle').getElementsByTagName('li')//获取li的数量
       var listLength;
       var listpiLast =listpi[0].cloneNode(true);//克隆第一张图片
       list.appendChild(listpiLast)
@@ -617,17 +633,17 @@
       function animate(){
         num++;
         if(num==listpi.length){
-          num=1;
+          num=0;
           list.style.left='0'
         }
         for (var i = 0; i < ridusTolles.length; i++) {
           ridusTolles[i].className='';
         }
-        if(num==listpi.length-1){
+        if(num==listpi.length){
           ridusTolles[0].className='current'
         }
         else{
-          ridusTolles[num].className='current'
+          $api.addCls(ridusTolles[num],'current')
         }
         runIng(list,"left",-num*winWdith,null);
       }
@@ -637,7 +653,7 @@
           clearInterval(timer)
           timer = setInterval(function(){
             animate()
-          },5000)
+          },3000)
       }
 
       //滑动到指定位置定死
