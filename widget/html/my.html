@@ -24,7 +24,12 @@
         right: 8px;
         top: 22px;
       }
-
+  .iconfonta{
+    font-family: "iconfont" !important;
+    font-style: normal;
+    font-size: 20px;
+    color: #20252b;
+  }
       * {
        margin: 0;
        padding: 0;
@@ -165,21 +170,25 @@
            margin-top: 10px;
          }
          .item_content a {
+           position: relative;
           display:flex;
           justify-content: space-between;
           flex-wrap: wrap;
-          padding: 10px;
+          padding: 12px;
           background-color: #fff;
           align-items: center;
           border-bottom: 1px solid #eee;
       }
-         .item_content a img{
-          width: 25px;
+         /*.item_content a img{
+          width: 30px;
+
           display: inline-block;
           padding-left: 8px;
-   }
+   }*/
          .item_content a .title{
-          vertical-align: top;
+           position: absolute;
+           left: 40px;
+           line-height: 0;
           font-size: 15px;
           color: #3c3c3c;
      }
@@ -194,7 +203,6 @@
      }
 
         .notmean{
-         display: inline-block;
          font-size: 12px;
          color: #7b7b7b;
          position: absolute;
@@ -228,39 +236,40 @@
         <div class="item_content">
             <div class="phone">
                 <a href="javascript:;" onclick="OpenDeviceShare()" >
+                  <i class="iconfonta" style="font-size:15px;margin-left:2px;">&#xe630;</i>
                     <div>
-                        <img src="../images/same_content/bodyshare.png" alt="">
                         <span class="title">共享设备</span>
                     </div>
                     <span class="arrow"></span>
                 </a>
                 <a href="javascript:;" id="bindingphonenum" onclick="OpenBindingCellPhone()">
+                  <i class="iconfonta" style="font-size:18px;">&#xe642;</i>
                     <div>
-                        <img src="../images/same_content/bodytel.png" alt="">
-                        <span class="title">手机<span class="notmean">未绑定</span></span>
+                        <span class="title">手机号码</span>
                     </div>
+                    <span class="notmean">未绑定</span>
                     <span class="arrow"></span>
                 </a>
             </div>
             <div class="mine">
                 <a href="javascript:;" onclick="OpenmyCollection()">
+                  <i class="iconfonta">&#xe613;</i>
                     <div>
-                        <img src="../images/my/bodycollect.png" alt="">
                         <span class="title">我的收藏</span>
                     </div>
                     <span class="arrow"></span>
                 </a>
                 <a href="javascript:;" onclick="OpenMyReport()">
+                  <i class="iconfonta">&#xe60a;</i>
                     <div>
-                        <img src="../images/same_content/bodypublish.png" alt="">
                         <span class="title">我的发表</span>
                     </div>
                     <span class="arrow"></span>
                 </a>
                 <a href="javascript:;">
+                  <i class="iconfonta" style="font-size:17px;margin-left:2px;">&#xe641;</i>
                     <div>
-                        <img src="../images/same_content/bodyinform.png" alt="">
-                        <span class="title">我的订单</span>
+                        <span class="title" style="margin-left:1px;">我的订单</span>
                     </div>
                     <span class="arrow"></span>
                 </a>
@@ -268,15 +277,15 @@
 
             <div class="msg">
                 <a href="javascript:;" onclick="OpenSuggestionFeedback()">
+                  <i class="iconfonta" style="font-size:18px;">&#xe609;</i>
                     <div>
-                        <img src="../images/my/bodymessage.png" alt="">
                         <span class="title">意见反馈</span>
                     </div>
                     <span class="arrow"></span>
                 </a>
                 <a href="javascript:;" onclick="OpAgreement()">
+                  <i class="iconfonta" style="font-size:18px;">&#xe677;</i>
                     <div>
-                        <img src="../images/my/bodyuserbook.png" alt="">
                         <span class="title">用户协议</span>
                     </div>
                     <span class="arrow"></span>
@@ -376,18 +385,20 @@ function VueUser(){
               html+='<div onclick="openMyFans('+ret.data['uid']+')">粉丝&nbsp;'+ret.data['fansNum']+'</div>';
             html+='</div>';
             if(data['mobile'] != ''){
-              bindingphonenum+='<div>';
-                bindingphonenum+='<img src="../images/same_content/bodytel.png" alt="">';
-                bindingphonenum+='<span class="title">手机<span class="notmean">'+data['mobile']+'</span></span>';
-              bindingphonenum+='</div>';
+                bindingphonenum+='<i class="iconfonta" style="font-size:18px;">&#xe642;</i>';
+                bindingphonenum+='<div>';
+                  bindingphonenum+='<span class="title">手机号码</span>';
+                bindingphonenum+='</div>';
+                bindingphonenum+='<span class="notmean">'+data['mobile']+'</span>';
               bindingphonenum+='<span class="arrow"></span>';
               document.getElementById('bindingphonenum').removeAttribute('onclick');
               document.getElementById('bindingphonenum').setAttribute('onclick','openUntiePhone()');
             }else{
-              bindingphonenum+='<div>';
-                bindingphonenum+='<img src="../images/same_content/bodytel.png" alt="">';
-                bindingphonenum+='<span class="title">手机<span class="notmean">未绑定</span></span>';
-              bindingphonenum+='</div>';
+                bindingphonenum+='<i class="iconfonta" style="font-size:18px;">&#xe642;</i>';
+                bindingphonenum+='<div>';
+                  bindingphonenum+='<span class="title">手机号码</span>';
+                bindingphonenum+='</div>';
+                bindingphonenum+='<span class="notmean">未绑定</span>';
               bindingphonenum+='<span class="arrow"></span>';
               document.getElementById('bindingphonenum').removeAttribute('onclick');
               document.getElementById('bindingphonenum').setAttribute('onclick','OpenBindingCellPhone()');
@@ -417,10 +428,11 @@ function VueUser(){
             html+='<div class="concern">关注&nbsp;<i></i></div>';
             html+='<div class="fans">粉丝&nbsp;</div>';
       html+='</div>';
-      bindingphonenum+='<div>';
-        bindingphonenum+='<img src="../images/same_content/bodytel.png" alt="">';
-        bindingphonenum+='<span class="title">手机<span class="notmean">未绑定</span></span>';
-      bindingphonenum+='</div>';
+        bindingphonenum+='<i class="iconfonta" style="font-size:18px;">&#xe642;</i>';
+        bindingphonenum+='<div>';
+          bindingphonenum+='<span class="title">手机号码</span>';
+        bindingphonenum+='</div>';
+        bindingphonenum+='<span class="notmean">未绑定</span>';
       bindingphonenum+='<span class="arrow"></span>';
       document.getElementById('bindingphonenum').removeAttribute('onclick');
       document.getElementById('bindingphonenum').setAttribute('onclick','OpenBindingCellPhone()');
