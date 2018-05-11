@@ -30,6 +30,7 @@
             -webkit-box-orient: vertical;
             -webkit-flex-flow: column;
             position: relative;
+            background-color: #f1f1f1;
         }
         /*header 顶部样式 begin*/
 
@@ -74,15 +75,6 @@
 
         .header .top .right {
             position: relative;
-        }
-
-        .header .top .right .t {
-            position: absolute;
-            font-size: 13px;
-            color: #dfdfdf;
-            right: 12px;
-            text-align: center;
-            line-height: 86px;
         }
         /*header end*/
 
@@ -133,6 +125,7 @@
             width: 10px;
             height: 10px;
             transform: rotate(-45deg);
+            -webkit-transform:transform: rotate(-45deg);
             float: right;
             margin: 15px;
         }
@@ -178,11 +171,8 @@
         <!-- header -->
         <div class="header">
             <div class="top">
-                <div class="sect left"><i></i></div>
+                <div class="sect left"><i onclick="api.closeWin()"></i></div>
                 <div class="sect fo">连接wifi</div>
-                <div class="sect right">
-                    <div class="t">完成</div>
-                </div>
             </div>
         </div>
         <!-- header end -->

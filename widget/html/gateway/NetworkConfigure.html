@@ -8,7 +8,7 @@
     <title>网络配置</title>
     <style>
         html {
-            background-color: #f2f2f2;
+            background-color: #f1f1f1;
         }
 
         * {
@@ -61,7 +61,7 @@
             border-top: none;
             border-right: none;
             transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
+            -webkit-transform:rotate(45deg);
         }
 
         .content .content_top {
@@ -127,7 +127,7 @@
             border-top: none;
             border-right: none;
             transform: rotate(-135deg);
-            -webkit-transform: rotate(-135deg);
+            -webkit-transform:rotate(-135deg);
         }
 
         .footer .tech p {
@@ -139,10 +139,10 @@
 
 <body>
     <div class="top">
-        <div class="left"><i></i></div>
+        <div class="left"><i onclick="api.closeWin()"></i></div>
         <div class="center">网络配置</div>
         <div class="right">
-            <div class="t">下一步</div>
+            <div class="t" onclick="openChooseDevice()">下一步</div>
         </div>
     </div>
     <div class="content">
@@ -180,5 +180,20 @@
       -->
     </div>
 </body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function(){
 
+  }
+  function openChooseDevice(){
+    api.openWin({
+        name: 'ChooseDevice',
+        url: 'ChooseDevice.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+
+  }
+</script>
 </html>

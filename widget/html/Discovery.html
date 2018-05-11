@@ -16,7 +16,6 @@
         }
           body,html{
             width: 100%;height: 100%; margin: 0; padding: 0;
-            background-color: #f1f1f1;
           }
           ul li{
             list-style-type: none;
@@ -30,18 +29,25 @@
             overflow:hidden;  height: 160px;  position: relative;
           }
 
-          .scroll{
+          .content .scroll{
             position: absolute; height: 100%;
           }
 
-          .scroll img{
+          .content .scroll img{
             float: left;
             height:100%;
-            width: 100%;
           }
 
           .content ol{
-            position: absolute; width: 47px; bottom: 5px; left:50%; margin-left: -23px;
+            position: absolute;
+            width: 47px;
+            bottom: 5px;
+            left:0;
+            right: 0;
+            margin:0 auto;
+            display: flex;
+            -webkit-align-items: center;
+            -webkit-justify-content: center;
           }
 
           .content ol li{
@@ -52,11 +58,9 @@
             background-color: #383131;
             border-radius: 50%;
             margin-left: 2px;
-
           }
           .content ol li.current{
             background: #fff;
-
           }
           .arrow {
             position: absolute;
@@ -77,7 +81,6 @@
             width: 100%;
             height: 35px;
             z-index: 1;
-            border-bottom: 1px solid #dfdfdf;
           }
 
           .mue .click{
@@ -115,14 +118,13 @@
             width: 100%;
           }
           .section .mainList{
-            background-color: #f2f2f2;
+            background-color: #f1f1f1;
             padding: 5px 10px 5px 10px;
           }
           .section .mainList .article{
             border-radius: 5px;
             background-color: #fff;
-            border: 1px solid #ddd;
-
+            border: 1px solid #e1e1e1;
           }
           .section .article .picture{
             position: relative;
@@ -147,7 +149,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            margin: 0 2px 0 8px;
+            margin: 0 2px 0 10px;
           }
           .section .article .text .content{
             color:#5e5e5e;
@@ -168,7 +170,7 @@
             display: inline-flex;
             height: 32px;
             line-height: 35px;
-            margin-left: 6px;
+            margin-left: 8px;
             color: #808080;
             font-size: 12px;
             margin-right: 4px;
@@ -355,58 +357,60 @@
         btns[j].onclick =  function(){
             for(var x=0;x<btns.length;x++){
                 btns[x].className = 'click';
-              }
-              this.className = 'click hover';
-              htmls = '';
-              discoveryDate(this.index);
-              tid = this.index;
+            }
+            this.className = 'click hover';
+            htmls = '';
+            discoveryDate(this.index);
+            tid = this.index;
         }
     }
     var numb = 0;
     var countNum = 0;
     var countN = 0;
     apiready = function(){
-        // banner();
-        discoveryDate(0,0);
-        //下拉刷新
-            api.setRefreshHeaderInfo({
-              loadingImg: 'widget://image/refresh.png',
-              bgColor: '#fff',
-              textColor: '#000',
-              textDown: '拉我试试',
-              textUp: '松开刷新...',
-              showTime:'false'
-            } , function(ret, err) {
-              htmls = '';
-              discoveryDate(tid,0)
-              numb=0;
-              api.refreshHeaderLoadDone();
-            });
-        //上拉加载
-        api.addEventListener({
-          name:'scrolltobottom',
-          extra:{
-            threshold:0 //设置距离底部多少距离时触发，默认值为0，数字类型
-          }
-        }, function(ret, err){
+      banner();
+      discoveryDate(0,0);
+
+      //下拉刷新
+      api.setRefreshHeaderInfo({
+        loadingImg: 'widget://image/refresh.png',
+        bgColor: '#fff',
+        textColor: '#000',
+        textDown: '拉我试试',
+        textUp: '松开刷新...',
+        showTime:'false'
+      } , function(ret, err) {
+        htmls = '';
+        discoveryDate(tid,0)
+        numb=0;
+        api.refreshHeaderLoadDone();
+      });
+
+      //上拉加载
+      api.addEventListener({
+        name:'scrolltobottom',
+        extra:{
+          threshold:0 //设置距离底部多少距离时触发，默认值为0，数字类型
+        }
+      },function(ret, err){
           numb++;
           discoveryDate(tid,numb);
       })
+
       //原生滑动
       function GetSlideAngle(dx, dy) {
           return Math.atan2(dy, dx) * 180 / Math.PI;
       }
+
       //根据起点和终点返回方向 1：向上，2：向下，3：向左，4：向右,0：未滑动
       function GetSlideDirection(startX, startY, endX, endY) {
           var dy = startY - endY;
           var dx = endX - startX;
           var result = 0;
-
           //如果滑动距离太短
           if(Math.abs(dx) < 40 && Math.abs(dy) <40) {
               return result;
           }
-
           var angle = GetSlideAngle(dx, dy);
           if(angle >= -45 && angle < 45) {
               result = 4;
@@ -418,76 +422,85 @@
           else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
               result = 3;
           }
-
           return result;
       }
 
-        //滑动处理
-        var startX, startY;
-        function touchTarger(targer){
-              targer.addEventListener('touchstart',function (ev) {
-                  startX = ev.touches[0].pageX;
-                  startY = ev.touches[0].pageY;
-              }, false);
-              targer.addEventListener('touchend',function (ev) {
-                  var endX, endY;
-                  endX = ev.changedTouches[0].pageX;
-                  endY = ev.changedTouches[0].pageY;
-                  var direction = GetSlideDirection(startX, startY, endX, endY);
-                  switch(direction) {
-                      case 3:
-                          if(targer==section){
-                            api.sendEvent({
-                                name: 'indexleft',
-                            });
-                          }else if(targer==content){
-                            removeTouch();
-                            animate();
-                          }
-                          break;
-                      case 4:
-                          num--;
-                          if(num<0){
-                            num = 5;
-                          }
-                          for (var i = 0; i < ridusTolles.length; i++) {
-                            ridusTolles[i].className='';
-                          }
-                          if(num==listpi.length-1){
-                            ridusTolles[0].className='current'
-                          }
-                          else{
-                            ridusTolles[num].className='current'
-                          }
-                          runIng(list,"left",-num*winWdith,null);
-                          break;
-                      default:
-                  }
-              }, false);
-          }
+      //滑动处理
+      var startX, startY;
+      function touchTarger(targer){
+            targer.addEventListener('touchstart',function (ev) {
+                startX = ev.touches[0].pageX;
+                startY = ev.touches[0].pageY;
+            }, false);
+            targer.addEventListener('touchend',function (ev) {
+                var endX, endY;
+                endX = ev.changedTouches[0].pageX;
+                endY = ev.changedTouches[0].pageY;
+                var direction = GetSlideDirection(startX, startY, endX, endY);
+                switch(direction) {
+                    case 3:
+                        if(targer==section){
+                          api.sendEvent({
+                              name: 'indexleft',
+                          });
+                        }else if(targer==content){
+                          removeTouch();
+                          animate();
+                        }
+                        break;
+                    case 4:
+                        num--;
+                        if(num<0){
+                          num = listpi.length;
+                        }
+                        for (var i = 0; i < ridusTolles.length; i++) {
+                          ridusTolles[i].className='';
+                        }
+                        if(num==listpi.length){
+                          ridusTolles[0].className='current'
+                        }
+                        else{
+                          $api.addCls(ridusTolles[num],'current')
+                        }
+                        runIng(list,"left",-num*winWdith,null);
+                        break;
+                    default:
+                }
+            }, false);
+        }
         touchTarger(content);
         touchTarger(section);
-      }//
-      //banner
-      // function banner(){
-      //   var html = '';
-      //   api.ajax({
-      //       url: 'http://www.juzzn.com/banner.php',
-      //       method: 'post'
-      //   },function(ret, err){
-      //       if (ret.status == 1) {
-      //           var data= ret.data;
-      //           for(var i=0;i<data.length&i<5;i++){
-      //             html+='<img src="'+data[i]['images']+'" alt="'+i+'"/>';
-      //           }
-      //       } else {
-      //           alert( JSON.stringify( err ) );
-      //       }
-      //       $api.html($api.byId('scroll'), html);
-      //
-      //   });
-      //
-      // }
+    }//
+
+    //banner
+    function banner(){
+      var html = '';
+      var li = '';
+      api.ajax({
+          url: 'http://www.lxzntech.com/banner.php',
+          method: 'post'
+      },function(ret, err){
+          if (ret.status == 1) {
+              var data= ret.data;
+              for(var i=0;i<data.length&i<5;i++){
+                html+='<a href="'+data[i]['url']+'"><img src="'+data[i]['images']+'" alt="'+i+'"/></a>';
+              }
+              li+='<li class="current"></li>';
+              for(var i=1;i<data.length&i<5;i++){
+                li+='<li></li>';
+              }
+          } else {
+              html+='<img src="../images/discovery/discovery_banner1.png" / alt="1">';
+              li+='<li></li>';
+          }
+          $api.html($api.byId('scroll'), html);
+          $api.html($api.byId('ridusTolle'), li);
+          for(var j = 0;j<listpi.length;j++){
+            listpi[j].style.width = winWdith+'px'
+          }
+      });
+
+    }
       var htmls = '';
       var userdata = {};
       userdata = $api.getStorage('userdata');
@@ -499,7 +512,7 @@
           // htmls = '';
         }
       api.ajax({
-          url:'http://www.juzzn.com/discovery.php',
+          url:'http://www.lxzntech.com/discovery.php',
           method:'post',
           dataType:'json',
           data: {
@@ -512,91 +525,13 @@
           if(ret.status == 1){
             var data = ret.data;
             // htmls = '';
-/**<<<<<<< HEAD
-          }
-        api.ajax({
-            url:'http://www.juzzn.com/discovery.php',
-            method:'post',
-            dataType:'json',
-            data: {
-                   values: {
-                       　tid:tid,num:num
-                   }
-               }
-        },function(ret, err){
-            countN = ret.countNum;
-            if(ret.status == 1){
-              var data = ret.data;
-              // htmls = '';
-              for(var i=0;i<data.length;i++){
-              htmls += '<div class="mainList">';
-                htmls += '<div class="article">';
-                    htmls+='<div onclick=OpenDetail('+data[i]['aid']+')>';
-                          htmls += '<div class="picture">';
-                          //图片数据
-                              htmls += '<img width="100%" src="http://www.juzzn.com/data/attachment/'+data[i]['pic']+'">';
-                          htmls += '</div>';
-                          //文章标题
-                          htmls += '<div class="text">';
-                                htmls += '<div class="title">'+data[i]['title']+'</div>';
-                          htmls += '</div>';
-                    htmls+='</div>';
-                    //文章主体
-                    htmls += '<div class="ltls">';
-                          htmls+='<div class="ll like">';
-                              htmls+='<div><img src="'+data[i]['avatar']+'" alt="" onclick="openFriendDetailsData('+data[i]['uid']+')"></div>';//用户头像
-                              htmls+='<div>'+data[i]['username']+'</div>';//用户名字
-                          htmls+='</div>';
-                          htmls +='<div class="ll share"><i class="iconfont" onclick="openShareOther()">&#xe600;</i><div></div></div>';
-                    htmls += '</div>';
-              htmls += '</div>';
-            htmls += '</div>';
-            }
-          }else if (ret.status == 2) {
-              htmls = '';
-              htmls ='<div style="text-align:center;line-height:50px;height:300px;">没有数据</div>'
-          }else{
-              alert(err.msg);
-          }
-            $api.html($api.byId('sectRcmd'),htmls);
-            fjcHeight('picture','0.45');
-        });
-      }
-      window.onload = function(){
-        autoplay();
-        fjcHeight("content","0.42");
-      }
-      var section = document.getElementById('section');
-      //封装获取class函数
-      function getClass(tagName,className){
-          if(document.getElementsByClassName){
-              return document.getElementsByClassName(className);
-          }else{
-              var args = document.getElementsByTagName(tagName);
-              var argsArr = [];
-              for(var i=0;i<args.length;i++){
-                  if(args[i].class==className){
-                      argsArr[argsArr.length] = args[i];
-                  }
-              }
-              return argsArr;
-          }
-      }
-      //animiate动画效果封装
-      function runIng(obj,attr,target,fn){
-        clearInterval(obj.timer);
-        obj.timer = setInterval(function(){
-        var cur = 0;
-        if(attr == "opacity"){
-          cur = Math.round(parseFloat(getstyle(obj,attr))*100);
-=======*/
             for(var i=0;i<data.length;i++){
             htmls += '<div class="mainList">';
               htmls += '<div class="article">';
                   htmls+='<div onclick=OpenDetail('+data[i]['aid']+')>';
                         htmls += '<div class="picture">';
                         //图片数据
-                            htmls += '<img width="100%" src="http://www.juzzn.com/data/attachment/'+data[i]['pic']+'">';
+                            htmls += '<img width="100%" src="http://www.lxzntech.com/data/attachment/'+data[i]['pic']+'">';
                         htmls += '</div>';
                         //文章标题
                         htmls += '<div class="text">';
@@ -617,7 +552,6 @@
         }else if (ret.status == 2) {
             htmls = '';
             htmls ='<div style="text-align:center;line-height:50px;height:300px;">没有数据</div>'
-// >>>>>>> fz
         }else{
             alert(err.msg);
         }
@@ -686,7 +620,7 @@
       var listpi = document.getElementById('scroll').getElementsByTagName('img');//获取图片数量
       var winWdith = document.body.clientWidth;//获取屏幕宽度
       var list = document.getElementById('scroll');//获取大盒子
-      var ridusTolles = document.getElementById('ridusTolle').getElementsByTagName('li')
+      var ridusTolles = document.getElementById('ridusTolle').getElementsByTagName('li')//获取li的数量
       var listLength;
       var listpiLast =listpi[0].cloneNode(true);//克隆第一张图片
       list.appendChild(listpiLast)
@@ -700,17 +634,17 @@
       function animate(){
         num++;
         if(num==listpi.length){
-          num=1;
+          num=0;
           list.style.left='0'
         }
         for (var i = 0; i < ridusTolles.length; i++) {
           ridusTolles[i].className='';
         }
-        if(num==listpi.length-1){
+        if(num==listpi.length){
           ridusTolles[0].className='current'
         }
         else{
-          ridusTolles[num].className='current'
+          $api.addCls(ridusTolles[num],'current')
         }
         runIng(list,"left",-num*winWdith,null);
       }
@@ -720,7 +654,7 @@
           clearInterval(timer)
           timer = setInterval(function(){
             animate()
-          },5000)
+          },3000)
       }
 
       //滑动到指定位置定死

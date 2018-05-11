@@ -18,7 +18,7 @@
         font-family: "iconfont" !important;
         font-style: normal;
         font-size: 22px;
-        color: #000;
+        color: #20252b;
         padding: 5px;
       }
           body,html{
@@ -135,16 +135,16 @@
       <!-- ul菜单 -->
       <ul>
         <li>
-          <i class="iconfont" style="color:#79befb;">&#xe60d;</i>
+          <i class="iconfont" style="font-size:16px;" >&#xe630;</i>
           <!-- <span style="background:url('../images/inform/device_sharing.png') no-repeat"></span> -->
-          <div class="main">
+          <div class="main" style="margin-left:5px;">
             <div class="title">设备通知</div>
             <div class="text">kevin已接受共享的设备</div>
             <div class="time">04-11 <div class="num">1</div></div>
           </div>
         </li>
         <li>
-            <i class="iconfont" style="color:#ea6962;">&#xe60d;</i>
+            <i class="iconfont" >&#xe60a;</i>
           <!-- <span style="background:url('../images/inform/artical_notefation.png') no-repeat"></span> -->
           <div id="messageinfo" class="main" onclick="openMessageNotification()">
             <div class="title">消息通知</div>
@@ -153,7 +153,7 @@
           </div>
         </li>
         <li>
-            <i class="iconfont" style="color:#facf4b;">&#xe60d;</i>
+            <i class="iconfont" >&#xe60d;</i>
           <!-- <span style="background:url('../images/inform/community_notice.png') no-repeat"></span> -->
           <div id="systeminfo" class="main" onclick="openSystermNotification()">
             <div class="title">系统通知</div>
@@ -179,7 +179,7 @@
         var sys = '';
         if(userdata){
           api.ajax({
-              url: 'http://www.juzzn.com/getNotice.php',
+              url: 'http://www.lxzntech.com/getNotice.php',
               method: 'post',
               data: {
                   values: {

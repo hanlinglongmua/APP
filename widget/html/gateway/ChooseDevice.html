@@ -25,6 +25,7 @@
         body {
             width: 100%;
             height: 100%;
+            background-color: #f1f1f1;
         }
 
         body {
@@ -70,7 +71,7 @@
             border-top: none;
             border-right: none;
             transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
+            -webkit-transform:rotate(45deg);
         }
         /*header end*/
 
@@ -95,7 +96,7 @@
             font-size: 15px;
             color: #101010;
             font-weight: normal;
-          padding: 0px 10px 0px 10px;
+            padding: 0px 10px 0px 10px;
             position: relative;
             border-bottom: 1px solid #eee;
         }
@@ -138,7 +139,7 @@
         <!-- header begin-->
         <div class="header">
             <div class="top">
-                <div class="sect left"><i></i></div>
+                <div class="sect left"><i onclick="api.closeWin()"></i></div>
                 <div class="sect fo">选择设备</div>
 
             </div>
@@ -151,95 +152,31 @@
                     <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
                     </li>
                     <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
+                        <button type="button" name="" style="background-color:#fff;" onclick="openDeviceName()">添加</button>
                     </div>
                 </ul>
             </div>
 
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><i class="iconfont">&#xe62e;</i><span class="number">192.168.1.121.90</span>
-                    </li>
-                    <div class="add" >
-                        <button type="button" name="" style="background-color:#fff;">添加</button>
-                    </div>
-
-                </ul>
-            </div>
-
-
+          </div>
 
         </div>
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+    apiready = function(){
+
+    }
+    function openDeviceName(){
+      api.openWin({
+          name: 'DeviceName',
+          url: 'DeviceName.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
 </script>
 
 </html>

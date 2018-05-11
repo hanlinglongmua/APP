@@ -17,6 +17,8 @@
         body {
             width: 100%;
             height: 100%;
+            background: #f1f1f1;
+
         }
 
         body {
@@ -50,7 +52,7 @@
             border-top: none;
             border-right: none;
             transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
+            -webkit-transform:rotate(45deg);
         }
 
         .header .top .right {
@@ -165,10 +167,10 @@
         <!-- header begin -->
         <div class="header">
             <div class="top">
-                <div class="sect left"><i onclick="CloseDeviceShare()"></i></div>
+                <div class="sect left"><i onclick="api.closeWin()"></i></div>
 
                 <div class="sect right">
-                    <div class="t">完成</div>
+                    <div class="t" onclick="api.closeWin()">完成</div>
                 </div>
             </div>
         </div>
@@ -177,7 +179,7 @@
         <div class="main">
             <div>
                 <ul>
-                  
+
                     <li class="music">
                         <span>DHCP</span>
                         <input type="checkbox" class="toggle">

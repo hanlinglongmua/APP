@@ -326,7 +326,7 @@ function ontimebush(){
   userdata = $api.getStorage('userdata');
   if(userdata){
     api.ajax({
-        url: 'http://www.juzzn.com/getNotice.php',
+        url: 'http://www.lxzntech.com/getNotice.php',
         method: 'post',
         data: {
             values: {
@@ -354,7 +354,7 @@ function VueUser(){
   var bindingphonenum = '';
   if(userdata){
     api.ajax({
-        url: 'http://www.juzzn.com/myCenter.php',
+        url: 'http://www.lxzntech.com/myCenter.php',
         method: 'post',
         data:{
           values:{
@@ -421,7 +421,7 @@ function VueUser(){
                   html+='<img src="" onerror="this.src=\'../images/about/Logo.png\'" onclick="openLogin()">';
             html+='</div>';
             html+='<div class="nickname"></div>';
-              html+='<span class="thisopp" onclick="openLogin()">点击头像马上登录</span>';
+              html+='<span class="thisopp" onclick="openLogin()">马上登录</span>';
       html+='</div>';
       html+='<div class="footer">';
             html+='<div class="participate">参与&nbsp;<i></i></div>';

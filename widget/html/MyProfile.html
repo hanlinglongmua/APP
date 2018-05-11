@@ -101,6 +101,7 @@
       }
          .item_content a img{
           width: 50px;
+          height: 50px;
           border-radius: 50%;
    }
          .item_content a .title{
@@ -275,7 +276,7 @@
       userdata = $api.getStorage('userdata');
       var html = '';
       api.ajax({
-          url: 'http://www.juzzn.com/myCenter.php',
+          url: 'http://www.lxzntech.com/myCenter.php',
           method: 'post',
           data: {
               values: {
@@ -284,6 +285,7 @@
           }
       },function(ret, err){
           if (ret.status == 1) {
+              api.clearCache();
               var data = ret.data;
               html+='<div class="phone">';
                 html+='<a class="nicksculpture" href="javascript:;" onclick="openChangeHeaderImg('+userdata['uid']+')">';
@@ -340,7 +342,7 @@
           url: 'ChangeHeaderImg.html',
           rect: {
               x: 0,
-              y: 420,
+              y: 460,
               w: 'auto',
               h: 'auto'
           },
